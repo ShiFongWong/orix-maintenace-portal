@@ -18,7 +18,7 @@
   <div class="sidebar-content">
     <ul>
       <li *ngFor="let item of menuItems">
-        <a class="menu-link" href="#">
+        <a class="menu-link" href="{{item.link}}">
           <img width="24" height="24" src="/assets/icons/{{item.icon}}" alt="">
           <span class="menu-title">{{item.title}}</span>
         </a>
