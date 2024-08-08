@@ -14,6 +14,9 @@ import { WorkshopsComponent } from './components/workshops/workshops.component';
 import { VehiclesComponent } from './components/vehicles/vehicles.component';
 import { UsersComponent } from './components/users/users.component';
 import { ServicesComponent } from './components/services/services.component';
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatInputModule} from "@angular/material/input";
+import {MatNativeDateModule} from "@angular/material/core";
 
 @NgModule({
   declarations: [
@@ -32,7 +35,10 @@ import { ServicesComponent } from './components/services/services.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatNativeDateModule
   ],
   providers: [],
   bootstrap: [AppComponent]
