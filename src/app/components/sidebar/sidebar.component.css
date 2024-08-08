@@ -3,6 +3,7 @@ body, html {
   padding: 0;
   font-family: Arial, sans-serif;
 }
+
 .sidebar {
   display: flex;
   position: fixed;
@@ -10,52 +11,85 @@ body, html {
   left: 0;
   width: 256px;
   height: 100vh;
-  background-color: #f9fafb;
+  background-color: #FFFFFF;
   overflow-y: auto;
   transition: transform 0.3s ease-in-out;
+  box-shadow: 0 0 16px 0 #3D3F6745;
 }
 
-.sidebar-button{
-  display: flex;
-  flex-direction: column;
-
-}
-
-.sidebar-header{
+.sidebar-header {
   display: flex;
   flex-direction: column;
   background-color: #141740;
   justify-content: space-between;
+  z-index: 1;
 }
 
 .sidebar-content {
-  padding: 16px 12px;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  padding: 16px 24px;
+  margin-left: -5px;
+  z-index: 2;
+  position: relative;
+  background-color: #ffffff;
 }
+
+.sidebar-button-container {
+  display: flex;
+  flex-direction: column;
+  margin-left: -5px;
+}
+
+.logo-container {
+  width: 100%;
+  display: flex;
+}
+
+.logo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sidebar-button {
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  padding: 0.5rem;
+  justify-content: center;
+}
+
 .sidebar ul {
   list-style-type: none;
   padding: 0;
   margin: 0;
 }
+
 .sidebar li {
   margin-bottom: 8px;
 }
+
 .sidebar a {
   display: flex;
   align-items: center;
-  padding: 8px;
+  padding: 8px 16px;
   color: #111827;
   text-decoration: none;
-  border-radius: 4px;
+  border-radius: 20px;
   transition: background-color 0.2s;
 }
+
 .sidebar a:hover {
-  background-color: #e5e7eb;
+  background-color: #E4E4FA;
 }
+
 .sidebar svg {
   width: 20px;
   height: 20px;
   margin-right: 12px;
 }
+
 .sidebar .badge {
   display: inline-flex;
   align-items: center;
@@ -68,10 +102,12 @@ body, html {
   border-radius: 9999px;
   margin-left: 8px;
 }
+
 .sidebar .badge.blue {
   background-color: #dbeafe;
   color: #1e40af;
 }
+
 .sidebar .section-title {
   font-weight: 600;
   margin-top: 16px;
@@ -79,6 +115,20 @@ body, html {
   padding-top: 16px;
   border-top: 1px solid #e5e7eb;
 }
+
+.menu-link{
+  display: flex;
+  gap: 0.5rem;
+}
+
+.menu-title{
+  font-family: SDMetro, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 14px;
+  text-align: left;
+}
+
 @media (max-width: 640px) {
   .sidebar {
     transform: translateX(-100%);
