@@ -1,6 +1,48 @@
-<p>Calendar</p>
-<div>
-    aldbkabdbajbdkjandlnadnlakndlknalkndnaldnnlan
+<div class="calendar-page-container">
+    <div class="title-container">
+        <p>Calendar</p>
+    </div>
+    <div class="date-operation-container">
+        <div class="date-chosen">
+            <div class="date-toogle">
+                <img src="assets/icons/calendar.svg">
+                <mat-form-field appearance="fill">
+                    <mat-label>Choose a date</mat-label>
+                    <input matInput [matDatepicker]="picker">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>                  
+            </div>
+            <button>Prev Day</button>
+            <button>Next Day</button>
+        </div>
+        <div class="calendar-format-operation">
+            <div class="">
+                Today
+            </div>
+            <div class="calendar-format">
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-left">Profile</button>
+                    <button type="button" class="btn">Settings</button>
+                    <button type="button" class="btn btn-right">Messages</button>
+                  </div>
+                  
+                  
+            </div>
+        </div>
+    </div>
+    <div class="date-information-container">
+        <div class="marshal-container">
 
-
+        </div>
+        <div class="calendar-container">
+    
+        </div>
+    </div>
+    <div class="bottom">
+        <button class="add-ticket-btn">
+            <img src="assets/icons/add.svg">
+            <p>New Ticket</p>
+        </button>
+    </div>
 </div>
