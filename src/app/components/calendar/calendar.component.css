@@ -40,7 +40,7 @@
     font-size: 0.875rem; /* text-sm */
     font-weight: 500; /* font-medium */
     color: #1f2937; /* text-gray-900 */
-    background-color: #ffffff; /* bg-white */
+    background-color: #83EEE9; /* bg-white */
     border: 1px solid #e5e7eb; /* border-gray-200 */
     cursor: pointer;
     transition: background-color 0.2s, color 0.2s; /* Transition effects */
