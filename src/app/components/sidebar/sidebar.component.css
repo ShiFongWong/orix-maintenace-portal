@@ -28,7 +28,7 @@ body, html {
 .sidebar-content {
   border-top-left-radius: 8px;
   border-bottom-left-radius: 8px;
-  padding: 16px 24px;
+  padding: 16px 20px;
   margin-left: -5px;
   z-index: 2;
   position: relative;
@@ -73,10 +73,10 @@ body, html {
 .sidebar a {
   display: flex;
   align-items: center;
-  padding: 8px 16px;
+  padding: 8px 24px;
   color: #111827;
   text-decoration: none;
-  border-radius: 20px;
+  border-radius: 24px;
   transition: background-color 0.2s;
 }
 

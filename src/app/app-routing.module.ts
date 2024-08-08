@@ -1,14 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CalendarComponent } from './components/calendar/calendar.component';
-
-// Import your components here
 import { DashboardComponent } from './components/dashboard/dashboard.component'
 import { MapComponent } from './components/map/map.component';
 import { OrdersComponent } from './components/orders/orders.component';
 import { ApprovalsComponent } from './components/approvals/approvals.component';
 import { TicketsComponent } from './components/tickets/tickets.component';
-import { CalendarComponent } from './components/calendar/calendar.component';
 import { WorkshopsComponent } from './components/workshops/workshops.component';
 import { VehiclesComponent } from './components/vehicles/vehicles.component';
 import { UsersComponent } from './components/users/users.component';
