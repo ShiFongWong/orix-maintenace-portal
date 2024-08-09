@@ -28,13 +28,19 @@
             }
         }
     }
-    .bottom-bar{
+    .bottom-bar {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      display: flex; /* Set display to flex */
+      justify-content: flex-end; /* Aligns content (button) to the right */
       width: 100%;
-      padding: 20px;
-      margin: 20px;
       background-color: #fff;
       border: 1px solid #ddd;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adds shadow */
+      .add-ticket-btn {
+        display: flex; /* Ensure the button itself remains flexible */
+      }
     }
 }
 
