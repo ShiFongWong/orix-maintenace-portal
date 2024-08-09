@@ -16,12 +16,15 @@ import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { WorkshopsComponent } from './components/workshops/workshops.component';
 import { VehiclesComponent } from './components/vehicles/vehicles.component';
 import { UsersComponent } from './components/users/users.component';
 import { ServicesComponent } from './components/services/services.component';
-import { SearchbarComponent } from './components/searchbar/searchbar.component';
-import {FormsModule} from "@angular/forms";
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { CalendarMonthViewComponent } from './components/calendar/calendar-month-view/calendar-month-view.component';
+import { CalendarWeekViewComponent } from './components/calendar/calendar-week-view/calendar-week-view.component';
+import { CalendarDayViewComponent } from './components/calendar/calendar-day-view/calendar-day-view.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,12 +34,10 @@ import {FormsModule} from "@angular/forms";
     OrdersComponent,
     ApprovalsComponent,
     TicketsComponent,
-    CalendarComponent,
     WorkshopsComponent,
     VehiclesComponent,
     UsersComponent,
     ServicesComponent,
-    SearchbarComponent
   ],
   imports: [
     BrowserModule,
@@ -47,9 +48,11 @@ import {FormsModule} from "@angular/forms";
     MatNativeDateModule,
     MatFormFieldModule,
     MatIconModule,
-    FormsModule
+    MatButtonToggleModule
   ],
-  providers: [],
+  providers: [
+    provideAnimationsAsync()
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
