@@ -1,0 +1,9 @@
+<div class="month-grid">
+    <div *ngFor="let day of weekDays" class="weekday">{{ day }}</div>
+    <ng-container *ngFor="let week of calendarDays">
+      <div *ngFor="let day of week" class="day" [class.other-month]="!isSameMonth(day, currentDate)">
+        <span class="date">{{ format(day, 'd') }}</span>
+        <!-- Add event indicators here -->
+      </div>
+    </ng-container>
+  </div>

@@ -37,7 +37,18 @@
 
         </div>
         <div class="calendar-container">
-    
+    <!-- calendar.component.html -->
+<div>
+    <mat-button-toggle-group [(ngModel)]="viewMode" aria-label="View mode">
+      <mat-button-toggle value="day">Day</mat-button-toggle>
+      <mat-button-toggle value="week">Week</mat-button-toggle>
+      <mat-button-toggle value="month">Month</mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+  
+  <div [ngSwitch]="viewMode">
+  </div>
+  
         </div>
     </div>
     <div class="bottom">
