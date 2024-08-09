@@ -1,0 +1,43 @@
+<div  class="searchbar-container" id="searchbar-container">
+  <div class="close-line" (click)="toggleSearchbar()">
+    <img *ngIf="isSearchbarOpen" src="/assets/icons/right-arrow.svg" alt="Toggle searchbar" class="close-line-arrow">
+    <img *ngIf="!isSearchbarOpen" src="/assets/icons/left-arrow.svg" alt="Toggle searchbar" class="close-line-arrow">
+  </div>
+  <aside *ngIf="isSearchbarOpen" class="searchbar" id="searchbar">
+    <form class="search-form">
+      <div class="search-container">
+        <label class="search-label" for="search-dropdown">Search for vehicles</label>
+        <div class="search-input-container">
+          <input type="search" id="search-dropdown" class="search-input"
+                 placeholder=""
+                 [(ngModel)]="searchQuery" (ngModelChange)="onSearch()"
+                 [ngModelOptions]="{standalone: true}" />
+          <button *ngIf="!isSearching" type="submit" class="search-button">
+            <img src="/assets/icons/search.svg" alt="">
+            <span class="sr-only">Search</span>
+          </button>
+          <button (click)="clearSearch()" *ngIf="isSearching" type="submit" class="search-button">
+            <img src="/assets/icons/clear-input.svg" alt="">
+            <span class="sr-only">Search</span>
+          </button>
+        </div>
+      </div>
+    </form>
+    <div class="car-table-container">
+      <table class="car-table">
+        <thead>
+        <tr>
+          <th>Car Model</th>
+          <th>Number Plate</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr [ngClass]="numberPlateSelected === item.numberPlate? 'selectedCar': ''" (click)="onClickCarModel(item.numberPlate)" *ngFor="let item of filteredCarList;">
+          <td [ngClass]="numberPlateSelected === item.numberPlate? 'selectedCar': ''" class="product-name">{{ item.carModel }}</td>
+          <td [ngClass]="numberPlateSelected === item.numberPlate? 'selectedCar': ''">{{ item.numberPlate }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </aside>
+</div>

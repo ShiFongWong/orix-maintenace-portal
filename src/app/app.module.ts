@@ -20,6 +20,8 @@ import { WorkshopsComponent } from './components/workshops/workshops.component';
 import { VehiclesComponent } from './components/vehicles/vehicles.component';
 import { UsersComponent } from './components/users/users.component';
 import { ServicesComponent } from './components/services/services.component';
+import { SearchbarComponent } from './components/searchbar/searchbar.component';
+import {FormsModule} from "@angular/forms";
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +35,8 @@ import { ServicesComponent } from './components/services/services.component';
     WorkshopsComponent,
     VehiclesComponent,
     UsersComponent,
-    ServicesComponent
+    ServicesComponent,
+    SearchbarComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +46,8 @@ import { ServicesComponent } from './components/services/services.component';
     MatInputModule,
     MatNativeDateModule,
     MatFormFieldModule,
-    MatIconModule
+    MatIconModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
