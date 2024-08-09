@@ -25,6 +25,8 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { CalendarMonthViewComponent } from './components/calendar/calendar-month-view/calendar-month-view.component';
 import { CalendarWeekViewComponent } from './components/calendar/calendar-week-view/calendar-week-view.component';
 import { CalendarDayViewComponent } from './components/calendar/calendar-day-view/calendar-day-view.component';
+import {SearchbarComponent} from "./components/searchbar/searchbar.component";
+import {FormsModule} from "@angular/forms";
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,6 +40,7 @@ import { CalendarDayViewComponent } from './components/calendar/calendar-day-vie
     VehiclesComponent,
     UsersComponent,
     ServicesComponent,
+    SearchbarComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +51,8 @@ import { CalendarDayViewComponent } from './components/calendar/calendar-day-vie
     MatNativeDateModule,
     MatFormFieldModule,
     MatIconModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    FormsModule
   ],
   providers: [
     provideAnimationsAsync()
