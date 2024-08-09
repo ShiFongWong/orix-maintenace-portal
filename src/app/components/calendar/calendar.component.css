@@ -23,7 +23,18 @@
             background-color: #fff;
             border: 1px solid #ddd;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adds shadow */
+            .calendar{
+              border: 1px solid #E0E0E0;
+            }
         }
+    }
+    .bottom-bar{
+      width: 100%;
+      padding: 20px;
+      margin: 20px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adds shadow */
     }
 }
 

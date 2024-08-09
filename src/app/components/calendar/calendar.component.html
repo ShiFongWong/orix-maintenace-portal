@@ -1,6 +1,6 @@
 <div class="calendar-page-container">
     <div class="title-container">
-        <p>Calendar</p>
+        <h1>Calendar</h1>
     </div>
     <div class="date-operation-container">
         <div class="date-chosen">
@@ -27,7 +27,11 @@
                     <button type="button" class="btn">Week</button>
                     <button type="button" class="btn btn-right">Month</button>
                   </div>
-                  
+                  <mat-button-toggle-group [(ngModel)]="view">
+                    <mat-button-toggle class="btn" value="day">Day</mat-button-toggle>
+                    <mat-button-toggle class="btn" value="week">Week</mat-button-toggle>
+                    <mat-button-toggle class="btn" value="month">Month</mat-button-toggle>
+                  </mat-button-toggle-group>
                   
             </div>
         </div>
@@ -37,21 +41,17 @@
 
         </div>
         <div class="calendar-container">
-    <!-- calendar.component.html -->
-<div>
-    <mat-button-toggle-group [(ngModel)]="viewMode" aria-label="View mode">
-      <mat-button-toggle value="day">Day</mat-button-toggle>
-      <mat-button-toggle value="week">Week</mat-button-toggle>
-      <mat-button-toggle value="month">Month</mat-button-toggle>
-    </mat-button-toggle-group>
-  </div>
-  
-  <div [ngSwitch]="viewMode">
-  </div>
-  
+            <div class="calendar">
+                <ng-container [ngSwitch]="view" >
+                    <app-day-view *ngSwitchCase="'day'" [date]="currentDate"></app-day-view>
+                    <app-week-view *ngSwitchCase="'week'" [date]="currentDate"></app-week-view>
+                    <app-month-view *ngSwitchCase="'month'" [date]="currentDate"></app-month-view>
+                </ng-container>
+            </div>
+
         </div>
     </div>
-    <div class="bottom">
+    <div class="bottom-bar">
         <button class="add-ticket-btn">
             <img src="assets/icons/add.svg">
             <p>New Ticket</p>

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { 
   startOfMonth, 
   endOfMonth, 
@@ -7,37 +8,42 @@ import {
   format, 
   isSameMonth, 
   startOfWeek,
+  endOfWeek,
   addDays,
-  subDays
+  isSameDay
 } from 'date-fns';
 
+interface CalendarNote {
+  id: number;
+  date: Date;
+  text: string;
+}
 @Component({
   selector: 'app-month-view',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './calendar-month-view.component.html',
   styleUrl: './calendar-month-view.component.css',
 })
 
-export class CalendarMonthViewComponent {
-  currentDate = new Date();
+export class CalendarMonthViewComponent implements OnInit {
+  @Input() date: Date = new Date();
   calendarDays: Date[][] = [];
-  weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  weekDays = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY'];
+  notes: CalendarNote[] = [];
+  isAddingNote = false;
+  newNoteText = '';
+  selectedDate: Date | null = null;
 
   ngOnInit() {
-    this.generateCalendarDays(this.currentDate);
+    this.generateCalendarDays(this.date);
   }
 
   generateCalendarDays(date: Date) {
     const start = startOfWeek(startOfMonth(date));
-    const end = endOfMonth(date);
+    const end = endOfWeek(endOfMonth(date));
     
-    let days = eachDayOfInterval({ start, end });
-
-    // Ensure we have 6 weeks (42 days) for consistent layout
-    while (days.length < 42) {
-      days.push(addDays(days[days.length - 1], 1));
-    }
+    const days = eachDayOfInterval({ start, end });
 
     this.calendarDays = [];
     let week: Date[] = [];
@@ -53,6 +59,33 @@ export class CalendarMonthViewComponent {
     if (week.length > 0) {
       this.calendarDays.push(week);
     }
+  }
+
+  getNotesForDay(day: Date): CalendarNote[] {
+    return this.notes.filter(note => isSameDay(note.date, day));
+  }
+
+  addNote(day: Date) {
+    this.isAddingNote = true;
+    this.selectedDate = day;
+  }
+
+  saveNote() {
+    if (this.selectedDate && this.newNoteText.trim()) {
+      const newNote: CalendarNote = {
+        id: Date.now(),
+        date: this.selectedDate,
+        text: this.newNoteText.trim()
+      };
+      this.notes.push(newNote);
+      this.cancelNote();
+    }
+  }
+
+  cancelNote() {
+    this.isAddingNote = false;
+    this.newNoteText = '';
+    this.selectedDate = null;
   }
 
   format = format;

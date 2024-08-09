@@ -1,6 +1,10 @@
-// app.component.ts
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { FormsModule } from '@angular/forms';
 import { CalendarDayViewComponent } from './calendar-day-view/calendar-day-view.component';
@@ -8,25 +12,25 @@ import { CalendarWeekViewComponent } from './calendar-week-view/calendar-week-vi
 import { CalendarMonthViewComponent } from './calendar-month-view/calendar-month-view.component';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-calendar',
   standalone: true,
-  imports: [CommonModule, MatButtonToggleModule, FormsModule, CalendarDayViewComponent, CalendarWeekViewComponent, CalendarMonthViewComponent],
-  template: `
-    <h1>My Calendar</h1>
-    <mat-button-toggle-group [(ngModel)]="currentView">
-      <mat-button-toggle value="day">Day</mat-button-toggle>
-      <mat-button-toggle value="week">Week</mat-button-toggle>
-      <mat-button-toggle value="month">Month</mat-button-toggle>
-    </mat-button-toggle-group>
-
-    <ng-container [ngSwitch]="currentView">
-      <app-day-view *ngSwitchCase="'day'" [date]="currentDate"></app-day-view>
-      <app-week-view *ngSwitchCase="'week'" [date]="currentDate"></app-week-view>
-      <app-month-view *ngSwitchCase="'month'" [date]="currentDate"></app-month-view>
-    </ng-container>
-  `
+  imports: [
+    CommonModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatButtonToggleModule,
+    FormsModule, 
+    CalendarDayViewComponent, 
+    CalendarWeekViewComponent, 
+    CalendarMonthViewComponent
+  ],
+  templateUrl: './calendar.component.html',
+  styleUrl: './calendar.component.css',
 })
 export class CalendarComponent {
-  currentView: 'day' | 'week' | 'month' = 'month';
-  currentDate = new Date();
+  @Input() view: 'day' | 'week' | 'month' = 'month';
+  currentDate: Date = new Date();
 }
