@@ -1,1 +1,7 @@
-<p>map works!</p>
+<div class="location-filter" role="group">
+  @for (item of locationList; track item; let i = $index; let first = $first; let last = $last){
+    <button (click)="onClickLocation(item.location)" type="button" [ngClass]="['btn', item.active ? 'btn-active' : '', first ? 'btn--first' : '', last ? 'btn--last' : '', (!first && !last) ? 'btn--middle' : '']">
+      {{ item.location }}
+    </button>
+  }
+</div>

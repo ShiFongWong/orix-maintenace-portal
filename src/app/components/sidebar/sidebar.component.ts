@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {NavigationEnd, Router} from "@angular/router";
 
 @Component({
   selector: 'app-sidebar',
@@ -7,15 +8,31 @@ import { Component } from '@angular/core';
 })
 export class SidebarComponent {
   menuItems = [
-    {title: 'Dashboard', icon: 'dashboard.svg', link: '/dashboard'},
-    {title: 'Map', icon: 'map.svg', link: '/map'},
-    {title: 'Orders', icon: 'orders.svg', link: '/orders'},
-    {title: 'Approvals', icon: 'approvals.svg', link: '/approvals'},
-    {title: 'Tickets', icon: 'tickets.svg', link: '/tickets'},
-    {title: 'Calendar', icon: 'calendar.svg', link: '/calendar'},
-    {title: 'Workshops', icon: 'workshops.svg', link: '/workshops'},
-    {title: 'Vehicles', icon: 'vehicles.svg', link: '/vehicles'},
-    {title: 'Users', icon: 'users.svg', link: '/users'},
-    {title: 'Services', icon: 'services.svg', link: '/services'},
+    {title: 'Dashboard', icon: 'dashboard', link: '/dashboard'},
+    {title: 'Map', icon: 'map', link: '/map'},
+    {title: 'Orders', icon: 'orders', link: '/orders'},
+    {title: 'Approvals', icon: 'approvals', link: '/approvals'},
+    {title: 'Tickets', icon: 'tickets', link: '/tickets'},
+    {title: 'Calendar', icon: 'calendar', link: '/calendar'},
+    {title: 'Workshops', icon: 'workshops', link: '/workshops'},
+    {title: 'Vehicles', icon: 'vehicles', link: '/vehicles'},
+    {title: 'Users', icon: 'users', link: '/users'},
+    {title: 'Services', icon: 'services', link: '/services'},
   ];
+
+  constructor(private router: Router) {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.updateActiveState();
+      }
+    });
+  }
+
+  isActiveLink(link: string): boolean {
+    return this.router.url === link;
+  }
+
+  updateActiveState() {
+    // Potentially update other state based on the current route
+  }
 }
