@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Import this module
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,14 +11,15 @@ import { OrdersComponent } from './components/orders/orders.component';
 import { ApprovalsComponent } from './components/approvals/approvals.component';
 import { TicketsComponent } from './components/tickets/tickets.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 import { WorkshopsComponent } from './components/workshops/workshops.component';
 import { VehiclesComponent } from './components/vehicles/vehicles.component';
 import { UsersComponent } from './components/users/users.component';
 import { ServicesComponent } from './components/services/services.component';
-import {MatDatepickerModule} from "@angular/material/datepicker";
-import {MatInputModule} from "@angular/material/input";
-import {MatNativeDateModule} from "@angular/material/core";
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,10 +37,13 @@ import {MatNativeDateModule} from "@angular/material/core";
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     MatDatepickerModule,
     MatInputModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]
