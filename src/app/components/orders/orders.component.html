@@ -93,7 +93,14 @@
         <td class="order-table-data">{{ item.value }}</td>
         <td class="order-table-data">{{ item.category }}</td>
         <td class="order-table-data">{{ item.date }}</td>
-        <td class="order-table-data">{{ item.status }}</td>
+        <td class="order-table-data">
+          <div [ngClass]="[
+          item.status == 'In Progress' ? 'in-progress' : '',
+          item.status == 'Approved' ? 'approved' : '',
+          item.status == 'Complete' ? 'complete' : '']">
+            {{ item.status }}
+          </div>
+        </td>
         <td class="order-table-data"><a href="#" class="order-table-edit">Edit</a></td>
       </tr>
       </tbody>

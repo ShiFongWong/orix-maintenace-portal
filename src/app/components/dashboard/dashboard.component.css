@@ -113,18 +113,17 @@ canvas{
   max-width: 775px;
   max-height: 500px;
 }
-.footer{
+.footer {
   display: flex;
-  position: fixed; /* or absolute if needed */
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding: 1rem 1rem 1rem 0;
+  justify-content: flex-end;
+  align-items: flex-end;
+  padding: 1rem;
   background-color: #FFFFFF;
   box-shadow: 0 -4px 12px 0 #00000014;
   z-index: 1; /* Place the footer on top of other content */
-  justify-content: flex-end;
-  align-items: flex-end;
+  margin-left: calc(-100% / 6);
+  grid-column-start: 1;
+  grid-column-end: 13;
 }
 
 .export-button {
@@ -145,6 +144,26 @@ canvas{
   border: 2px solid #828282;
 
 }
+
+@media screen and (max-width: 1366px) {
+  canvas{
+    grid-column-start: 6;
+    grid-column-end: 13;
+    max-width: 400px;
+    max-height: 500px;
+  }
+
+  .information-container{
+    grid-column-start: 1;
+    grid-column-end: 5;
+  }
+
+  .form-container{
+    grid-column-start: 1;
+    grid-column-end: 5;
+  }
+}
+
 
 
 

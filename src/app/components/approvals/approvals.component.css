@@ -280,6 +280,9 @@
 }
 
 .search-label{
+  display: grid;
+  grid-column-start: 1;
+  grid-column-end: 12;
   margin-bottom: -15px;
   font-family: SDMetro, sans-serif !important;
   font-size: 12px;
@@ -662,9 +665,32 @@
   border: 1px solid #E0E0E0;
   height: 100%;
 }
+.custom-checkbox {
+  appearance: none; /* Remove default styling */
+  -webkit-appearance: none; /* Remove default styling for Safari */
+  width: 24px;
+  height: 24px;
+  background-color: #fff;
+  border: 2px solid #BDBDBD;
+  border-radius: 4px;
+  position: relative;
+  outline: none;
+}
 
+.custom-checkbox:checked {
+  background-color: #464878;
+  border-color: #464878;
+}
 
-
-
-
-
+.custom-checkbox:checked::after {
+  content: '';
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  width: 6px;
+  height: 16px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: translate(-50%, -50%) rotate(45deg);
+  transform-origin: center;
+}

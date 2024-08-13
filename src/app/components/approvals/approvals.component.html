@@ -27,7 +27,7 @@
     <table class="order-table">
       <thead class="order-table-head">
       <tr>
-        <th scope="col" class="order-table-header"><input type="checkbox"></th>
+        <th scope="col" class="order-table-header"><input type="checkbox" class="custom-checkbox"></th>
         <th scope="col" class="order-table-header">
           <div class="order-table-header-content">
             Date
@@ -80,7 +80,7 @@
       </thead>
       <tbody class="order-table-body">
       <tr *ngFor="let item of filteredWorkOrders" class="order-table-row">
-        <th scope="row" class="order-table-data order-table-data-bold"><input type="checkbox"></th>
+        <th scope="row" class="order-table-data order-table-data-bold"><input type="checkbox" class="custom-checkbox"></th>
         <td class="order-table-data">{{ item.date }}</td>
         <td class="order-table-data">{{ item.item }}</td>
         <td class="order-table-data">{{ item.value }}</td>

@@ -1,15 +1,22 @@
-.container{
+.container {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
 }
 
-
-.sidebar{
+.sidebar {
   grid-column-start: 1;
   grid-column-end: 3;
 }
 
-.content{
+.content {
   grid-column-start: 3;
   grid-column-end: 13;
+}
+
+/* Media query for screens up to 14' (approximately 1366px width) */
+@media screen and (max-width: 1366px) {
+  .content {
+    grid-column-start: 4;
+    grid-column-end: 13;
+  }
 }

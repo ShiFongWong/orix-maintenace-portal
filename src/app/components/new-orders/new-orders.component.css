@@ -466,3 +466,9 @@
 .delete-button:hover .icon-delete{
   background-image: url("/assets/icons/delete-hover.svg");
 }
+
+@media screen and (max-width: 1366px) {
+  .order-input-items{
+    width: unset;
+  }
+}
