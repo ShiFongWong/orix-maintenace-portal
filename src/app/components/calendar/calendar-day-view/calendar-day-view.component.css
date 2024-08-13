@@ -1,0 +1,116 @@
+.day-view {
+  position: relative;
+  height: 100%;
+  padding-left: 60px; /* Add left padding for time labels */
+}
+.time-slots {
+  display: flex;
+  flex-direction: column;
+}
+
+.hour-slot {
+  height: 45px;
+  position: relative;
+  display: flex;
+}
+
+.minute-slot {
+  height: 1px;
+  position: relative;
+}
+
+.time-label {
+  position: absolute;
+  left: -60px; /* Move time labels to the left */
+  top: -5px;
+  width: 50px;
+  text-align: right;
+  padding-right: 10px;
+  color: #666;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.minute-line {
+  position: absolute;
+  left: 0px;
+  right: 0;
+  border-top: 1px solid #e0e0e0;
+}
+
+.current-time-line {
+  position: absolute;
+  left: 60px;
+  right: 0;
+  border-top: 2px dashed #2A706B;
+  z-index: 1;
+}
+.event-container {
+  position: absolute;
+  box-sizing: border-box;
+  background-color: #83EEE980;
+  border: 2px solid #3EDCD5;
+  border-radius: 16px;
+  overflow: hidden;
+  .event-details {
+    display: flex;
+    flex-wrap: wrap; /* Allows wrapping */
+    padding: 8px 16px 8px 8px;
+    gap: 8px;
+    .time-outer {
+      width: 126px; /* Fixed width for time container */
+      flex-shrink: 0; /* Prevents shrinking */
+      .time-container {
+        display: flex;
+        width: fit-content;
+        background-color: #F3FFFF;
+        padding: 4px 6px 4px 4px;
+        border-radius: 6px;
+        gap: 8px;
+        font-size: 12px;
+        align-items: center;
+        img{
+          width: 18px;
+          height: 18px;
+        }
+      }
+    }
+    .marshal-container {
+      font-size: 16px;
+      font-weight: 700;
+      color: #024441;
+      flex-grow: 1; /* Fills available space */
+      align-self: center; /* Centers content vertically */
+      line-height: 13px;
+    }
+    .ticket-container {
+      align-self: center; /* Centers content vertically */
+      margin-left: auto; /* Pushes to the right */
+      flex-shrink: 0; /* Prevents shrinking */
+      font-size: 14px;
+      color: #2A706B;
+      font-weight: 400;
+      line-height: 26px;
+    }
+    
+  }
+}
+
+
+
+@media (max-width: 400px) { /* Adjust the breakpoint as needed */
+  .ticket {
+    margin-left: 0;
+    width: 100%; /* Takes full width on smaller screens */
+  }
+}
+.extra-events {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  background-color: #ff4444;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 5px;
+  font-size: 12px;
+}

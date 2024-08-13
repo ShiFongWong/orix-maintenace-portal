@@ -1,1 +1,28 @@
-<p>calendar-day-view works!</p>
+<div class="day-view">
+  <div class="time-slots">
+    <div *ngFor="let hour of hours" >
+      <div *ngFor="let minute of minutes" class="hour-slot">
+        <div class="time-label">{{hour}}:{{minute}}</div>
+        <div class="minute-line"></div>
+      </div>
+    </div>
+    <div class="hour-slot endHour">
+      <div class="time-label">{{this.endHour}}:00</div>
+      <div class="minute-line"></div>
+    </div>
+
+  </div>
+  <div class="current-time-line" [style.top.px]="currentTimePosition"></div>
+  <div class="event-container" *ngFor="let eventData of processedEvents" [ngStyle]="getEventStyle(eventData)">
+    <div class="event-details">
+      <div class="time-outer">
+        <div class="time-container">
+          <img src="\assets\icons\time.svg">
+          {{ eventData.event.startTime }} - {{ eventData.event.endTime }}
+        </div>
+      </div>
+      <div class="marshal-container">{{ eventData.event.supervisor }}</div>
+      <div class="ticket-container">Ticket {{ eventData.event.ticketId }}</div>
+    </div>
+  </div>
+</div>

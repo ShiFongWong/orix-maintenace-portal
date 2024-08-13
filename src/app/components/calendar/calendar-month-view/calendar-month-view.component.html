@@ -1,25 +1,25 @@
 <div class="month-grid">
   <div *ngFor="let day of weekDays" class="weekday">{{ day }}</div>
-  <ng-container *ngFor="let week of calendarDays">
+  <ng-container class="week" *ngFor="let week of calendarDays">
     <div *ngFor="let day of week" class="day" [class.other-month]="!isSameMonth(day, date)">
       <ng-container *ngIf="isSameMonth(day, date); else emptyDay">
         <span class="date">{{ format(day, 'd') }}</span>
-        <div class="notes">
-          <div *ngFor="let note of getNotesForDay(day)" class="note">
-            {{ note.text }}
+        <div class="event-list">
+          <div *ngFor="let event of events[format(day, 'M/d')]">
+            <div class="event-container">
+              <div class="time-container">
+                {{ event.startTime | date: 'shortTime' }} - {{ event.endTime | date: 'shortTime' }}
+              </div>
+              <div class="supervisor">
+                {{ event.supervisor }}
+              </div>
+            </div>
           </div>
         </div>
-        <button (click)="addNote(day)">+</button>
       </ng-container>
       <ng-template #emptyDay>
         <!-- Empty gray cell for days not in current month -->
       </ng-template>
     </div>
   </ng-container>
-</div>
-
-<div *ngIf="isAddingNote" class="note-modal">
-  <input [(ngModel)]="newNoteText" placeholder="Enter note">
-  <button (click)="saveNote()">Save</button>
-  <button (click)="cancelNote()">Cancel</button>
 </div>
