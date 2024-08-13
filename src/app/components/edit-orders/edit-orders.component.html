@@ -1,0 +1,181 @@
+<div class="order-container">
+  <div class="header">New Work Order</div>
+  <div class="order-details-container">
+    <div class="order-input-items">
+      <label class="order-input-label">Client Name:</label>
+      <input type="search" class="search-input width-unset"
+             placeholder=""/>
+    </div>
+    <div class="border-line"></div>
+
+    <div class="order-input-items">
+      <label class="order-input-label">Appointment Date:</label>
+      <input type="search" class="search-input width-unset"
+             placeholder=""/>
+    </div>
+    <div class="border-line"></div>
+
+    <div class="order-input-items">
+      <label class="order-input-label">Plate Number:</label>
+      <input type="search" class="search-input width-unset"
+             placeholder=""/>
+    </div>
+    <div class="border-line"></div>
+
+    <div class="order-input-items">
+      <label class="order-input-label">Car Mileage:</label>
+      <input type="search" class="search-input width-unset"
+             placeholder=""/>
+    </div>
+    <div class="border-line"></div>
+
+    <div class="order-input-items">
+      <label class="order-input-label">Service Type:</label>
+      <select  id="countries" class="form-select">
+        <option selected>Select a service type</option>
+      </select>
+    </div>
+    <div class="border-line"></div>
+
+
+    <div class="order-input-items">
+      <label class="order-input-label">Category:</label>
+      <div class="category-radio">
+
+        <div class="category-item">
+          <input id="category-option-1" type="radio" name="categories" value="routine" checked>
+          <label for="category-option-1">
+            Routine
+          </label>
+        </div>
+
+        <div class="category-item">
+          <input id="category-option-2" type="radio" name="categories" value="accident">
+          <label for="category-option-2">
+            Accident
+          </label>
+        </div>
+      </div>
+
+    </div>
+    <div class="border-line"></div>
+
+    <div class="order-input-items">
+      <label class="order-input-label">Workshop:</label>
+      <select class="form-select">
+        <option selected>Select a workshop</option>
+      </select>
+    </div>
+    <div class="border-line"></div>
+
+    <div class="order-input-items">
+      <label class="order-input-label">Status:</label>
+      <div class="category-filter" role="group">
+        @for (item of categoryList; track item; let i = $index; let first = $first; let last = $last) {
+          <button (click)="onClickCategory(item.type)" type="button"
+                  [ngClass]="['btn', item.active ? 'btn-active' : '', first ? 'btn--first' : '', last ? 'btn--last' : '', (!first && !last) ? 'btn--middle' : '']">
+            {{ item.type }}
+          </button>
+        }
+      </div>
+    </div>
+    <div class="border-line"></div>
+
+    <div class="order-input-items">
+      <label class="order-input-label">Remark:</label>
+      <textarea rows="5"
+                cols="20" class="search-input width-unset"
+                placeholder=""></textarea>
+    </div>
+  </div>
+
+  <div (click)="isAddingDetail = !isAddingDetail" *ngIf="!isAddingDetail" class="add-details-col">
+    <div class="add-details-wrapper">
+      <div class="add-button">
+        <img src="/assets/icons/add-micro.svg" alt="">
+      </div>
+      <span>Add details</span>
+    </div>
+  </div>
+
+  <div (click)="isAddingDetail = !isAddingDetail" *ngIf="isAddingDetail" class="add-details-col">
+    <div class="add-details-wrapper">
+      <div class="add-button">
+        <img height="10" width="10" src="/assets/icons/close.svg" alt="">
+      </div>
+      <span>Cancel</span>
+    </div>
+  </div>
+
+  <div *ngIf="isAddingDetail" class="details-container">
+    <h2 class="details-title">Details</h2>
+    <table class="details-table">
+      <thead>
+      <tr>
+        <th class="col-no">No.</th>
+        <th class="col-items">Items</th>
+        <th class="col-quantity">Quantity</th>
+        <th class="col-price">Price</th>
+        <th class="col-remarks">Remarks</th>
+        <th class="col-delete"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of detailsList; index as i">
+        <td>{{ i + 1 }}</td>
+        <td>
+          <select class="form-select width-full">
+            <option selected>{{ item.items }}</option>
+          </select>
+        </td>
+        <td>
+          <input [(ngModel)]="item.quantity" type="search" class="search-input width-full" placeholder=""/>
+        </td>
+        <td>
+          <input [(ngModel)]="item.price" type="search" class="search-input width-full" placeholder=""/>
+        </td>
+        <td>
+          <textarea [(ngModel)]="item.remarks" rows="1" class="search-input width-full" placeholder=""></textarea>
+        </td>
+        <td (click)="deleteDetailsItem(i)">
+          <div class="delete-button">
+            <span class="icon icon-delete"></span>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+      <tfoot>
+      <tr>
+        <td colspan="5">
+          <div (click)="addDetailsItem()" class="add-details-wrapper">
+            <div class="add-button">
+              <img src="/assets/icons/add-micro.svg" alt="">
+            </div>
+            <span>Add a detail</span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3">Total</td>
+        <td>0</td>
+        <td >
+          <textarea rows="1" class="search-input width-full" placeholder=""></textarea>
+        </td>
+        <td></td>
+      </tr>
+      </tfoot>
+    </table>
+  </div>
+  <div class="footer">
+    <button class="cancel-button">
+      <span>Cancel</span>
+    </button>
+    <button routerLink="/orders/new" class="new-order-btn">
+      <img src="/assets/icons/add-green.svg" alt="">
+      <span>Create a ticket for this order</span>
+    </button>
+    <button routerLink="/orders/new" class="submit-button">
+      <span>Save</span>
+    </button>
+  </div>
+</div>
