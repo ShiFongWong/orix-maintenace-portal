@@ -1,7 +1,7 @@
 .day-view {
   position: relative;
   height: 100%;
-  padding-left: 60px; /* Add left padding for time labels */
+  margin-left: 60px; /* Add left padding for time labels */
 }
 .time-slots {
   display: flex;
@@ -40,7 +40,7 @@
 
 .current-time-line {
   position: absolute;
-  left: 60px;
+  left: 0px;
   right: 0;
   border-top: 2px dashed #2A706B;
   z-index: 1;
@@ -52,11 +52,11 @@
   border: 2px solid #3EDCD5;
   border-radius: 16px;
   overflow: hidden;
+  z-index: 2;
   .event-details {
+    padding: 8px 16px 8px 8px;
     display: flex;
     flex-wrap: wrap; /* Allows wrapping */
-    padding: 8px 16px 8px 8px;
-    gap: 8px;
     .time-outer {
       width: 126px; /* Fixed width for time container */
       flex-shrink: 0; /* Prevents shrinking */
@@ -64,7 +64,7 @@
         display: flex;
         width: fit-content;
         background-color: #F3FFFF;
-        padding: 4px 6px 4px 4px;
+        padding: 6px 6px 4px 4px;
         border-radius: 6px;
         gap: 8px;
         font-size: 12px;
@@ -76,41 +76,78 @@
       }
     }
     .marshal-container {
+      display: inline-block;
+      max-width: 100%; /* Ensures the content doesn't overflow its container */
+      height: 26px; /* Same height as line-height for vertical centering */
       font-size: 16px;
       font-weight: 700;
       color: #024441;
-      flex-grow: 1; /* Fills available space */
-      align-self: center; /* Centers content vertically */
-      line-height: 13px;
+      flex-grow: 1; 
+      line-height: 26px; /* Vertically centers the text */
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap; /* Prevents wrapping */
+      vertical-align: middle; /* Ensures vertical centering */
     }
     .ticket-container {
       align-self: center; /* Centers content vertically */
-      margin-left: auto; /* Pushes to the right */
       flex-shrink: 0; /* Prevents shrinking */
       font-size: 14px;
       color: #2A706B;
       font-weight: 400;
       line-height: 26px;
     }
-    
   }
 }
 
 
-
-@media (max-width: 400px) { /* Adjust the breakpoint as needed */
-  .ticket {
-    margin-left: 0;
-    width: 100%; /* Takes full width on smaller screens */
-  }
+.event-container:hover{
+  background-color: #3EDCD5B2;
 }
-.extra-events {
+
+.overflow-container{
   position: absolute;
-  right: 5px;
-  top: 5px;
-  background-color: #ff4444;
-  color: white;
-  border-radius: 50%;
-  padding: 2px 5px;
-  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  right: 0;
+  border-radius: 6px;
+  
+  .overflow-popup {
+    position: absolute;
+    right: 5px;
+    top: 30px; /* Adjust according to your design */
+    background-color: #333333;
+    width: max-content;
+    z-index: 10;
+    .message-container{
+      padding: 8px 12px 8px 12px;
+      z-index: 100;
+      color: #FFFFFF;
+      line-height: 16.8px;
+      font-size: 12px;
+      font-weight: 400;
+      .message-name{
+        font-weight: 700;
+      }
+    }
+  }
+  
+  .overflow-container:hover .overflow-popup {
+    display: block;
+  }
+  
+  .overflow-popup ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .overflow-popup li {
+    padding: 5px 0;
+  }
+}
+
+.overflow-container:hover{
+  background-color: #DCFEFD;
 }

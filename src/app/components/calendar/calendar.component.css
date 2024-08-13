@@ -87,7 +87,7 @@
       background-color: #fff;
       border: 1px solid #ddd;
       box-shadow: 0 0 16px 0 #3D3F6745;
-    
+      z-index: 2;
       .add-ticket-btn {
         display: flex;
         height: 40px;

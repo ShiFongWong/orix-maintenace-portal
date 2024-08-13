@@ -5,7 +5,7 @@ import { format, addMinutes, startOfDay, differenceInMinutes } from 'date-fns';
 interface Event {
   startTime: string;
   endTime: string;
-  supervisor: string;
+  marshal: string;
   ticketId: string;
 }
 interface ProcessedEvent {
@@ -30,6 +30,9 @@ export class CalendarDayViewComponent implements OnInit {
   currentTimePosition: number = 0;
   events: { [key: string]: Event[] } = {}; // Keyed by date in 'M/d' format
   processedEvents: ProcessedEvent[] = [];
+  maxColumns: number = 4; // Set maximum columns to 2 for example
+  overflowedEvents: { [key: string]: Event[] } = {}; // Store overflowed events
+  activeOverflowSlot: string | null = null;
 
   ngOnInit() {
     this.generateHours();
@@ -43,20 +46,28 @@ export class CalendarDayViewComponent implements OnInit {
     // Example event data
     this.events = {
       '8/12': [
-        { startTime: "8:00", endTime: "8:15", supervisor: 'John Doe', ticketId: '12345' },
-        { startTime: "8:45", endTime: "9:15", supervisor: 'John Doe', ticketId: '12345' },
-        { startTime: "9:30", endTime: "10:15", supervisor: 'John Doe', ticketId: '12345' },
-        { startTime: "10:30", endTime: "11:00", supervisor: 'John Doe', ticketId: '12345' },
-        { startTime: "11:00", endTime: "12:00", supervisor: 'John Doe', ticketId: '12345' },
-        { startTime: "8:00", endTime: "12:15", supervisor: 'John Doe', ticketId: '12345' },
-        { startTime: "9:30", endTime: "11:00", supervisor: 'John Doe', ticketId: '12345' },
-        { startTime: "12:15", endTime: "12:45", supervisor: 'John Doe', ticketId: '12345' },
-        { startTime: "13:15", endTime: "14:45", supervisor: 'John Doe', ticketId: '12345' },
-        { startTime: "13:15", endTime: "14:45", supervisor: 'John Doe', ticketId: '12345' },
-        { startTime: "13:15", endTime: "14:45", supervisor: 'John Doe', ticketId: '12345' },
-        { startTime: "13:15", endTime: "14:45", supervisor: 'John Doe', ticketId: '12345' },
-        { startTime: "13:15", endTime: "14:45", supervisor: 'John Doe', ticketId: '12345' },
-        { startTime: "13:15", endTime: "14:45", supervisor: 'John Doe', ticketId: '12345' },
+        { startTime: "8:00", endTime: "8:15", marshal: 'Jumaana binti Khaleel John Doe My Name Is You Try To Guess??', ticketId: '12345678' },
+        { startTime: "8:45", endTime: "9:15", marshal: 'Jumaana binti Khaleel', ticketId: '12345678' },
+        { startTime: "9:30", endTime: "10:15", marshal: 'John Doe', ticketId: '12345678' },
+        { startTime: "9:30", endTime: "10:15", marshal: 'John Doe', ticketId: '12345678' },
+        { startTime: "9:30", endTime: "10:15", marshal: 'John Doe My Name Is You Try To Guess??', ticketId: '12345678' },
+        { startTime: "10:15", endTime: "10:30", marshal: 'John Doe', ticketId: '12345678' },
+        { startTime: "10:15", endTime: "10:30", marshal: 'John Doe', ticketId: '12345678' },
+        { startTime: "10:15", endTime: "10:30", marshal: 'John Doe', ticketId: '12345678' },
+        { startTime: "10:30", endTime: "11:00", marshal: 'John Doe', ticketId: '12345678' },
+        { startTime: "10:30", endTime: "11:00", marshal: 'John Doe', ticketId: '12345678' },
+        { startTime: "10:30", endTime: "11:00", marshal: 'John Doe', ticketId: '12345678' },
+        { startTime: "11:00", endTime: "12:00", marshal: 'John Doe', ticketId: '12345678' },
+        { startTime: "8:00", endTime: "12:15", marshal: 'John Doe', ticketId: '12345678' },
+        { startTime: "9:30", endTime: "11:00", marshal: 'John Doe', ticketId: '12345678' },
+        { startTime: "12:15", endTime: "12:45", marshal: 'John Doeohn John Doe My Name Is You Try To Guess??ohn John Doe My Name Is You Try To Guess??', ticketId: '12345678' },
+        { startTime: "13:15", endTime: "14:45", marshal: 'John Doe', ticketId: '12345678' },
+        { startTime: "13:15", endTime: "14:45", marshal: 'John John Doe My Name Is You Try To Guess??', ticketId: '12345678' },
+        { startTime: "13:15", endTime: "14:45", marshal: 'John John Doe My Name Is You Try To Guess??', ticketId: '12345678' },
+        { startTime: "13:15", endTime: "14:45", marshal: 'John John Doe My Name Is You Try To Guess??', ticketId: '12345678' },
+        { startTime: "13:15", endTime: "14:45", marshal: 'John John Doe My Name Is You Try To Guess??', ticketId: '12345678' },
+        { startTime: "13:15", endTime: "14:45", marshal: 'John John Doe My Name Is You Try To Guess??', ticketId: '12345678' },
+        { startTime: "13:15", endTime: "14:45", marshal: 'John Doe My Name Is You Try To Guess??', ticketId: '12345678' },
 
       ]
     };
@@ -96,12 +107,13 @@ export class CalendarDayViewComponent implements OnInit {
     );
   
     let columns: ProcessedEvent[][] = [];
+    this.overflowedEvents = {}; // Reset overflowed events
   
     sortedEvents.forEach(event => {
       let columnIndex = 0;
       let placedEvent: ProcessedEvent | null = null;
   
-      while (!placedEvent) {
+      while (!placedEvent && columnIndex < this.maxColumns) {
         if (!columns[columnIndex]) {
           columns[columnIndex] = [];
         }
@@ -117,6 +129,14 @@ export class CalendarDayViewComponent implements OnInit {
           columnIndex++;
         }
       }
+  
+      if (!placedEvent) {
+        const timeSlotKey = `${event.startTime}-${event.endTime}`;
+        if (!this.overflowedEvents[timeSlotKey]) {
+          this.overflowedEvents[timeSlotKey] = [];
+        }
+        this.overflowedEvents[timeSlotKey].push(event);
+      }
     });
   
     // Adjust widths and positions
@@ -124,7 +144,7 @@ export class CalendarDayViewComponent implements OnInit {
       const colSpan = this.getColumnSpan(event, columns);
       return {
         ...event,
-        width: colSpan,
+        width: colSpan*2.5,
         left: event.column / columns.length
       };
     });
@@ -147,22 +167,78 @@ export class CalendarDayViewComponent implements OnInit {
   getEventStyle(eventData: ProcessedEvent) {
     const start = this.timeToMinutes(eventData.event.startTime) - this.startHour * 60;
     const end = this.timeToMinutes(eventData.event.endTime) - this.startHour * 60;
-  
+
     const top = start * 3; // Each minute is 3px
     const height = (end - start) * 3; // Duration in minutes multiplied by 3
-    const width = `${(eventData.width / this.processedEvents.length) * 100}%`;
-    const left = `calc(${eventData.left * 100}% + 60px)`;
-  
+
+    // Calculate the number of columns for the specific time slot
+    var totalColumns = this.getTotalColumnsForTimeRange(eventData.event.startTime, eventData.event.endTime);
+    var width;
+    var left;
+    if(totalColumns>this.maxColumns){
+      totalColumns=this.maxColumns*2+1;
+
+      width = `${(2 / totalColumns) * 95}%`;
+      left = `${(2*eventData.column / totalColumns) * 100}%`;
+    }else{
+      width = `${(1 / totalColumns) * 95}%`;
+      left = `${(eventData.column / totalColumns) * 100}%`;
+    }
+
     return {
-      top: `${top}px`,
-      height: `${height}px`,
-      width: width,
-      left: left,
+        top: `${top}px`,
+        height: `${height}px`,
+        width: width,
+        left: left,
     };
-  }
-  
+}
+
+getTotalColumnsForTimeRange(startTime: string, endTime: string): number {
+  let maxColumns = 1;
+
+  this.processedEvents.forEach(event => {
+      if (this.overlaps(event.event, { startTime, endTime, marshal: '', ticketId: '' })) {
+          maxColumns = Math.max(maxColumns, event.column + 1);
+          const timeSlotKey = `${event.event.startTime}-${event.event.endTime}`;
+          if (this.overflowedEvents[timeSlotKey] && this.overflowedEvents[timeSlotKey].length > 0) {
+              maxColumns += 1; // Add one more column to account for overflow
+          }
+      }
+  });
+
+
+
+  return maxColumns;
+}
+
   overlaps(event1: Event, event2: Event): boolean {
     return this.timeToMinutes(event1.startTime) < this.timeToMinutes(event2.endTime) &&
            this.timeToMinutes(event2.startTime) < this.timeToMinutes(event1.endTime);
+  }
+  getOverflowKeys(): string[] {
+    return Object.keys(this.overflowedEvents);
+  }
+  getOverflowStyle(timeSlot: string) {
+    const [startTime] = timeSlot.split('-');
+    const start = this.timeToMinutes(startTime) - this.startHour * 60;
+    const top = start * 3; // Each minute is 3px
+
+    var column = this.maxColumns*2 + 1;
+    const width = `${(1 / column) * 95}%`;
+
+
+    return {
+      top: `${top}px`,
+      height: `45px`,
+      width: width,
+    };
+  }
+  showOverflow(timeSlot: string) {
+    this.activeOverflowSlot = timeSlot;
+    console.log(this.overflowedEvents[timeSlot])
+  }
+  
+  hideOverflow() {
+    this.activeOverflowSlot = null;
   }
 }
