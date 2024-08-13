@@ -28,6 +28,9 @@ import { CalendarDayViewComponent } from './components/calendar/calendar-day-vie
 import {SearchbarComponent} from "./components/searchbar/searchbar.component";
 import {FormsModule} from "@angular/forms";
 import { NewOrdersComponent } from './components/new-orders/new-orders.component';
+import { EditOrdersComponent } from './components/edit-orders/edit-orders.component';
+import { NewTicketComponent } from './components/new-ticket/new-ticket.component';
+import { EditTicketComponent } from './components/edit-ticket/edit-ticket.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +45,10 @@ import { NewOrdersComponent } from './components/new-orders/new-orders.component
     UsersComponent,
     ServicesComponent,
     SearchbarComponent,
-    NewOrdersComponent
+    NewOrdersComponent,
+    EditOrdersComponent,
+    NewTicketComponent,
+    EditTicketComponent
   ],
   imports: [
     BrowserModule,
