@@ -10,11 +10,13 @@ import { WorkshopsComponent } from './components/workshops/workshops.component';
 import { VehiclesComponent } from './components/vehicles/vehicles.component';
 import { UsersComponent } from './components/users/users.component';
 import { ServicesComponent } from './components/services/services.component';
+import {NewOrdersComponent} from "./components/new-orders/new-orders.component";
 
 const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'map', component: MapComponent },
   { path: 'orders', component: OrdersComponent },
+  { path: 'orders/new', component: NewOrdersComponent },
   { path: 'approvals', component: ApprovalsComponent },
   { path: 'tickets', component: TicketsComponent },
   { path: 'calendar', component: CalendarComponent },

@@ -29,7 +29,7 @@ export class SidebarComponent {
   }
 
   isActiveLink(link: string): boolean {
-    return this.router.url === link;
+    return this.router.url.includes(link) ;
   }
 
   updateActiveState() {

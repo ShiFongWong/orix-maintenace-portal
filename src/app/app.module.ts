@@ -27,6 +27,7 @@ import { CalendarWeekViewComponent } from './components/calendar/calendar-week-v
 import { CalendarDayViewComponent } from './components/calendar/calendar-day-view/calendar-day-view.component';
 import {SearchbarComponent} from "./components/searchbar/searchbar.component";
 import {FormsModule} from "@angular/forms";
+import { NewOrdersComponent } from './components/new-orders/new-orders.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,7 +41,8 @@ import {FormsModule} from "@angular/forms";
     VehiclesComponent,
     UsersComponent,
     ServicesComponent,
-    SearchbarComponent
+    SearchbarComponent,
+    NewOrdersComponent
   ],
   imports: [
     BrowserModule,
