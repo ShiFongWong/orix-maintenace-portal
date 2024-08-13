@@ -1,1 +1,26 @@
-<p>calendar-week-view works!</p>
+<div class="week-view">
+  <div *ngFor="let day of weekDays" class="day-slot">
+    <div class="day-row">
+      <div class="day-number">{{ format(day, 'M/d') }}</div>
+      <div class="day-name">{{ format(day, 'EEE') }}</div>
+    </div>
+    <div class="event-list">
+      <div *ngIf="hasEvents(day); else noEvent">
+        <div *ngFor="let event of events[format(day, 'M/d')]">
+          <div class="event-container">
+            <div class="time-container">
+              <img src="\assets\icons\time.svg">
+              {{ event.startTime | date: 'shortTime' }} - {{ event.endTime | date: 'shortTime' }}
+            </div>
+            <div class="supervisor">
+              {{ event.supervisor }}
+            </div>
+            <div class="ticket">
+              Tiket {{ event.ticketId }}</div>
+            </div>
+        </div>
+      </div>
+      <ng-template #noEvent>No event</ng-template>
+    </div>
+  </div>
+</div>

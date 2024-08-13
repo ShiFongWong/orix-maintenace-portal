@@ -18,6 +18,14 @@ interface CalendarNote {
   date: Date;
   text: string;
 }
+
+interface Event {
+  startTime: Date;
+  endTime: Date;
+  supervisor: string;
+  ticketId: string;
+}
+
 @Component({
   selector: 'app-month-view',
   standalone: true,
@@ -34,9 +42,24 @@ export class CalendarMonthViewComponent implements OnInit {
   isAddingNote = false;
   newNoteText = '';
   selectedDate: Date | null = null;
+  events: { [key: string]: Event[] } = {}; // Keyed by date in 'M/d' format
 
   ngOnInit() {
     this.generateCalendarDays(this.date);
+    this.loadEvents();
+  }
+
+  loadEvents() {
+    // Example event data
+    this.events = {
+      '8/11': [
+        { startTime: new Date(), endTime: new Date(), supervisor: 'John Doe', ticketId: '12345' }
+      ],
+      '8/15': [
+        { startTime: new Date(), endTime: new Date(), supervisor: 'Jane Doe', ticketId: '67890' },
+        { startTime: new Date(), endTime: new Date(), supervisor: 'Jane Doe', ticketId: '67890' }
+      ]
+    };
   }
 
   generateCalendarDays(date: Date) {
@@ -88,6 +111,13 @@ export class CalendarMonthViewComponent implements OnInit {
     this.selectedDate = null;
   }
 
-  format = format;
+  hasEvents(day: Date): boolean {
+    const dateString = format(day, 'M/d');
+    return this.events[dateString] && this.events[dateString].length > 0;
+  }
+  format(date: Date, formatString: string): string {
+    return format(date, formatString);
+  }
+
   isSameMonth = isSameMonth;
 }

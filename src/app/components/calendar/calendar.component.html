@@ -1,56 +1,61 @@
 <div class="calendar-page-container">
-    <div class="title-container">
-        <h1>Calendar</h1>
-    </div>
-    <div class="date-operation-container">
-        <div class="date-chosen">
-            <div class="date-toogle">
-                <img src="assets/icons/calendar.svg">
-                <mat-form-field appearance="fill">
-                    <mat-label>Choose a date</mat-label>
-                    <input matInput [matDatepicker]="picker">
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                  </mat-form-field>
-                  
-            </div>
-            <button>Prev Day</button>
-            <button>Next Day</button>
+    <div class="content-container">
+        <div class="title-container">
+            <h1>Calendar</h1>
         </div>
-        <div class="calendar-format-operation">
-            <div class="">
-                Today
-            </div>
-            <div class="calendar-format">
-                <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-left">Day</button>
-                    <button type="button" class="btn">Week</button>
-                    <button type="button" class="btn btn-right">Month</button>
+        <div class="date-operation-container">
+            <div class="date-chosen">
+                <div class="date-picker-container">
+                    <mat-datepicker-toggle [for]="picker">
+                        <img matDatepickerToggleIcon src="assets/icons/calendar-calendar.svg" alt="Calendar">
+                      </mat-datepicker-toggle>
+                      <div *ngIf="displayDate">
+                        <span class="display date">{{ displayDate.datePart }}</span>
+                        <span *ngIf="displayDate.dayPart" class="display day"> ({{ displayDate.dayPart }})</span>
+                      </div>
+                    <mat-datepicker #picker (closed)="onDatePickerClosed()"></mat-datepicker>
                   </div>
-                  <mat-button-toggle-group [(ngModel)]="view">
-                    <mat-button-toggle class="btn" value="day">Day</mat-button-toggle>
-                    <mat-button-toggle class="btn" value="week">Week</mat-button-toggle>
-                    <mat-button-toggle class="btn" value="month">Month</mat-button-toggle>
-                  </mat-button-toggle-group>
-                  
+
+            </div>
+            <button class="left-arrow"><img src="assets/icons/calendar-left-arrow.svg"></button>
+            <button class="right-arrow"><img src="assets/icons/calendar-right-arrow.svg"></button>
+            
+                <div class="current-date">
+                    Today
+                </div>
+
+                <div class="calendar-format">
+                      <mat-button-toggle-group [(ngModel)]="view">
+                        <mat-button-toggle class="btn" value="day">Day</mat-button-toggle>
+                        <mat-button-toggle class="btn" value="week">Week</mat-button-toggle>
+                        <mat-button-toggle class="btn" value="month">Month</mat-button-toggle>
+                      </mat-button-toggle-group>
+                      
+                </div>
+            
+        </div>
+        <div class="date-information-container">
+            <div class="marshal-container">
+                <div class="marshal-title">
+                    <div>MARSHAL</div>
+                    <div>ASSIGNMENTS</div>
+                </div>
+                <div class="marshal-content">
+
+                </div>
+            </div>
+            <div class="calendar-container">
+                <div class="calendar">
+                    <ng-container [ngSwitch]="view" >
+                        <app-day-view *ngSwitchCase="'day'" [date]="currentDate"></app-day-view>
+                        <app-week-view *ngSwitchCase="'week'" [date]="currentDate"></app-week-view>
+                        <app-month-view *ngSwitchCase="'month'" [date]="currentDate"></app-month-view>
+                    </ng-container>
+                </div>
             </div>
         </div>
     </div>
-    <div class="date-information-container">
-        <div class="marshal-container">
 
-        </div>
-        <div class="calendar-container">
-            <div class="calendar">
-                <ng-container [ngSwitch]="view" >
-                    <app-day-view *ngSwitchCase="'day'" [date]="currentDate"></app-day-view>
-                    <app-week-view *ngSwitchCase="'week'" [date]="currentDate"></app-week-view>
-                    <app-month-view *ngSwitchCase="'month'" [date]="currentDate"></app-month-view>
-                </ng-container>
-            </div>
-
-        </div>
-    </div>
     <div class="bottom-bar">
         <button class="add-ticket-btn">
             <img src="assets/icons/add.svg">

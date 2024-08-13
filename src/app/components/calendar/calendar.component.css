@@ -1,33 +1,80 @@
 .calendar-page-container{
-    .title-container{
+    .content-container{
+      padding-bottom: 60px;
+      .title-container{
         display: flex;
     }
     .date-operation-container{
         display: flex;
-        .calendar-format-operation{
+        height: 40px;
+        gap: 8px;
+          button {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid rgba(0, 167, 153, 0.25); /* #00A799 with 0.25 opacity */
+            
+            /* Center the content inside */
             display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+        .current-date{
+          background-color: #00A799;
+          padding: 13px 24px;
+          border-radius: 20px;
+          color: #FFFFFF;
+          font-size: 14px;
+          font-weight: 700;
+        }
+        .display {
+          color: #2A706B;
+          font-size: 14px;
+          text-align: center;
+        }
+        .date{
+          margin-left: 8px;
+          font-weight: 700;
+        }
+        .day{
+          font-weight: 400;
         }
     }
     .date-information-container{
         display: flex;
         .marshal-container{
-            padding: 20px;
-            margin: 20px;
+          width: 274px;
+          height: 284px;
+            margin: 10px;
             background-color: #fff;
             border: 1px solid #ddd;
             box-shadow: 0 0 16px 0 #3D3F6745;
-        }
-        .calendar-container{
-            padding: 20px;
-            margin: 20px;
-            background-color: #fff;
-            border: 1px solid #ddd;
-            box-shadow: 0 0 16px 0 #3D3F6745;
-            .calendar{
-              border: 1px solid #E0E0E0;
+            .marshal-title{
+              display: flex;
+              justify-content: space-between;
+              background-color: #DCFEFD;
+              border-bottom: 1px solid #2BCABC;
+              padding: 8px 16px;
+
+              font-size: 10px;
+              font-weight: 400;
+              color: #4F4F4F;
+            }
+            .marshal-content{
+              height: 43px;
             }
         }
+        .calendar-container{
+          width: 70%;
+            padding: 30px 15px;
+            margin: 10px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            box-shadow: 0 0 16px 0 #3D3F6745;
+        }
     }
+    }
+
     .bottom-bar {
       display: flex; /* Set display to flex */
       justify-content: flex-end; /* Aligns content (button) to the right */
@@ -131,3 +178,75 @@
     color: #ffffff; /* dark:focus:text-white */
   }
   
+  .mat-button-toggle-group {
+    border-radius: 20px;
+    height: 40px;
+    width: 219px;
+    border: none;
+    overflow: hidden;
+    background-color: #83EEE9;
+  }
+  
+  .mat-button-toggle {
+    padding: 0;
+    background-color: transparent;
+    color: #0B3633;
+    font-weight: 400;
+    width: 33.33%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+  }
+  
+  .mat-button-toggle:hover {
+    background-color: #3EDCD5;
+    color: #0B3633;
+  }
+  
+  .mat-button-toggle-checked {
+    background-color: #2A706B !important;
+    color: #FFFFFF !important;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  /* Ensure no gap between toggles */
+  .mat-button-toggle-group-appearance-standard .mat-button-toggle + .mat-button-toggle {
+    border-left-color: #3EDCD5;
+  }
+  
+  ::ng-deep .mat-button-toggle .mat-pseudo-checkbox {
+    display: none!important;
+}
+.date-picker-container {
+  display: inline-flex;
+  align-items: center;
+  border: 2px solid #20B2AA;
+  border-radius: 20px;
+  padding: 6px 12px;
+  color: #20B2AA;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+
+.mat-datepicker-toggle {
+  display: flex;
+  align-items: center;
+}
+
+img[matDatepickerToggleIcon] {
+  width: 24px;
+  height: 24px;
+}
+
+:host ::ng-deep .mat-datepicker-toggle-default-icon {
+  display: none;
+}
+
+::ng-deep .mat-mdc-icon-button.mat-mdc-button-base{
+  padding: 0;
+  --mdc-icon-button-state-layer-size: 24px;
+}
