@@ -6,6 +6,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 * {
     cursor: url('../public/assets/cursor/pointer.svg'), pointer;
+    font-family: SDMetro, sans-serif !important;
 }
 
 html,body {
