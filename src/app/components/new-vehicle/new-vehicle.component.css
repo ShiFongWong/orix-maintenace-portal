@@ -330,8 +330,8 @@
 
 .footer {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: flex-end;
+  align-items: flex-end;
   padding: 1rem;
   background-color: #FFFFFF;
   box-shadow: 0 -4px 12px 0 #00000014;
@@ -340,24 +340,6 @@
   grid-column-start: 1;
   grid-column-end: 13;
   gap: 0.75rem;
-}
-
-.end-button{
-  display: flex;
-  gap: 0.5rem;
-}
-
-.delete-button{
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  margin-left: calc(100% / 8);
-  font-family: SDMetro,sans-serif;
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 18px;
-  text-align: left;
-  color: #686CB3;
 }
 
 .cancel-button{
