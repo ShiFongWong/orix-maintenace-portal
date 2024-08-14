@@ -18,6 +18,8 @@
 }
 
 .day {
+  min-height: 244px;
+  max-height: 414px;
   text-align: left;
   position: relative;
 }
@@ -70,6 +72,63 @@ button {
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
-.event-container{
-  border-bottom: 1px;
+
+.event-container {
+  position: absolute;
+  box-sizing: border-box;
+  background-color: #83EEE980;
+  border: 2px solid #3EDCD5;
+  border-radius: 16px;
+  overflow: hidden;
+  z-index: 2;
+  .event-details {
+    padding: 8px 16px 8px 8px;
+    display: flex;
+    flex-wrap: wrap; /* Allows wrapping */
+    .time-outer {
+      width: 126px; /* Fixed width for time container */
+      flex-shrink: 0; /* Prevents shrinking */
+      .time-container {
+        display: flex;
+        width: fit-content;
+        background-color: #F3FFFF;
+        padding: 6px 6px 4px 4px;
+        border-radius: 6px;
+        gap: 8px;
+        font-size: 12px;
+        align-items: center;
+        img{
+          width: 18px;
+          height: 18px;
+        }
+      }
+    }
+    .marshal-container {
+      display: inline-block;
+      max-width: 100%; /* Ensures the content doesn't overflow its container */
+      height: 26px; /* Same height as line-height for vertical centering */
+      font-size: 16px;
+      font-weight: 700;
+      color: #024441;
+      flex-grow: 1; 
+      line-height: 26px; /* Vertically centers the text */
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap; /* Prevents wrapping */
+      vertical-align: middle; /* Ensures vertical centering */
+    }
+    .ticket-container {
+      align-self: center; /* Centers content vertically */
+      flex-shrink: 0; /* Prevents shrinking */
+      font-size: 14px;
+      color: #2A706B;
+      font-weight: 400;
+      line-height: 26px;
+    }
+  }
+}
+
+
+.event-container:hover{
+  background-color: #3EDCD5B2;
 }

@@ -23,12 +23,12 @@ interface ProcessedEvent {
 })
 export class CalendarDayViewComponent implements OnInit {
   @Input() date: Date = new Date();
+  @Input() events: { [key: string]: Event[] } = {}; // Keyed by date in 'M/d' format
   hours: string[] = [];
   minutes: string[] = ['00', '15', '30', '45'];
   startHour: number = 8;
   endHour: number = 18;
   currentTimePosition: number = 0;
-  events: { [key: string]: Event[] } = {}; // Keyed by date in 'M/d' format
   processedEvents: ProcessedEvent[] = [];
   maxColumns: number = 4; // Set maximum columns to 2 for example
   overflowedEvents: { [key: string]: Event[] } = {}; // Store overflowed events
@@ -38,7 +38,6 @@ export class CalendarDayViewComponent implements OnInit {
     this.generateHours();
     this.updateCurrentTimeLine();
     setInterval(() => this.updateCurrentTimeLine(), 60000); // Update every minute
-    this.loadEvents();
     this.processEvents();
   }
 

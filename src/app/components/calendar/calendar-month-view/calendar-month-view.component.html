@@ -7,11 +7,16 @@
         <div class="event-list">
           <div *ngFor="let event of events[format(day, 'M/d')]">
             <div class="event-container">
-              <div class="time-container">
-                {{ event.startTime | date: 'shortTime' }} - {{ event.endTime | date: 'shortTime' }}
-              </div>
-              <div class="supervisor">
-                {{ event.supervisor }}
+              <div class="event-details">
+                <div class="time-outer">
+                  <div class="time-container">
+                    <img src="\assets\icons\time.svg">
+                    {{ event.startTime }} - {{ event.endTime }}
+                  </div>
+                </div>
+                <div class="marshal-container">
+                  {{ event.marshal }}
+                </div>
               </div>
             </div>
           </div>

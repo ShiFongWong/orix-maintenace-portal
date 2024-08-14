@@ -22,7 +22,7 @@
         </div>
       </div>
       <div class="marshal-container">
-        {{ eventData.event.supervisor }}
+        {{ eventData.event.marshal }}
       </div>
       <div class="ticket-container">Ticket {{ eventData.event.ticketId }}</div>
 
@@ -38,7 +38,7 @@
         <li *ngFor="let event of overflowedEvents[key]">
           <div class="message-container">
             {{ event.startTime }} - {{ event.endTime }} 
-            <div class="message-name">{{ event.supervisor }}</div>
+            <div class="message-name">{{ event.marshal }}</div>
             {{ event.ticketId }}
           </div>
         </li>

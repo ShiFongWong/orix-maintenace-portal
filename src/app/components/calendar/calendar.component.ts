@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { CommonModule,DatePipe  } from '@angular/common';
 import { MatDatepickerModule, MatDatepicker  } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
@@ -11,6 +11,12 @@ import { CalendarDayViewComponent } from './calendar-day-view/calendar-day-view.
 import { CalendarWeekViewComponent } from './calendar-week-view/calendar-week-view.component';
 import { CalendarMonthViewComponent } from './calendar-month-view/calendar-month-view.component';
 
+interface Event {
+  startTime: string;
+  endTime: string;
+  marshal: string;
+  ticketId: string;
+}
 @Component({
   selector: 'app-calendar',
   standalone: true,
@@ -30,10 +36,12 @@ import { CalendarMonthViewComponent } from './calendar-month-view/calendar-month
   templateUrl: './calendar.component.html',
   styleUrl: './calendar.component.css',
 })
-export class CalendarComponent {
+export class CalendarComponent implements OnInit{
   @ViewChild('picker') datepicker!: MatDatepicker<Date>;
   @Input() view: 'day' | 'week' | 'month' = 'day';
   currentDate: Date = new Date();
+  events: { [key: string]: Event[] } = {}; // Keyed by date in 'M/d' format
+
   get displayDate(): { datePart: string, dayPart: string } {
     switch (this.view) {
       case 'day':
@@ -50,8 +58,68 @@ export class CalendarComponent {
         return { datePart: '', dayPart: '' };
     }
   }
-  
+  ngOnInit() {
+    this.loadEvents();
+  }
 
+  loadEvents() {
+    // Example event data
+    this.events = {
+      '8/12': [
+        { startTime: "8:00", endTime: "8:15", marshal: 'Jumaana binti Khaleel John Doe My Name Is You Try To Guess??', ticketId: '12345678' },
+        { startTime: "8:45", endTime: "9:15", marshal: 'Jumaana binti Khaleel', ticketId: '12345678' },
+        { startTime: "9:30", endTime: "10:15", marshal: 'John Doe', ticketId: '12345678' },
+        { startTime: "9:30", endTime: "10:15", marshal: 'John Doe', ticketId: '12345678' },
+        { startTime: "9:30", endTime: "10:15", marshal: 'John Doe My Name Is You Try To Guess??', ticketId: '12345678' },
+        { startTime: "10:15", endTime: "10:30", marshal: 'John Doe', ticketId: '12345678' },
+        { startTime: "10:15", endTime: "10:30", marshal: 'John Doe', ticketId: '12345678' },
+        { startTime: "10:15", endTime: "10:30", marshal: 'John Doe', ticketId: '12345678' },
+        { startTime: "10:30", endTime: "11:00", marshal: 'John Doe', ticketId: '12345678' },
+        { startTime: "10:30", endTime: "11:00", marshal: 'John Doe', ticketId: '12345678' },
+        { startTime: "10:30", endTime: "11:00", marshal: 'John Doe', ticketId: '12345678' },
+        { startTime: "11:00", endTime: "12:00", marshal: 'John Doe', ticketId: '12345678' },
+        { startTime: "8:00", endTime: "12:15", marshal: 'John Doe', ticketId: '12345678' },
+        { startTime: "9:30", endTime: "11:00", marshal: 'John Doe', ticketId: '12345678' },
+        { startTime: "12:15", endTime: "12:45", marshal: 'John Doeohn John Doe My Name Is You Try To Guess??ohn John Doe My Name Is You Try To Guess??', ticketId: '12345678' },
+        { startTime: "13:15", endTime: "14:45", marshal: 'John Doe', ticketId: '12345678' },
+        { startTime: "13:15", endTime: "14:45", marshal: 'John John Doe My Name Is You Try To Guess??', ticketId: '12345678' },
+        { startTime: "13:15", endTime: "14:45", marshal: 'John John Doe My Name Is You Try To Guess??', ticketId: '12345678' },
+        { startTime: "13:15", endTime: "14:45", marshal: 'John John Doe My Name Is You Try To Guess??', ticketId: '12345678' },
+        { startTime: "13:15", endTime: "14:45", marshal: 'John John Doe My Name Is You Try To Guess??', ticketId: '12345678' },
+        { startTime: "13:15", endTime: "14:45", marshal: 'John John Doe My Name Is You Try To Guess??', ticketId: '12345678' },
+        { startTime: "13:15", endTime: "14:45", marshal: 'John Doe My Name Is You Try To Guess??', ticketId: '12345678' },
+
+      ],
+        '8/11': [
+          { startTime: "13:15", endTime: "14:45", marshal: 'John Doe My Name Is You Try To Guess??', ticketId: '12345678' },
+      ],
+        '8/15': [
+        { startTime: "13:15", endTime: "14:45", marshal: 'John Doe My Name Is You Try To Guess??', ticketId: '12345678' },
+        { startTime: "13:15", endTime: "14:45", marshal: 'John Doe My Name Is You Try To Guess??', ticketId: '12345678' },
+      ]
+    };
+  // Sorting each date's events by startTime and then by endTime
+  for (let date in this.events) {
+    this.events[date].sort((a, b) => {
+      const startTimeComparison = this.compareTime(a.startTime, b.startTime);
+      if (startTimeComparison !== 0) {
+        return startTimeComparison;
+      }
+      return this.compareTime(a.endTime, b.endTime);
+    });
+  }
+}
+
+// Helper method to compare time strings
+compareTime(time1: string, time2: string): number {
+  const [hours1, minutes1] = time1.split(':').map(Number);
+  const [hours2, minutes2] = time2.split(':').map(Number);
+  
+  if (hours1 !== hours2) {
+    return hours1 - hours2;
+  }
+  return minutes1 - minutes2;
+}
   formatDate(date: Date, format: string): string {
     const datePipe = new DatePipe('en-US');
     return datePipe.transform(date, format) || '';

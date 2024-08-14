@@ -20,12 +20,11 @@ interface CalendarNote {
 }
 
 interface Event {
-  startTime: Date;
-  endTime: Date;
-  supervisor: string;
+  startTime: string;
+  endTime: string;
+  marshal: string;
   ticketId: string;
 }
-
 @Component({
   selector: 'app-month-view',
   standalone: true,
@@ -36,31 +35,19 @@ interface Event {
 
 export class CalendarMonthViewComponent implements OnInit {
   @Input() date: Date = new Date();
+  @Input() events: { [key: string]: Event[] } = {}; // Keyed by date in 'M/d' format
+
   calendarDays: Date[][] = [];
   weekDays = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY'];
   notes: CalendarNote[] = [];
   isAddingNote = false;
   newNoteText = '';
   selectedDate: Date | null = null;
-  events: { [key: string]: Event[] } = {}; // Keyed by date in 'M/d' format
 
   ngOnInit() {
     this.generateCalendarDays(this.date);
-    this.loadEvents();
   }
 
-  loadEvents() {
-    // Example event data
-    this.events = {
-      '8/11': [
-        { startTime: new Date(), endTime: new Date(), supervisor: 'John Doe', ticketId: '12345' }
-      ],
-      '8/15': [
-        { startTime: new Date(), endTime: new Date(), supervisor: 'Jane Doe', ticketId: '67890' },
-        { startTime: new Date(), endTime: new Date(), supervisor: 'Jane Doe', ticketId: '67890' }
-      ]
-    };
-  }
 
   generateCalendarDays(date: Date) {
     const start = startOfWeek(startOfMonth(date));
