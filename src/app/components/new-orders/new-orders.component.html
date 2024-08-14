@@ -1,91 +1,93 @@
 <div class="order-container">
   <div class="header">New Work Order</div>
-  <div class="order-details-container">
-    <div class="order-input-items">
-      <label class="order-input-label">Client Name:</label>
-      <input type="search" class="search-input width-unset"
-             placeholder=""/>
-    </div>
-    <div class="border-line"></div>
+  <div class="main-content">
+    <div class="order-details-container">
+      <div class="order-input-items">
+        <label class="order-input-label">Client Name:</label>
+        <input type="search" class="search-input width-unset"
+               placeholder=""/>
+      </div>
+      <div class="border-line"></div>
 
-    <div class="order-input-items">
-      <label class="order-input-label">Appointment Date:</label>
-      <input type="search" class="search-input width-unset"
-             placeholder=""/>
-    </div>
-    <div class="border-line"></div>
+      <div class="order-input-items">
+        <label class="order-input-label">Appointment Date:</label>
+        <input type="search" class="search-input width-unset"
+               placeholder=""/>
+      </div>
+      <div class="border-line"></div>
 
-    <div class="order-input-items">
-      <label class="order-input-label">Plate Number:</label>
-      <input type="search" class="search-input width-unset"
-             placeholder=""/>
-    </div>
-    <div class="border-line"></div>
+      <div class="order-input-items">
+        <label class="order-input-label">Plate Number:</label>
+        <input type="search" class="search-input width-unset"
+               placeholder=""/>
+      </div>
+      <div class="border-line"></div>
 
-    <div class="order-input-items">
-      <label class="order-input-label">Car Mileage:</label>
-      <input type="search" class="search-input width-unset"
-             placeholder=""/>
-    </div>
-    <div class="border-line"></div>
+      <div class="order-input-items">
+        <label class="order-input-label">Car Mileage:</label>
+        <input type="search" class="search-input width-unset"
+               placeholder=""/>
+      </div>
+      <div class="border-line"></div>
 
-    <div class="order-input-items">
-      <label class="order-input-label">Service Type:</label>
-      <select  id="countries" class="form-select">
-        <option selected>Select a service type</option>
-      </select>
-    </div>
-    <div class="border-line"></div>
+      <div class="order-input-items">
+        <label class="order-input-label">Service Type:</label>
+        <select  id="countries" class="form-select">
+          <option selected>Select a service type</option>
+        </select>
+      </div>
+      <div class="border-line"></div>
 
 
-    <div class="order-input-items">
-      <label class="order-input-label">Category:</label>
-      <div class="category-radio">
+      <div class="order-input-items">
+        <label class="order-input-label">Category:</label>
+        <div class="category-radio">
 
-        <div class="category-item">
-          <input id="category-option-1" type="radio" name="categories" value="routine" checked>
-          <label for="category-option-1">
-            Routine
-          </label>
+          <div class="category-item">
+            <input id="category-option-1" type="radio" name="categories" value="routine" checked>
+            <label for="category-option-1">
+              Routine
+            </label>
+          </div>
+
+          <div class="category-item">
+            <input id="category-option-2" type="radio" name="categories" value="accident">
+            <label for="category-option-2">
+              Accident
+            </label>
+          </div>
         </div>
 
-        <div class="category-item">
-          <input id="category-option-2" type="radio" name="categories" value="accident">
-          <label for="category-option-2">
-            Accident
-          </label>
+      </div>
+      <div class="border-line"></div>
+
+      <div class="order-input-items">
+        <label class="order-input-label">Workshop:</label>
+        <select class="form-select">
+          <option selected>Select a workshop</option>
+        </select>
+      </div>
+      <div class="border-line"></div>
+
+      <div class="order-input-items">
+        <label class="order-input-label">Status:</label>
+        <div class="category-filter" role="group">
+          @for (item of categoryList; track item; let i = $index; let first = $first; let last = $last) {
+            <button (click)="onClickCategory(item.type)" type="button"
+                    [ngClass]="['btn', item.active ? 'btn-active' : '', first ? 'btn--first' : '', last ? 'btn--last' : '', (!first && !last) ? 'btn--middle' : '']">
+              {{ item.type }}
+            </button>
+          }
         </div>
       </div>
+      <div class="border-line"></div>
 
-    </div>
-    <div class="border-line"></div>
-
-    <div class="order-input-items">
-      <label class="order-input-label">Workshop:</label>
-      <select class="form-select">
-        <option selected>Select a workshop</option>
-      </select>
-    </div>
-    <div class="border-line"></div>
-
-    <div class="order-input-items">
-      <label class="order-input-label">Status:</label>
-      <div class="category-filter" role="group">
-        @for (item of categoryList; track item; let i = $index; let first = $first; let last = $last) {
-          <button (click)="onClickCategory(item.type)" type="button"
-                  [ngClass]="['btn', item.active ? 'btn-active' : '', first ? 'btn--first' : '', last ? 'btn--last' : '', (!first && !last) ? 'btn--middle' : '']">
-            {{ item.type }}
-          </button>
-        }
+      <div class="order-input-items">
+        <label class="order-input-label">Remark:</label>
+        <textarea rows="5"
+                  cols="20" class="search-input width-unset"
+                  placeholder=""></textarea>
       </div>
-    </div>
-    <div class="border-line"></div>
-
-    <div class="order-input-items">
-      <label class="order-input-label">Remark:</label>
-      <textarea rows="5"
-                cols="20" class="search-input width-unset"
-                placeholder=""></textarea>
     </div>
   </div>
 

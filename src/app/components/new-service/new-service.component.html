@@ -1,0 +1,120 @@
+<div class="order-container">
+  <div class="header">New Service</div>
+  <div class="main-content">
+    <div class="order-details-container">
+      <div class="order-input-items">
+        <label class="order-input-label">Service Type:</label>
+        <input type="search" class="search-input width-unset"
+               placeholder=""/>
+      </div>
+      <div class="border-line"></div>
+
+      <div class="order-input-items">
+        <label class="order-input-label">Make:</label>
+        <input type="search" class="search-input width-unset"
+               placeholder=""/>
+      </div>
+      <div class="border-line"></div>
+
+      <div class="order-input-items">
+        <label class="order-input-label">Model:</label>
+        <input type="search" class="search-input width-unset"
+               placeholder=""/>
+      </div>
+      <div class="border-line"></div>
+
+      <div class="order-input-items">
+        <label class="order-input-label">Year:</label>
+        <input type="search" class="search-input width-unset"
+               placeholder=""/>
+      </div>
+      <div class="border-line"></div>
+
+      <div class="order-input-items">
+        <label class="order-input-label">Active Category:</label>
+        <div class="category-radio">
+
+          <div class="category-item">
+            <input id="category-option-1" type="radio" name="categories" value="active" checked>
+            <label for="category-option-1">
+              Active
+            </label>
+          </div>
+
+          <div class="category-item">
+            <input id="category-option-2" type="radio" name="categories" value="inactive">
+            <label for="category-option-2">
+              Inactive
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div (click)="isAddingDetail = !isAddingDetail" *ngIf="!isAddingDetail" class="add-details-col">
+      <div class="add-details-wrapper">
+        <div class="add-button">
+          <img src="/assets/icons/add-micro.svg" alt="">
+        </div>
+        <span>Add Service Elements</span>
+      </div>
+    </div>
+
+    <div (click)="isAddingDetail = !isAddingDetail" *ngIf="isAddingDetail" class="add-details-col">
+      <div class="add-details-wrapper">
+        <div class="add-button">
+          <img height="10" width="10" src="/assets/icons/close.svg" alt="">
+        </div>
+        <span>Cancel</span>
+      </div>
+    </div>
+
+    <div *ngIf="isAddingDetail" class="details-container">
+      <h2 class="details-title">Service Elements</h2>
+      <table class="details-table">
+        <thead>
+        <tr>
+          <th class="col-no">No.</th>
+          <th class="col-items">Element</th>
+          <th class="col-space"></th>
+          <th class="col-delete"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of detailsList; index as i">
+          <td>{{ i + 1 }}</td>
+          <td>
+            <input [(ngModel)]="item.element" type="search" class="search-input width-full" placeholder=""/>
+          </td>
+          <td></td>
+          <td (click)="deleteDetailsItem(i)">
+            <div class="delete-button">
+              <span class="icon icon-delete"></span>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+          <td colspan="5">
+            <div (click)="addDetailsItem()" class="add-details-wrapper">
+              <div class="add-button">
+                <img src="/assets/icons/add-micro.svg" alt="">
+              </div>
+              <span>Add a Service Element</span>
+            </div>
+          </td>
+        </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+  <div class="footer">
+    <button class="cancel-button">
+      <span>Cancel</span>
+    </button>
+    <button routerLink="/orders/new" class="submit-button">
+      <span>Submit</span>
+    </button>
+  </div>
+</div>

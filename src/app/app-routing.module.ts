@@ -14,6 +14,14 @@ import {NewOrdersComponent} from "./components/new-orders/new-orders.component";
 import {EditOrdersComponent} from "./components/edit-orders/edit-orders.component";
 import {NewTicketComponent} from "./components/new-ticket/new-ticket.component";
 import {EditTicketComponent} from "./components/edit-ticket/edit-ticket.component";
+import {NewWorkshopComponent} from "./components/new-workshop/new-workshop.component";
+import {EditWorkshopComponent} from "./components/edit-workshop/edit-workshop.component";
+import {NewVehicleComponent} from "./components/new-vehicle/new-vehicle.component";
+import {EditVehicleComponent} from "./components/edit-vehicle/edit-vehicle.component";
+import {NewUserComponent} from "./components/new-user/new-user.component";
+import {EditUserComponent} from "./components/edit-user/edit-user.component";
+import {NewServiceComponent} from "./components/new-service/new-service.component";
+import {EditServiceComponent} from "./components/edit-service/edit-service.component";
 
 const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
@@ -27,9 +35,17 @@ const routes: Routes = [
   { path: 'tickets/edit', component: EditTicketComponent },
   { path: 'calendar', component: CalendarComponent },
   { path: 'workshops', component: WorkshopsComponent },
+  { path: 'workshops/new', component: NewWorkshopComponent },
+  { path: 'workshops/edit', component: EditWorkshopComponent },
   { path: 'vehicles', component: VehiclesComponent },
+  { path: 'vehicles/new', component: NewVehicleComponent },
+  { path: 'vehicles/edit', component: EditVehicleComponent },
   { path: 'users', component: UsersComponent },
+  { path: 'users/new', component: NewUserComponent },
+  { path: 'users/edit', component: EditUserComponent },
   { path: 'services', component: ServicesComponent },
+  { path: 'services/new', component: NewServiceComponent },
+  { path: 'services/edit', component: EditServiceComponent },
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' }, // Redirect to dashboard by default
   { path: '**', redirectTo: '/dashboard' } // Wildcard route for a 404 page (optional)
 ];

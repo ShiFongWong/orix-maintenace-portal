@@ -1,32 +1,29 @@
 <div class="dashboard-container">
-  <div class="header">
-    Dashboard
-  </div>
-  <form class="form-container">
-    <select  id="countries" class="form-select">
-      <option selected>All Branches</option>
-      <option *ngFor="let item of locationList" value="{{item.value}}">{{ item.location }}</option>
-    </select>
-  </form>
-  <div class="information-container">
-    <div *ngFor="let item of statusList; let i = index" class="information-items">
-      <div [ngClass]="['vertical-line', 'line-' + (i + 1)]"></div>
-      <div class="information-tab">
-        <div class="information-status">
-          {{item.status}}
-        </div>
-        <div class="information-value">
-          {{item.value}}
+  <div class="header">Dashboard</div>
+  <div class="main-content">
+    <div>
+      <form class="form-container">
+        <select id="countries" class="form-select">
+          <option selected>All Branches</option>
+          <option *ngFor="let item of locationList" value="{{item.value}}">{{ item.location }}</option>
+        </select>
+      </form>
+      <div class="information-container">
+        <div *ngFor="let item of statusList; let i = index" class="information-items">
+          <div [ngClass]="['vertical-line', 'line-' + (i + 1)]"></div>
+          <div class="information-tab">
+            <div class="information-status">{{item.status}}</div>
+            <div class="information-value">{{item.value}}</div>
+          </div>
         </div>
       </div>
     </div>
+    <canvas id="myPieChart"></canvas>
   </div>
-  <canvas id="myPieChart"></canvas>
   <div class="footer">
     <button class="export-button">
       <img src="/assets/icons/export.svg" alt="">
       <span>Export</span>
     </button>
   </div>
-
 </div>

@@ -31,6 +31,14 @@ import { NewOrdersComponent } from './components/new-orders/new-orders.component
 import { EditOrdersComponent } from './components/edit-orders/edit-orders.component';
 import { NewTicketComponent } from './components/new-ticket/new-ticket.component';
 import { EditTicketComponent } from './components/edit-ticket/edit-ticket.component';
+import { NewWorkshopComponent } from './components/new-workshop/new-workshop.component';
+import { EditWorkshopComponent } from './components/edit-workshop/edit-workshop.component';
+import { NewVehicleComponent } from './components/new-vehicle/new-vehicle.component';
+import { EditVehicleComponent } from './components/edit-vehicle/edit-vehicle.component';
+import { EditUserComponent } from './components/edit-user/edit-user.component';
+import { NewUserComponent } from './components/new-user/new-user.component';
+import { NewServiceComponent } from './components/new-service/new-service.component';
+import { EditServiceComponent } from './components/edit-service/edit-service.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,7 +56,15 @@ import { EditTicketComponent } from './components/edit-ticket/edit-ticket.compon
     NewOrdersComponent,
     EditOrdersComponent,
     NewTicketComponent,
-    EditTicketComponent
+    EditTicketComponent,
+    NewWorkshopComponent,
+    EditWorkshopComponent,
+    NewVehicleComponent,
+    EditVehicleComponent,
+    EditUserComponent,
+    NewUserComponent,
+    NewServiceComponent,
+    EditServiceComponent
   ],
   imports: [
     BrowserModule,
