@@ -17,9 +17,10 @@
                   </div>
 
             </div>
-            <button class="left-arrow"><img src="assets/icons/calendar-left-arrow.svg"></button>
-            <button class="right-arrow"><img src="assets/icons/calendar-right-arrow.svg"></button>
-            
+            <div class="date-btn">
+                <button class="left-arrow"><img src="assets/icons/calendar-left-arrow.svg"></button>
+                <button class="right-arrow"><img src="assets/icons/calendar-right-arrow.svg"></button>
+            </div>
                 <div class="current-date">
                     Today
                 </div>
@@ -35,7 +36,7 @@
             
         </div>
         <div class="date-information-container">
-            <div class="marshal-container">
+            <div *ngIf="view!='month'" class="marshal-container">
                 <div class="marshal-title">
                     <div>MARSHAL</div>
                     <div>ASSIGNMENTS</div>
@@ -44,12 +45,12 @@
 
                 </div>
             </div>
-            <div class="calendar-container">
+            <div [ngClass]="{ 'full-width': view=='month', 'fixed-width': view!='month' }" class="calendar-container">
                 <div class="calendar">
                     <ng-container [ngSwitch]="view" >
-                        <app-day-view *ngSwitchCase="'day'" [date]="currentDate"></app-day-view>
-                        <app-week-view *ngSwitchCase="'week'" [date]="currentDate"></app-week-view>
-                        <app-month-view *ngSwitchCase="'month'" [date]="currentDate"></app-month-view>
+                        <app-day-view *ngSwitchCase="'day'" [date]="currentDate" [events]="events"></app-day-view>
+                        <app-week-view *ngSwitchCase="'week'" [date]="currentDate" [events]="events"></app-week-view>
+                        <app-month-view *ngSwitchCase="'month'" [date]="currentDate" [events]="events"></app-month-view>
                     </ng-container>
                 </div>
             </div>

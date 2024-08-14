@@ -3,11 +3,18 @@
       padding-bottom: 60px;
       .title-container{
         display: flex;
-    }
+      }
     .date-operation-container{
         display: flex;
-        height: 40px;
+        flex-wrap: wrap;
+        height: fit-content;
+        width: fit-content;
+        justify-content: center;
         gap: 8px;
+        .date-btn{
+          display: flex;
+          border: none;
+          gap: 8px;
           button {
             width: 40px;
             height: 40px;
@@ -19,6 +26,8 @@
             justify-content: center;
             align-items: center;
           }
+        }
+
         .current-date{
           background-color: #00A799;
           padding: 13px 24px;
@@ -65,14 +74,20 @@
             }
         }
         .calendar-container{
-          width: 70%;
-            padding: 30px 15px;
-            margin: 10px;
-            background-color: #fff;
-            border: 1px solid #ddd;
-            box-shadow: 0 0 16px 0 #3D3F6745;
+          min-width: 300px;
+          padding: 30px 15px;
+          margin: 10px;
+          background-color: #fff;
+          border: 1px solid #ddd;
+          box-shadow: 0 0 16px 0 #3D3F6745;
         }
-    }
+        .full-width{
+          width: 95%;
+        }
+        .fixed-width{
+          width: calc(95% - 274px);
+        }
+      }
     }
 
     .bottom-bar {

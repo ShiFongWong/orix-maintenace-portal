@@ -2,34 +2,91 @@
   display: flex;
   flex-direction: column;
 }
-.day-row {
-    text-align: center;
-    padding: 10px;
-  }
-  .day-name {
-    font-weight: bold;
-  }
-  .day-number {
-    font-size: 1.2em;
-  }
-.day-slot{
+
+.day-slot {
   display: flex;
   border-bottom: 1px solid #E0E0E0;
 }
-.event-container{
+
+.day-row {
+  width: 120px; /* Fixed width for date column */
+  padding: 10px;
+  text-align: left;
+  flex-shrink: 0;
+}
+
+.day-number {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.day-name {
+  font-weight: normal;
+}
+
+.event-list {
+  width: calc(100% - 140px);
+  flex-grow: 1;
+  padding: 10px 0;
+}
+
+.event-container {
   background-color: #83EEE980;
   border: 2px solid #3EDCD5;
   border-radius: 16px;
+  margin-bottom: 5px;
+  overflow: hidden;
+}
+
+.event-details {
+  padding: 8px;
   display: flex;
-  .time-container{
-    background-color: #F3FFFF;
-  }
-  .supervisor{
-font-weight: 700;
-font-size: 16px;
+  align-items: center;
+}
 
-  }
-  .ticket{
+.time-outer {
+  width: 126px;
+  flex-shrink: 0;
+}
 
-  }
+.time-container {
+  display: flex;
+  width: fit-content;
+  background-color: #F3FFFF;
+  padding: 6px 6px 4px 4px;
+  border-radius: 6px;
+  gap: 8px;
+  font-size: 12px;
+  align-items: center;
+}
+
+.time-container img {
+  width: 18px;
+  height: 18px;
+}
+
+.marshal-container {
+  flex-grow: 1;
+  font-size: 16px;
+  font-weight: 700;
+  color: #024441;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ticket-container {
+  font-size: 14px;
+  color: #2A706B;
+  font-weight: 400;
+}
+
+.no-event {
+  background-color: #F5F5F5;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 22px;
+  text-align: center;
+  padding: 8px 0;
+  border-radius: 4px;
 }

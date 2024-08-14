@@ -3,12 +3,11 @@ import { CommonModule } from '@angular/common';
 import { startOfWeek, addDays, format } from 'date-fns';
 
 interface Event {
-  startTime: Date;
-  endTime: Date;
-  supervisor: string;
+  startTime: string;
+  endTime: string;
+  marshal: string;
   ticketId: string;
 }
-
 @Component({
   selector: 'app-week-view',
   standalone: true,
@@ -19,12 +18,11 @@ interface Event {
 
 export class CalendarWeekViewComponent implements OnInit{
   @Input() date: Date = new Date(); // Add this line
+  @Input() events: { [key: string]: Event[] } = {}; // Keyed by date in 'M/d' format
   weekDays: Date[] = [];
-  events: { [key: string]: Event[] } = {}; // Keyed by date in 'M/d' format
 
   ngOnInit() {
     this.setupWeekDays();
-    this.loadEvents();
   }
 
   setupWeekDays() {
@@ -32,18 +30,6 @@ export class CalendarWeekViewComponent implements OnInit{
     this.weekDays = Array.from({ length: 7 }, (_, i) => addDays(startOfWeekDate, i));
   }
 
-  loadEvents() {
-    // Example event data
-    this.events = {
-      '8/11': [
-        { startTime: new Date(), endTime: new Date(), supervisor: 'John Doe', ticketId: '12345' }
-      ],
-      '8/15': [
-        { startTime: new Date(), endTime: new Date(), supervisor: 'Jane Doe', ticketId: '67890' },
-        { startTime: new Date(), endTime: new Date(), supervisor: 'Jane Doe', ticketId: '67890' }
-      ]
-    };
-  }
 
   hasEvents(day: Date): boolean {
     const dateString = format(day, 'M/d');
