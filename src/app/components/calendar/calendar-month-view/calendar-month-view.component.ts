@@ -43,7 +43,10 @@ export class CalendarMonthViewComponent implements OnInit {
   isAddingNote = false;
   newNoteText = '';
   selectedDate: Date | null = null;
-
+  showMore: boolean = false;
+  popoverPosition = { top: 0, left: 0 };
+  currentPopoverDay: any;
+  
   ngOnInit() {
     this.generateCalendarDays(this.date);
   }
@@ -102,6 +105,25 @@ export class CalendarMonthViewComponent implements OnInit {
     const dateString = format(day, 'M/d');
     return this.events[dateString] && this.events[dateString].length > 0;
   }
+
+  showPopover(event: MouseEvent, day: Date) {
+    this.showMore = true;
+    this.popoverPosition = {
+      top: event.clientY + window.scrollY, // Adjust Y position based on mouse location
+      left: event.clientX + window.scrollX // Adjust X position based on mouse location
+    };
+    this.currentPopoverDay = day;
+  }
+
+  hidePopover() {
+    this.showMore = false;
+  }
+
+  checkmore(day: Date): boolean {
+    const eventsForDay = this.events[format(day, 'M/d')] || [];
+    return eventsForDay.length > 8;
+  }
+
   format(date: Date, formatString: string): string {
     return format(date, formatString);
   }

@@ -42,7 +42,15 @@
                     <div>ASSIGNMENTS</div>
                 </div>
                 <div class="marshal-content">
-
+                    <table>
+                        <tbody>
+                          <tr *ngFor="let marshal of marshalList">
+                            <td>{{ marshal.name }}</td>
+                            <td>{{ marshal.count }}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      
                 </div>
             </div>
             <div [ngClass]="{ 'full-width': view=='month', 'fixed-width': view!='month' }" class="calendar-container">

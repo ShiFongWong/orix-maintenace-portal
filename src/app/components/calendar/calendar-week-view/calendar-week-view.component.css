@@ -11,18 +11,19 @@
 .day-row {
   width: 120px; /* Fixed width for date column */
   padding: 10px;
-  text-align: left;
+  text-align: right;
   flex-shrink: 0;
+  .day-number {
+    font-size: 1.2em;
+    font-weight: bold;
+  }
+  
+  .day-name {
+    font-weight: normal;
+  }
 }
 
-.day-number {
-  font-size: 1.2em;
-  font-weight: bold;
-}
 
-.day-name {
-  font-weight: normal;
-}
 
 .event-list {
   width: calc(100% - 140px);

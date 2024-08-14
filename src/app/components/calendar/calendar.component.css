@@ -1,5 +1,9 @@
 .calendar-page-container{
+  display: grid;
+  grid-template-columns: repeat(12,1fr);
     .content-container{
+      grid-column-start: 3;
+      grid-column-end: 13;
       padding-bottom: 60px;
       .title-container{
         display: flex;

@@ -41,6 +41,8 @@ export class CalendarComponent implements OnInit{
   @Input() view: 'day' | 'week' | 'month' = 'day';
   currentDate: Date = new Date();
   events: { [key: string]: Event[] } = {}; // Keyed by date in 'M/d' format
+  marshalCounts: { [key: string]: number } = {};
+  marshalList: { name: string, count: number }[] = [];
 
   get displayDate(): { datePart: string, dayPart: string } {
     switch (this.view) {
@@ -88,7 +90,6 @@ export class CalendarComponent implements OnInit{
         { startTime: "13:15", endTime: "14:45", marshal: 'John John Doe My Name Is You Try To Guess??', ticketId: '12345678' },
         { startTime: "13:15", endTime: "14:45", marshal: 'John John Doe My Name Is You Try To Guess??', ticketId: '12345678' },
         { startTime: "13:15", endTime: "14:45", marshal: 'John Doe My Name Is You Try To Guess??', ticketId: '12345678' },
-
       ],
         '8/11': [
           { startTime: "13:15", endTime: "14:45", marshal: 'John Doe My Name Is You Try To Guess??', ticketId: '12345678' },
@@ -108,6 +109,7 @@ export class CalendarComponent implements OnInit{
       return this.compareTime(a.endTime, b.endTime);
     });
   }
+  this.countMarshals();
 }
 
 // Helper method to compare time strings
@@ -143,5 +145,29 @@ compareTime(time1: string, time2: string): number {
     // The selected date will be automatically updated in the currentDate property
     // We just need to trigger change detection
     this.currentDate = new Date(this.currentDate);
+  }
+
+  countMarshals() {
+    const marshalCounts: { [key: string]: number } = {};
+  
+    for (let date in this.events) {
+      this.events[date].forEach(event => {
+        const marshal = event.marshal;
+        if (marshalCounts[marshal]) {
+          marshalCounts[marshal]++;
+        } else {
+          marshalCounts[marshal] = 1;
+        }
+      });
+    }
+  
+    this.marshalCounts = marshalCounts;
+    this.generateMarshalList()
+  }
+  generateMarshalList() {
+    this.marshalList = Object.keys(this.marshalCounts).map(marshal => ({
+      name: marshal,
+      count: this.marshalCounts[marshal]
+    }));
   }
 }
