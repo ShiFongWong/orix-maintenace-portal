@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {addWeeks, endOfWeek, startOfWeek} from "date-fns";
+import {CompatibleDate} from "ng-zorro-antd/date-picker";
 
 @Component({
   selector: 'app-tickets',
@@ -63,6 +65,48 @@ export class TicketsComponent {
   isSearching = false;
   searchQuery = '';
   isFiltering = false;
+  CalendarSeparator = "To";
+  selectedRange: Date[] = [];
+  totalFilter = 0;
+
+  setToday(): void {
+    const today = new Date();
+    this.selectedRange = [today, today];
+  }
+
+  setTomorrow(): void {
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    this.selectedRange = [tomorrow, tomorrow];
+  }
+
+  setThisWeek(): void {
+    const today = new Date();
+    this.selectedRange = [startOfWeek(today), endOfWeek(today)];
+  }
+
+  setNextWeek(): void {
+    const nextWeek = addWeeks(new Date(), 1);
+    this.selectedRange = [startOfWeek(nextWeek), endOfWeek(nextWeek)];
+  }
+
+  cancel(): void {
+    this.selectedRange = [];
+    // Add logic to close the picker if needed
+  }
+
+  apply(): void {
+    // Add logic to apply the selected date range
+    console.log('Applied range:', this.selectedRange);
+  }
+
+  onOk(result: CompatibleDate | null): void {
+    if (Array.isArray(result)) {
+      this.selectedRange = result;
+    } else {
+      this.selectedRange = [];
+    }
+  }
 
   onSearch() {
     this.isSearching = this.searchQuery.length > 0;
@@ -98,6 +142,7 @@ export class TicketsComponent {
   }
 
   private applyFilters() {
+    this.totalFilter = 0;
     // Start with all work orders
     let filteredList = [...this.workOrders];
 
@@ -107,6 +152,7 @@ export class TicketsComponent {
       filteredList = filteredList.filter(item =>
         checkedCategories.includes(item.ticketCategory)
       );
+      this.totalFilter++;
     }
 
     const activeStatus = this.statusList.find(cat => cat.checked)?.type;
@@ -115,6 +161,8 @@ export class TicketsComponent {
       filteredList = filteredList.filter(item =>
         item.status.toLowerCase() === activeStatus.toLowerCase()
       );
+
+      this.totalFilter++;
     }
 
     // Apply category filter
@@ -124,6 +172,8 @@ export class TicketsComponent {
       filteredList = filteredList.filter(item =>
         item.woCategory.toLowerCase() === activeCategory.toLowerCase()
       );
+
+      this.totalFilter++;
     }
 
     // Apply search filter

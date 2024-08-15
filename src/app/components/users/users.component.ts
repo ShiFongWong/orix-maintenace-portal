@@ -85,6 +85,8 @@ export class UsersComponent {
   isSearching = false;
   searchQuery = '';
   isFiltering = false;
+
+  totalFilter = 0;
   minPrice = 0;
   maxPrice = 9999999;
 
@@ -120,6 +122,8 @@ export class UsersComponent {
   }
 
   private applyFilters() {
+
+    this.totalFilter = 0;
     // Start with all work orders
     let filteredList = [...this.employees];
 
@@ -132,6 +136,7 @@ export class UsersComponent {
         filteredList = filteredList.filter(item =>
           checkedAreas.includes(item.area)
         );
+        this.totalFilter++;
       }
     }
     console.log(filteredList);
@@ -144,6 +149,7 @@ export class UsersComponent {
         filteredList = filteredList.filter(item =>
           checkedDepartments.includes(item.department)
         );
+        this.totalFilter++;
       }
     }
 
@@ -154,6 +160,7 @@ export class UsersComponent {
         filteredList = filteredList.filter(item =>
           checkedRoles.includes(item.role)
         );
+        this.totalFilter++;
       }
     }
 

@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {addWeeks, endOfWeek, startOfWeek} from "date-fns";
+import {CompatibleDate} from "ng-zorro-antd/date-picker";
 
 @Component({
   selector: 'app-orders',
@@ -46,6 +48,54 @@ export class OrdersComponent {
   isSearching = false;
   searchQuery = '';
   isFiltering = false;
+  CalendarSeparator = "To";
+  selectedRange: Date[] = [];
+  totalFilter = 0;
+  minPrice = 0;
+  maxPrice = 999999;
+
+  setToday(): void {
+    const today = new Date();
+    this.selectedRange = [today, today];
+  }
+
+  setTomorrow(): void {
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    this.selectedRange = [tomorrow, tomorrow];
+  }
+
+  setThisWeek(): void {
+    const today = new Date();
+    this.selectedRange = [startOfWeek(today), endOfWeek(today)];
+  }
+
+  setNextWeek(): void {
+    const nextWeek = addWeeks(new Date(), 1);
+    this.selectedRange = [startOfWeek(nextWeek), endOfWeek(nextWeek)];
+  }
+
+  cancel(): void {
+    this.selectedRange = [];
+    // Add logic to close the picker if needed
+  }
+
+  apply(): void {
+    // Add logic to apply the selected date range
+    console.log('Applied range:', this.selectedRange);
+  }
+
+  onOk(result: CompatibleDate | null): void {
+    if (Array.isArray(result)) {
+      this.selectedRange = result;
+    } else {
+      this.selectedRange = [];
+    }
+  }
+
+
+  plainFooter = 'plain extra footer';
+  footerRender = (): string => 'extra footer';
 
   onSearch() {
     this.isSearching = this.searchQuery.length > 0;
@@ -74,6 +124,7 @@ export class OrdersComponent {
   }
 
   private applyFilters() {
+    this.totalFilter = 0;
     // Start with all work orders
     let filteredList = [...this.workOrders];
 
@@ -91,6 +142,13 @@ export class OrdersComponent {
       filteredList = filteredList.filter(item =>
         checkedStatuses.includes(item.status)
       );
+      this.totalFilter++;
+    }
+
+    const priceChanged = this.minPrice != 0 || this.maxPrice != 999999;
+    if(priceChanged){
+      filteredList = filteredList.filter(item => parseInt(item.value) >= this.minPrice && parseInt(item.value) <= this.maxPrice);
+      this.totalFilter++;
     }
 
     // Apply search filter

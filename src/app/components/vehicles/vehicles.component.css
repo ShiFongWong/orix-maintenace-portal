@@ -8,7 +8,7 @@
 }
 
 .main-content{
-  grid-column-start: 3;
+  grid-column-start: var(--start-grid);
   grid-column-end: 12;
   display: flex;
   flex-direction: column;
@@ -16,7 +16,7 @@
 }
 
 .header{
-  grid-column-start: 3;
+  grid-column-start: var(--start-grid);
   grid-column-end: 13;
   font-family: SDMetro, sans-serif !important;
   font-size: 19px;
@@ -592,13 +592,12 @@
   font-weight: 400;
   line-height: 14px;
   text-align: center;
-  color: #4F4F4F;
+  color: #2A706B;
   cursor: pointer;
   padding: 0.5rem 1rem;
   border-radius: 20px;
   background-color: #FFFFFF;
-  border: 2px solid #828282;
-
+  border: 2px solid #00A799;
 }
 
 .new-order-btn{
@@ -702,4 +701,42 @@
   border-width: 0 2px 2px 0;
   transform: translate(-50%, -50%) rotate(45deg);
   transform-origin: center;
+}
+
+.status{
+  display: inline-flex;
+  align-items: center;
+  padding: 0.15rem 0.5rem;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 36px;
+  text-align: left;
+  border-radius: 3px;
+}
+
+.collect-status{
+  background-color: #3EDCD5;
+  color: #024441;
+}
+.workshop-status{
+  background-color: #03A1C0;
+  color: #FFFFFF;
+}
+.ticket-status{
+  background-color: #7C7FD4;
+  color: #FFFFFF;
+}
+.needs-ticket-status{
+  background-color: #6E6E7C;
+  color: #FFFFFF;
+}
+.pending-status{
+  background-color: transparent;
+  color: #383845;
+  border: 1px solid #BABACA;
+}
+.other-status{
+  background-color: transparent;
+  border: 1px solid #DCDCE5;
+  color: #6E6E7C;
 }

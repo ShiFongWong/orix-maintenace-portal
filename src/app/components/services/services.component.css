@@ -8,7 +8,7 @@
 }
 
 .main-content{
-  grid-column-start: 3;
+  grid-column-start: var(--start-grid);
   grid-column-end: 12;
   display: flex;
   flex-direction: column;
@@ -16,7 +16,7 @@
 }
 
 .header{
-  grid-column-start: 3;
+  grid-column-start: var(--start-grid);
   grid-column-end: 13;
   font-family: SDMetro, sans-serif !important;
   font-size: 19px;

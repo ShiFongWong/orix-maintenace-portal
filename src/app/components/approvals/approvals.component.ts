@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {addWeeks, endOfWeek, startOfWeek} from "date-fns";
+import {CompatibleDate} from "ng-zorro-antd/date-picker";
 
 @Component({
   selector: 'app-approvals',
@@ -49,6 +51,48 @@ export class ApprovalsComponent {
   isFiltering = false;
   minPrice = 0;
   maxPrice = 9999999;
+  CalendarSeparator = "To";
+  selectedRange: Date[] = [];
+  totalFilter = 0;
+
+  setToday(): void {
+    const today = new Date();
+    this.selectedRange = [today, today];
+  }
+
+  setTomorrow(): void {
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    this.selectedRange = [tomorrow, tomorrow];
+  }
+
+  setThisWeek(): void {
+    const today = new Date();
+    this.selectedRange = [startOfWeek(today), endOfWeek(today)];
+  }
+
+  setNextWeek(): void {
+    const nextWeek = addWeeks(new Date(), 1);
+    this.selectedRange = [startOfWeek(nextWeek), endOfWeek(nextWeek)];
+  }
+
+  cancel(): void {
+    this.selectedRange = [];
+    // Add logic to close the picker if needed
+  }
+
+  apply(): void {
+    // Add logic to apply the selected date range
+    console.log('Applied range:', this.selectedRange);
+  }
+
+  onOk(result: CompatibleDate | null): void {
+    if (Array.isArray(result)) {
+      this.selectedRange = result;
+    } else {
+      this.selectedRange = [];
+    }
+  }
 
   onSearch() {
     this.isSearching = this.searchQuery.length > 0;
@@ -74,15 +118,20 @@ export class ApprovalsComponent {
 
   filterByPrice() {
     this.applyFilters();
-    this.isFiltering = !this.isFiltering;
   }
 
   private applyFilters() {
+
+    this.totalFilter = 0;
     // Start with all work orders
     let filteredList = [...this.workOrders];
 
     // filter by price
-    filteredList = filteredList.filter(item => parseInt(item.value) >= this.minPrice && parseInt(item.value) <= this.maxPrice);
+    const priceChanged = this.minPrice != 0 || this.maxPrice != 9999999;
+    if(priceChanged){
+      filteredList = filteredList.filter(item => parseInt(item.value) >= this.minPrice && parseInt(item.value) <= this.maxPrice);
+      this.totalFilter++;
+    }
 
     // Apply search filter
     if (this.searchQuery) {

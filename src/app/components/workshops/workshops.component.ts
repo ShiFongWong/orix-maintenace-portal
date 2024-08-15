@@ -75,6 +75,7 @@ export class WorkshopsComponent {
   isSearching = false;
   searchQuery = '';
   isFiltering = false;
+  totalFilter = 0;
   minPrice = 0;
   maxPrice = 9999999;
 
@@ -110,6 +111,8 @@ export class WorkshopsComponent {
   }
 
   private applyFilters() {
+
+    this.totalFilter = 0;
     // Start with all work orders
     let filteredList = [...this.workshops];
 
@@ -122,6 +125,8 @@ export class WorkshopsComponent {
         filteredList = filteredList.filter(item =>
           checkedAreas.includes(item.area)
         );
+
+        this.totalFilter++;
       }
     }
 

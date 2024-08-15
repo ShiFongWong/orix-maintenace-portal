@@ -4,6 +4,34 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+@font-face {
+  font-family: 'SDMetro';
+  src: url("../public/assets/fonts/SDMetro-Regular.ttf") format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SDMetro';
+  src: url("../public/assets/fonts/SDMetro-Bold.ttf") format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SDMetro';
+  src: url("../public/assets/fonts/SDMetro-Semibold.ttf") format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SDMetro';
+  src: url("../public/assets/fonts/SDMetro-Heavy.ttf") format('truetype');
+  font-weight: 900;
+  font-style: normal;
+}
+
 * {
     cursor: url('../public/assets/cursor/pointer.svg'), pointer;
     font-family: SDMetro, sans-serif !important;
@@ -11,4 +39,24 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 html,body {
   background-color: #F8F8F8;
+}
+
+:root {
+  --start-grid : 3;
+  --weak-color : #EB5062;
+  --medium-color: #FEC003;
+  --strong-color: #00A799;
+  --left-margin-floating: 300px;
+}
+
+
+nz-range-picker{
+  border: 2px solid #00A799;
+  border-radius: 38px;
+}
+
+@media screen and (max-width: 1366px) {
+  :root{
+    --start-grid : 4;
+  }
 }

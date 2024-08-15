@@ -5,8 +5,32 @@ body, html {
 
 .collapse-btn{
   display: inline-flex;
-  position: absolute;
-  right: -20px;
+  position: fixed;
+  left: 70px;
+  top: 10%;
+  align-items: center;
+  background-color: #00A799;
+  border-radius: 42px;
+  box-shadow: 0px 5px 16px 0px #2A5A654D;
+  padding: 10px;
+  z-index: 10;
+  transition: transform 0.1s ease-in-out, background-color 0.1s ease-in-out, left 0.3s ease-in-out;;
+}
+
+.collapse-btn:hover{
+  background-color: #2A706B;
+  transform: scale(1.2);
+}
+
+.collapse-btn:hover img{
+  width: 21.38px;
+  height: 21.38px;
+}
+
+.expand-btn{
+  display: inline-flex;
+  position: fixed;
+  left: 260px;
   top: 10%;
   align-items: center;
   background-color: #4F4F4F;
@@ -14,6 +38,31 @@ body, html {
   box-shadow: 0px 5px 16px 0px #2A5A654D;
   padding: 10px;
   z-index: 10;
+  transition: transform 0.1s ease-in-out, background-color 0.1s ease-in-out, left 0.3s ease-in-out;
+}
+
+.expand-btn:hover{
+  background-color: #333333;
+  transform: scale(1.2);
+}
+
+.expand-btn:hover img{
+  width: 21.38px;
+  height: 21.38px;
+}
+
+.sidebar-collapsed{
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 90px;
+  height: 100vh;
+  background-color: #FFFFFF;
+  overflow-y: auto;
+  box-shadow: 0 0 16px 0 #3D3F6745;
+  z-index: 3;
+  transition: width 0.3s ease-in-out;
 }
 
 .sidebar {
@@ -21,13 +70,14 @@ body, html {
   position: fixed;
   top: 0;
   left: 0;
-  width: 256px;
+  width: 280px;
   height: 100vh;
   background-color: #FFFFFF;
   overflow-y: auto;
-  transition: transform 0.3s ease-in-out;
+  overflow-x: hidden;
   box-shadow: 0 0 16px 0 #3D3F6745;
   z-index: 3;
+  transition: width 0.3s ease-in-out;
 }
 
 .sidebar-header {
@@ -38,11 +88,28 @@ body, html {
   z-index: 2;
 }
 
+.sidebar-content-collapsed {
+  width: 24px;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  margin-left: -5px;
+  z-index: 3;
+  position: relative;
+  background-color: #ffffff;
+  overflow-x: hidden;
+  transition: width 0.3s ease-in-out;
+}
+
+.sidebar-content-collapsed:hover{
+  background-color: #DCFEFD;
+}
+
 .sidebar-content {
   border-top-left-radius: 8px;
   border-bottom-left-radius: 8px;
   padding: 16px 12px;
   margin-left: -5px;
+  padding-right: 32px;
   z-index: 3;
   position: relative;
   background-color: #ffffff;
@@ -55,13 +122,10 @@ body, html {
 }
 
 .logo-container {
-  width: 100%;
   display: flex;
 }
 
 .logo {
-  width: 100%;
-  height: 100%;
   object-fit: cover;
 }
 
