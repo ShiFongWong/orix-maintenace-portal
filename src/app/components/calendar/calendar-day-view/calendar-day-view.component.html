@@ -13,8 +13,8 @@
 
   </div>
   <div class="current-time-line" [style.top.px]="currentTimePosition"></div>
-  <div class="event-container" *ngFor="let eventData of processedEvents" [ngStyle]="getEventStyle(eventData)">
-    <div class="event-details">
+  <div class="event-container" *ngFor="let eventData of processedEvents" [ngClass]="{ 'hovered' : detail==eventData.event}" [ngStyle]="getEventStyle(eventData)" (mouseover)="showDetail($event, eventData.event)" >
+    <div class="event-details" >
       <div class="time-outer">
         <div class="time-container">
           <img src="\assets\icons\time.svg">
@@ -25,22 +25,29 @@
         {{ eventData.event.marshal }}
       </div>
       <div class="ticket-container">Ticket {{ eventData.event.ticketId }}</div>
-
     </div>
-    
+  </div>
+  <div class="popup" *ngIf="detail != null" [style.top.px]="popoverPosition.top" [style.right.px]="popoverPosition.right"  (mouseleave)="hideDetail()">
+    <ul class="message-container">
+      <li style="padding: 0;">
+          {{ detail.startTime }} - {{ detail.endTime }}
+          <div class="message-name">{{ detail.marshal }}</div>
+          {{ detail.ticketId }}
+      </li>
+    </ul>
   </div>
   <div class="overflow-container" *ngFor="let key of getOverflowKeys()" [ngStyle]="getOverflowStyle(key)" (mouseenter)="showOverflow(key)" (mouseleave)="hideOverflow()">
     <div class="overflow-indicator" >
       {{ '+ ' + overflowedEvents[key].length + ' more' }}
     </div>
-    <div class="overflow-popup" *ngIf="activeOverflowSlot === key">
-      <ul>
-        <li *ngFor="let event of overflowedEvents[key]">
-          <div class="message-container">
+    <div class="popup" *ngIf="activeOverflowSlot === key">
+      <ul class="message-container">
+        <li *ngFor="let event of overflowedEvents[key]" style="padding: 0;">
             {{ event.startTime }} - {{ event.endTime }} 
             <div class="message-name">{{ event.marshal }}</div>
             {{ event.ticketId }}
-          </div>
+            <br>
+            --
         </li>
       </ul>
     </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { format, addMinutes, startOfDay, differenceInMinutes } from 'date-fns';
 
@@ -21,9 +21,10 @@ interface ProcessedEvent {
   templateUrl: './calendar-day-view.component.html',
   styleUrl: './calendar-day-view.component.css',
 })
-export class CalendarDayViewComponent implements OnInit {
+export class CalendarDayViewComponent implements OnInit, AfterViewInit {
   @Input() date: Date = new Date();
   @Input() events: { [key: string]: Event[] } = {}; // Keyed by date in 'M/d' format
+  @ViewChild('container', { static: true }) containerRef!: ElementRef;
   hours: string[] = [];
   minutes: string[] = ['00', '15', '30', '45'];
   startHour: number = 8;
@@ -33,6 +34,10 @@ export class CalendarDayViewComponent implements OnInit {
   maxColumns: number = 4; // Set maximum columns to 2 for example
   overflowedEvents: { [key: string]: Event[] } = {}; // Store overflowed events
   activeOverflowSlot: string | null = null;
+  detail: Event | null = null;
+  popoverPosition = { top: 0, right: 0 };
+
+  constructor(private elementRef: ElementRef) {}
 
   ngOnInit() {
     this.generateHours();
@@ -40,36 +45,8 @@ export class CalendarDayViewComponent implements OnInit {
     setInterval(() => this.updateCurrentTimeLine(), 60000); // Update every minute
     this.processEvents();
   }
-
-  loadEvents() {
-    // Example event data
-    this.events = {
-      '8/12': [
-        { startTime: "8:00", endTime: "8:15", marshal: 'Jumaana binti Khaleel John Doe My Name Is You Try To Guess??', ticketId: '12345678' },
-        { startTime: "8:45", endTime: "9:15", marshal: 'Jumaana binti Khaleel', ticketId: '12345678' },
-        { startTime: "9:30", endTime: "10:15", marshal: 'John Doe', ticketId: '12345678' },
-        { startTime: "9:30", endTime: "10:15", marshal: 'John Doe', ticketId: '12345678' },
-        { startTime: "9:30", endTime: "10:15", marshal: 'John Doe My Name Is You Try To Guess??', ticketId: '12345678' },
-        { startTime: "10:15", endTime: "10:30", marshal: 'John Doe', ticketId: '12345678' },
-        { startTime: "10:15", endTime: "10:30", marshal: 'John Doe', ticketId: '12345678' },
-        { startTime: "10:15", endTime: "10:30", marshal: 'John Doe', ticketId: '12345678' },
-        { startTime: "10:30", endTime: "11:00", marshal: 'John Doe', ticketId: '12345678' },
-        { startTime: "10:30", endTime: "11:00", marshal: 'John Doe', ticketId: '12345678' },
-        { startTime: "10:30", endTime: "11:00", marshal: 'John Doe', ticketId: '12345678' },
-        { startTime: "11:00", endTime: "12:00", marshal: 'John Doe', ticketId: '12345678' },
-        { startTime: "8:00", endTime: "12:15", marshal: 'John Doe', ticketId: '12345678' },
-        { startTime: "9:30", endTime: "11:00", marshal: 'John Doe', ticketId: '12345678' },
-        { startTime: "12:15", endTime: "12:45", marshal: 'John Doeohn John Doe My Name Is You Try To Guess??ohn John Doe My Name Is You Try To Guess??', ticketId: '12345678' },
-        { startTime: "13:15", endTime: "14:45", marshal: 'John Doe', ticketId: '12345678' },
-        { startTime: "13:15", endTime: "14:45", marshal: 'John John Doe My Name Is You Try To Guess??', ticketId: '12345678' },
-        { startTime: "13:15", endTime: "14:45", marshal: 'John John Doe My Name Is You Try To Guess??', ticketId: '12345678' },
-        { startTime: "13:15", endTime: "14:45", marshal: 'John John Doe My Name Is You Try To Guess??', ticketId: '12345678' },
-        { startTime: "13:15", endTime: "14:45", marshal: 'John John Doe My Name Is You Try To Guess??', ticketId: '12345678' },
-        { startTime: "13:15", endTime: "14:45", marshal: 'John John Doe My Name Is You Try To Guess??', ticketId: '12345678' },
-        { startTime: "13:15", endTime: "14:45", marshal: 'John Doe My Name Is You Try To Guess??', ticketId: '12345678' },
-
-      ]
-    };
+  ngAfterViewInit() {
+    // The view is now initialized, you can safely use containerRef
   }
 
   generateHours() {
@@ -239,5 +216,29 @@ getTotalColumnsForTimeRange(startTime: string, endTime: string): number {
   
   hideOverflow() {
     this.activeOverflowSlot = null;
+  }
+
+  showDetail(event: MouseEvent, timeSlot: Event) {
+    // console.log('ElementRef:', this.elementRef);
+    // console.log('Event target:', event.target);
+    if (this.elementRef && this.elementRef.nativeElement) {
+    
+      const containerRect = this.elementRef.nativeElement.getBoundingClientRect();
+
+      // Calculate the top position relative to the container based on the mouse's Y coordinate
+      const top = event.clientY - containerRect.top - 20;
+      const right = containerRect.right - event.clientX - 30;//60 for padding
+    this.popoverPosition = {
+      top: top,
+      right: right,
+    };
+  
+    this.detail = timeSlot;
+  } else {
+    console.error('ElementRef or nativeElement is undefined');
+  }
+}
+  hideDetail() {
+    this.detail = null;
   }
 }
