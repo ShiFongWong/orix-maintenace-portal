@@ -250,6 +250,8 @@ export class VehiclesComponent {
   isSearching = false;
   searchQuery = '';
   isFiltering = false;
+
+  totalFilter = 0;
   minPrice = 0;
   maxPrice = 9999999;
 
@@ -285,6 +287,8 @@ export class VehiclesComponent {
   }
 
   private applyFilters() {
+
+    this.totalFilter = 0;
     // Start with all work orders
     let filteredList = [...this.vehicleList];
 
@@ -297,6 +301,7 @@ export class VehiclesComponent {
         filteredList = filteredList.filter(item =>
           checkedServiceStatus.includes(item.serviceStatus)
         );
+        this.totalFilter++;
       }
     }
     console.log(filteredList);
@@ -309,6 +314,7 @@ export class VehiclesComponent {
         filteredList = filteredList.filter(item =>
           checkedLocation.includes(item.location)
         );
+        this.totalFilter++;
       }
     }
 

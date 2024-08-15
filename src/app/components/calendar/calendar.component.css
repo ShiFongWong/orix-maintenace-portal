@@ -1,5 +1,9 @@
 .calendar-page-container{
+  display: grid;
+  grid-template-columns: repeat(12,1fr);
     .content-container{
+      grid-column-start: 3;
+      grid-column-end: 13;
       padding-bottom: 60px;
       .title-container{
         display: flex;
@@ -20,7 +24,7 @@
             height: 40px;
             border-radius: 50%;
             border: 2px solid rgba(0, 167, 153, 0.25); /* #00A799 with 0.25 opacity */
-            
+
             /* Center the content inside */
             display: flex;
             justify-content: center;
@@ -110,16 +114,16 @@
         justify-content: center;
         align-items: center;
         gap: 8px;
-    
+
         color: #FFFFFF;
         font-size: 14px;
-    
+
         border-radius: 38px;
         border: 2px solid #00A799;
         background-color: #00A799;
-    
+
         margin-right: 20px; /* Adds 20px of space between the button and the right edge */
-    
+
         img {
           width: 22px;
           height: 22px;
@@ -127,7 +131,7 @@
         }
       }
     }
-    
+
 }
 
 
@@ -137,7 +141,7 @@
     border-radius: 0.375rem; /* Rounded-md */
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* Shadow-sm */
   }
-  
+
   .btn {
     padding: 0.5rem 1rem; /* px-4 py-2 */
     font-size: 0.875rem; /* text-sm */
@@ -148,51 +152,51 @@
     cursor: pointer;
     transition: background-color 0.2s, color 0.2s; /* Transition effects */
   }
-  
+
   .btn:hover {
     background-color: #f3f4f6; /* hover:bg-gray-100 */
     color: #1d4ed8; /* hover:text-blue-700 */
   }
-  
+
   .btn:focus {
     z-index: 10; /* focus:z-10 */
     outline: none;
     ring: 2px solid #1d4ed8; /* focus:ring-2 focus:ring-blue-700 */
     color: #1d4ed8; /* focus:text-blue-700 */
   }
-  
+
   .btn-left {
     border-radius: 0.375rem 0 0 0.375rem; /* rounded-s-lg */
   }
-  
+
   .btn-right {
     border-radius: 0 0.375rem 0.375rem 0; /* rounded-e-lg */
   }
-  
+
   .btn-group .btn:not(:last-child) {
     border-right: none;
   }
-  
+
   .btn-group .btn:not(:first-child) {
     border-left: none;
   }
-  
+
   .btn-dark {
     background-color: #374151; /* dark:bg-gray-800 */
     border-color: #4b5563; /* dark:border-gray-700 */
     color: #ffffff; /* dark:text-white */
   }
-  
+
   .btn-dark:hover {
     background-color: #4b5563; /* dark:hover:bg-gray-700 */
     color: #ffffff; /* dark:hover:text-white */
   }
-  
+
   .btn-dark:focus {
     ring: 2px solid #2563eb; /* dark:focus:ring-blue-500 */
     color: #ffffff; /* dark:focus:text-white */
   }
-  
+
   .mat-button-toggle-group {
     border-radius: 20px;
     height: 40px;
@@ -201,7 +205,7 @@
     overflow: hidden;
     background-color: #83EEE9;
   }
-  
+
   .mat-button-toggle {
     padding: 0;
     background-color: transparent;
@@ -214,12 +218,12 @@
     justify-content: center;
     border: none;
   }
-  
+
   .mat-button-toggle:hover {
     background-color: #3EDCD5;
     color: #0B3633;
   }
-  
+
   .mat-button-toggle-checked {
     background-color: #2A706B !important;
     color: #FFFFFF !important;
@@ -231,7 +235,7 @@
   .mat-button-toggle-group-appearance-standard .mat-button-toggle + .mat-button-toggle {
     border-left-color: #3EDCD5;
   }
-  
+
   ::ng-deep .mat-button-toggle .mat-pseudo-checkbox {
     display: none!important;
 }

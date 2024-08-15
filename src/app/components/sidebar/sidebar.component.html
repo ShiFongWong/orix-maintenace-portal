@@ -1,8 +1,8 @@
-
-<div class="collapse-btn">
-  <img src="/assets/icons/collapse.svg" alt="">
+<div [ngClass]="[isCollapsed ? 'collapse-btn' : 'expand-btn']" (click)="onCollapsed()" class="collapse-btn">
+  <img *ngIf="!isCollapsed" src="/assets/icons/collapse.svg" alt="">
+  <img *ngIf="isCollapsed" src="/assets/icons/expand.svg" alt="">
 </div>
-<aside class="sidebar" id="sidebar">
+<aside [ngClass]="[isCollapsed ? 'sidebar-collapsed' : 'sidebar']" id="sidebar">
   <div class="sidebar-header">
     <div class="logo-container">
       <img width="70" height="60" class="logo" src="/assets/icons/logo.svg" alt="">
@@ -11,7 +11,7 @@
       <div class="sidebar-button">
         <img width="24" height="24" src="/assets/icons/help.svg" alt="">
       </div>
-      <div class="sidebar-button">
+      <div routerLink="/settings" class="sidebar-button">
         <img width="24" height="24" src="/assets/icons/settings.svg" alt="">
       </div>
       <div class="sidebar-button">
@@ -19,7 +19,7 @@
       </div>
     </div>
   </div>
-  <div class="sidebar-content">
+  <div [ngClass]="[isCollapsed ? 'sidebar-content-collapsed': 'sidebar-content']" class="">
     <ul>
       <li *ngFor="let item of menuItems">
         <a

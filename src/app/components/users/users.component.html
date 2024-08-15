@@ -21,7 +21,7 @@
       </div>
       <div (click)="onFilter()" class="filter-container">
         <img src="/assets/icons/filter.svg" alt="">
-        Filters
+        Filters {{totalFilter == 0 ? '' : '(' + totalFilter + ')'}}
       </div>
     </div>
     <div class="order-table-container">
@@ -73,11 +73,11 @@
   </div>
   <div class="footer">
     <button class="export-button">
-      <img src="/assets/icons/export.svg" alt="">
+      <img src="/assets/icons/import-green.svg" alt="">
       <span>Import</span>
     </button>
     <button class="export-button">
-      <img src="/assets/icons/export.svg" alt="">
+      <img src="/assets/icons/export-green.svg" alt="">
       <span>Export</span>
     </button>
     <button routerLink="/users/new" class="new-order-btn">

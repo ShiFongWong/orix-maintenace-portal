@@ -22,6 +22,7 @@ import {NewUserComponent} from "./components/new-user/new-user.component";
 import {EditUserComponent} from "./components/edit-user/edit-user.component";
 import {NewServiceComponent} from "./components/new-service/new-service.component";
 import {EditServiceComponent} from "./components/edit-service/edit-service.component";
+import {SettingsComponent} from "./components/settings/settings.component";
 
 const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
@@ -46,6 +47,7 @@ const routes: Routes = [
   { path: 'services', component: ServicesComponent },
   { path: 'services/new', component: NewServiceComponent },
   { path: 'services/edit', component: EditServiceComponent },
+  { path: 'settings', component: SettingsComponent },
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' }, // Redirect to dashboard by default
   { path: '**', redirectTo: '/dashboard' } // Wildcard route for a 404 page (optional)
 ];

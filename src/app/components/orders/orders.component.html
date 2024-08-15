@@ -27,9 +27,32 @@
           </button>
         }
       </div>
+      <ng-template #customIcon>
+        <img src="/assets/icons/calendar-green.svg" alt="Calendar Icon" />
+      </ng-template>
+      <nz-range-picker
+        class="custom-width-range-picker"
+        [nzSuffixIcon]="customIcon"
+        [nzSeparator]="CalendarSeparator"
+        [nzRenderExtraFooter]="footerTemplate"
+        [(ngModel)]="selectedRange"
+        (nzOnOk)="onOk($event)"
+      >
+      </nz-range-picker>
+
+      <ng-template #footerTemplate>
+        <div class="custom-footer" (click)="$event.stopPropagation()">
+          <button nz-button nzType="default" (click)="setToday()">Today</button>
+          <button nz-button nzType="default" (click)="setTomorrow()">Tomorrow</button>
+          <button nz-button nzType="default" (click)="setThisWeek()">This Week</button>
+          <button nz-button nzType="default" (click)="setNextWeek()">Next Week</button>
+          <button nz-button nzType="default" (click)="cancel()">Cancel</button>
+          <button nz-button nzType="primary" (click)="apply()">Apply</button>
+        </div>
+      </ng-template>
       <div (click)="onFilter()" class="filter-container">
         <img src="/assets/icons/filter.svg" alt="">
-        Filters
+        Filters {{totalFilter == 0 ? '' : '(' + totalFilter + ')'}}
       </div>
     </div>
     <div class="order-table-container">
@@ -174,7 +197,7 @@
             <div class="price-input">
 
               <div class="search-input-container">
-                <input type="search" class="search-input width-unset"
+                <input [(ngModel)]="minPrice" (ngModelChange)="filterByStatus()" type="search" class="search-input width-unset"
                        placeholder=""/>
                 <button type="submit" class="search-button">
                   <img height="15" width="15" src="/assets/icons/dollar.svg" alt="">
@@ -184,7 +207,7 @@
 
               <img src="/assets/icons/none.svg" alt="">
               <div class="search-input-container">
-                <input type="search" class="search-input width-unset"
+                <input [(ngModel)]="maxPrice" (ngModelChange)="filterByStatus()"  type="search" class="search-input width-unset"
                        placeholder=""/>
                 <button type="submit" class="search-button">
                   <img height="15" width="15" src="/assets/icons/dollar.svg" alt="">
