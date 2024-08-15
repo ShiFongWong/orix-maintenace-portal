@@ -5,26 +5,41 @@
       <ng-container *ngIf="isSameMonth(day, date); else emptyDay">
         <span class="date">{{ format(day, 'd') }}</span>
         <div class="event-list">
-          <div *ngFor="let event of events[format(day, 'M/d')]">
-            <div class="event-container">
-              <div class="event-details">
-                <div class="time-outer">
-                  <div class="time-container">
-                    <img src="\assets\icons\time.svg">
-                    {{ event.startTime }} - {{ event.endTime }}
-                  </div>
-                </div>
-                <div class="marshal-container">
-                  {{ event.marshal }}
-                </div>
+          <div class="event-container" *ngFor="let event of events[format(day, 'M/d')]; let i = index" 
+               [hidden]="i >= 8">
+            <div class="event-details">
+              <div class="time-container">
+                {{ event.startTime }} - {{ event.endTime }}
+              </div>
+              <div class="marshal-container">
+                {{ event.marshal }}
               </div>
             </div>
+          </div>
+    
+          <div class="more-container" *ngIf="checkmore(day)"
+               (mouseover)="showPopover($event, day)">
+            [+ {{ events[format(day, 'M/d')].length - 8 }} more]
           </div>
         </div>
       </ng-container>
       <ng-template #emptyDay>
         <!-- Empty gray cell for days not in current month -->
       </ng-template>
+    </div>
+    
+    <!-- Popover container outside of the day loop -->
+    <div class="popover" *ngIf="showMore" [style.top.px]="popoverPosition.top" [style.left.px]="popoverPosition.left"  (mouseleave)="hidePopover()">
+      <div class="popover-event-container" *ngFor="let event of events[format(currentPopoverDay, 'M/d')].slice(8)">
+        <div class="event-details">
+          <div class="time-container">
+            {{ event.startTime }} - {{ event.endTime }}
+          </div>
+          <div class="marshal-container">
+            {{ event.marshal }}
+          </div>
+        </div>
+      </div>
     </div>
   </ng-container>
 </div>
