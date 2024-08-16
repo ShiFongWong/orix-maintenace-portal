@@ -1,0 +1,238 @@
+.container{
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1rem;
+  min-height: 100vh;
+  grid-template-rows: 1fr auto;
+  margin-top: 2rem;
+}
+
+.main-content{
+  grid-column-start: var(--start-grid);
+  grid-column-end: 12;
+  display: flex;
+  gap: 1rem;
+  height: fit-content;
+}
+
+.left-side{
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  box-shadow: 0px 4px 10px 0px #0000001A;
+  padding: 24px;
+}
+
+.right-side{
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  box-shadow: 0px 4px 10px 0px #0000001A;
+  padding: 24px;
+}
+
+.header{
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 72px;
+  text-align: left;
+  color: #4F4F4F;
+}
+.description{
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #E0E0E0;
+}
+
+
+.custom-checkbox {
+  appearance: none; /* Remove default styling */
+  -webkit-appearance: none; /* Remove default styling for Safari */
+  width: 24px;
+  height: 24px;
+  background-color: #fff;
+  border: 2px solid #BDBDBD;
+  border-radius: 4px;
+  position: relative;
+  outline: none;
+  margin: 0;
+}
+
+.custom-checkbox:checked {
+  background-color: #464878;
+  border-color: #464878;
+}
+
+.custom-checkbox:checked::after {
+  content: '';
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  width: 6px;
+  height: 16px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: translate(-50%, -50%) rotate(45deg);
+  transform-origin: center;
+}
+
+.filter-checkbox-container {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  gap: 1rem;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 14px;
+  text-align: left;
+  color: #4F4F4F;
+}
+
+
+.category-radio {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 20px;
+}
+
+.category-item {
+  display: flex;
+  align-items: center;
+}
+
+/* Hide the default radio button */
+.category-item input[type="radio"] {
+  display: none;
+}
+
+/* Style the custom radio button */
+.category-item label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+/* Create the circle for the radio button */
+.category-item label::before {
+  content: "";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid #828282; /* Gray border */
+  background-color: white;
+  margin-right: 8px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.15); /* Add shadow */
+}
+
+/* Style the circle when the radio button is selected */
+.category-item input[type="radio"]:checked + label::before {
+  background-color: #FFFFFF; /* Dark blue fill */
+  border: 2px solid #464878; /* Dark blue border */
+}
+
+/* Add a dot in the center of the selected radio button */
+.category-item input[type="radio"]:checked + label::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 8px;
+  transform: translate(-50%, -50%);
+  width: 11px;
+  height: 11px;
+  background-color: #464878; /* White dot */
+  border-radius: 50%;
+}
+
+.category-item label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+.level-items{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #E0E0E0;
+}
+
+.level-items:last-of-type{
+  border-bottom: 0;
+}
+
+.search-input {
+  display: block;
+  padding: 0.625rem;
+  min-width: 268px;
+  width: 100%;
+  z-index: 20;
+  font-size: 0.875rem;
+  color: #111827;
+  background-color: #FFFFFF;
+  border: 2px solid #828282;
+  border-radius: 2px;
+  height: 100%; /* Make the input fill the parent height */
+  box-sizing: border-box;
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  padding: 1rem;
+  background-color: #FFFFFF;
+  box-shadow: 0 -4px 12px 0 #00000014;
+  z-index: 1; /* Place the footer on top of other content */
+  margin-left: calc(-100% / 6);
+  grid-column-start: 1;
+  grid-column-end: 13;
+  gap: 0.75rem;
+}
+
+.cancel-button{
+  display: flex;
+  border: 2px solid #828282;
+  border-radius: 20px;
+  padding: 13px 24px 13px 24px;
+  background-color: transparent;
+  font-family: SDMetro, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 14px;
+  text-align: center;
+  color: #4F4F4F;
+
+}
+
+.submit-button{
+  padding: 13px 24px 13px 24px;
+  background-color: #00A799;
+  border-radius: 20px;
+  border: 2px solid #00A799;
+  font-family: SDMetro, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 14px;
+  text-align: center;
+  color: #FFFFFF;
+
+}
+
+.width-unset{
+  min-width: unset !important;
+  width: unset !important;
+  box-sizing: border-box;
+}
+
+@media screen and (max-width: 1366px) {
+  .search-input{
+    max-width: 128px;
+  }
+}
+
+

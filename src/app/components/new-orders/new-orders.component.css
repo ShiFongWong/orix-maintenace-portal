@@ -477,6 +477,106 @@
   background-image: url("/assets/icons/delete-hover.svg");
 }
 
+
+
+.custom-footer {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 8px 0;
+}
+
+.custom-footer button {
+  border-radius: 16px;
+  color: #FFFFFF;
+  background-color: #898989;
+}
+
+.custom-footer button:last-of-type{
+  background-color: #5D61AA;
+}
+
+nz-range-picker{
+  border: 2px solid #00A799;
+  border-radius: 38px;
+}
+
+::ng-deep .ant-picker-cell-selected .ant-picker-cell-inner {
+  background-color: #5D61AA !important;
+}
+
+::ng-deep .ant-picker-cell-range-end .ant-picker-cell-inner {
+  background-color: #5D61AA !important; /* Red for end date */
+}
+
+::ng-deep .ant-picker-cell-in-view.ant-picker-cell-in-range::before {
+  background-color: #E0E0F9 !important;
+}
+
+::ng-deep .ant-picker-cell-in-view.ant-picker-cell-range-start:not(.ant-picker-cell-range-start-single)::before{
+  background-color: #E0E0F9 !important;
+}
+
+::ng-deep .ant-picker-cell-in-view.ant-picker-cell-range-end:not(.ant-picker-cell-range-end-single)::before{
+  background-color: #E0E0F9 !important;
+}
+
+::ng-deep .ant-picker-input > input {
+  display: flex;
+  min-width: 110px;
+  max-width: 110px;
+  font-family: SDMetro, sans-serif !important;
+  font-size: 16px;
+  font-weight: 700;
+  color: #2A706B;
+  padding-top: 2px;
+}
+
+::ng-deep .ant-picker-input > input::placeholder {
+  font-family: SDMetro, sans-serif !important;
+  font-size: 16px;
+  font-weight: 700;
+  color: #2A706B;
+}
+
+.ant-picker-focused, .ant-picker:hover {
+  border-color: #00A799;
+}
+
+::ng-deep .ant-picker-range .ant-picker-active-bar {
+  bottom: -1px;
+  height: 2px;
+  margin-left: 11px;
+  background: transparent;
+  opacity: 0;
+  transition: all .3s ease-out;
+  pointer-events: none;
+}
+
+::ng-deep .ant-picker-separator {
+  margin-left: -8px;
+  font-family: SDMetro, sans-serif !important;
+  font-size: 16px;
+  font-weight: 700;
+  color: #2A706B !important;
+}
+
+::ng-deep .ant-picker-suffix {
+  color: #00A799;
+}
+
+::ng-deep .ant-picker-clear {
+  display: none;
+}
+
+.custom-width-range-picker {
+  display: inline-flex; /* Ensures the component wraps only around the content */
+  align-items: center;
+  border: 2px solid #00A799;
+  border-radius: 38px;
+  padding: 5px 10px;
+  background-color: #ffffff;
+}
+
 @media screen and (max-width: 1366px) {
   .order-input-items{
     width: unset;

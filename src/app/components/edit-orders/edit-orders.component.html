@@ -9,10 +9,39 @@
       </div>
       <div class="border-line"></div>
 
+      <div class="order-input-items text-area-items">
+        <label class="order-input-label">Client Address:</label>
+        <textarea rows="5"
+                  cols="20" class="search-input width-unset"
+                  placeholder=""></textarea>
+      </div>
+      <div class="border-line"></div>
+
       <div class="order-input-items">
         <label class="order-input-label">Appointment Date:</label>
-        <input type="search" class="search-input width-unset"
-               placeholder=""/>
+        <ng-template #customIcon>
+          <img src="/assets/icons/calendar-green.svg" alt="Calendar Icon" />
+        </ng-template>
+        <nz-range-picker
+          class="custom-width-range-picker"
+          [nzSuffixIcon]="customIcon"
+          [nzSeparator]="CalendarSeparator"
+          [nzRenderExtraFooter]="footerTemplate"
+          [(ngModel)]="selectedRange"
+          (nzOnOk)="onOk($event)"
+        >
+        </nz-range-picker>
+
+        <ng-template #footerTemplate>
+          <div class="custom-footer" (click)="$event.stopPropagation()">
+            <button nz-button nzType="default" (click)="setToday()">Today</button>
+            <button nz-button nzType="default" (click)="setTomorrow()">Tomorrow</button>
+            <button nz-button nzType="default" (click)="setThisWeek()">This Week</button>
+            <button nz-button nzType="default" (click)="setNextWeek()">Next Week</button>
+            <button nz-button nzType="default" (click)="cancel()">Cancel</button>
+            <button nz-button nzType="primary" (click)="apply()">Apply</button>
+          </div>
+        </ng-template>
       </div>
       <div class="border-line"></div>
 

@@ -1,1 +1,88 @@
-<p>approval-rules works!</p>
+<div class="container">
+  <div class="main-content">
+    <div class="left-side">
+      <div class="header">
+        Orders
+      </div>
+      <div class="description">
+        Active
+      </div>
+      <div *ngFor="let item of ordersLevelList; index as i;" class="level-items">
+        <div class="filter-checkbox-container">
+          <input [(ngModel)]="item.levelChecked"
+                 [id]="'status-checkbox-orders-' + i"
+                 type="checkbox"
+                 [value]="item.levelChecked"
+                 class="custom-checkbox">
+          <label [for]="'status-checkbox-orders-' + i" class="filter-checkbox-label">Level {{ i + 1 }}</label>
+        </div>
+        <div class="category-item">
+          <input [id]="'category-option-1-orders-' + i" type="radio" [name]="'categories-orders-' + i" value="Active">
+          <label [for]="'category-option-1-orders-' + i">
+            Below
+          </label>
+        </div>
+
+        <div class="category-item">
+          <input [id]="'category-option-2-orders-' + i" type="radio" [name]="'categories-orders-' + i" value="Inactive">
+          <label [for]="'category-option-2-orders-' + i">
+            Active
+          </label>
+        </div>
+
+        <div class="order-input-items">
+          <input [id]="'search-input-orders-' + i" type="search" class="search-input width-unset"
+                 placeholder=""/>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="right-side">
+      <div class="header">
+        Quotations
+      </div>
+      <div class="description">
+        Active
+      </div>
+
+      <div *ngFor="let item of quotationsLevelList; index as i;" class="level-items">
+        <div class="filter-checkbox-container">
+          <input [(ngModel)]="item.levelChecked"
+                 [id]="'status-checkbox-quotations-' + i"
+                 type="checkbox"
+                 [value]="item.levelChecked"
+                 class="custom-checkbox">
+          <label [for]="'status-checkbox-quotations-' + i" class="filter-checkbox-label">Level {{ i + 1 }}</label>
+        </div>
+        <div class="category-item">
+          <input [id]="'category-option-1-quotations-' + i" type="radio" [name]="'categories-quotations-' + i" value="Active">
+          <label [for]="'category-option-1-quotations-' + i">
+            Below
+          </label>
+        </div>
+
+        <div class="category-item">
+          <input [id]="'category-option-2-quotations-' + i" type="radio" [name]="'categories-quotations-' + i" value="Inactive">
+          <label [for]="'category-option-2-quotations-' + i">
+            Above
+          </label>
+        </div>
+
+        <div class="order-input-items">
+          <input [id]="'search-input-quotations-' + i" type="search" class="search-input width-unset"
+                 placeholder=""/>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <button class="cancel-button">
+      <span>Cancel</span>
+    </button>
+    <button routerLink="/workshops/edit" class="submit-button">
+      <span>Save</span>
+    </button>
+  </div>
+</div>
