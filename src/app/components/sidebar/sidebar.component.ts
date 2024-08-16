@@ -19,11 +19,21 @@ export class SidebarComponent implements OnInit, OnDestroy {
     {title: 'Workshops', icon: 'workshops', link: '/workshops'},
     {title: 'Vehicles', icon: 'vehicles', link: '/vehicles'},
     {title: 'Users', icon: 'users', link: '/users'},
-    {title: 'Services', icon: 'services', link: '/services'},
   ];
+
+  resourcesSubmenuItems = [
+    {title: 'Branches', link: 'resources/branches'},
+    {title: 'Offices', link: 'resources/offices'},
+    {title: 'Departments', link: 'resources/departments'},
+    {title: 'Approval Rules', link: 'resources/approval-rules'},
+    {title: 'Authorizers', link: 'resources/authorizers'},
+    {title: 'Services', link: 'resources/services'},
+
+  ]
 
   isCollapsed: boolean;
   isSmallScreen: boolean = false; // Initialize here
+  isResourcesOpen: boolean = false;
   private routerSubscription: Subscription;
   private mediaQueryList: MediaQueryList;
   private mediaQueryListener: (event: MediaQueryListEvent) => void;
@@ -60,6 +70,10 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
   updateActiveState() {
     // Potentially update other state based on the current route
+  }
+
+  toggleResources() {
+    this.isResourcesOpen = !this.isResourcesOpen;
   }
 
   onCollapsed() {

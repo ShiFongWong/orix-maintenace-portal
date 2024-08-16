@@ -32,6 +32,20 @@
         <span class="menu-title">{{ item.title }}</span>
         </a>
       </li>
+      <li class="dropdown-menu" (click)="toggleResources()">
+        <img [ngClass]="{'rotate': isResourcesOpen}" src="/assets/icons/dropdown-right.svg" alt="">
+        <img width="24" height="24" src="/assets/icons/resources.svg" alt="">
+        <span class="menu-title">Resources</span>
+      </li>
+      <ul class="resources-submenu" [ngClass]="{'show': isResourcesOpen}">
+        <div class="active-submenu-wrapper">
+          <li *ngFor="let item of resourcesSubmenuItems" [ngClass]="[isActiveLink(item.link) ? 'active-submenu' : 'non-active-submenu']">
+            <a [routerLink]="item.link">
+              {{item.title}}
+            </a>
+          </li>
+        </div>
+      </ul>
       <!-- More menu items... -->
     </ul>
   </div>

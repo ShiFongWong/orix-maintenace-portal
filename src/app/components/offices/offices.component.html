@@ -1,5 +1,5 @@
 <div class="order-container">
-  <div class="header">Services</div>
+  <div class="header">Offices</div>
   <div class="main-content">
     <label class="search-label" for="search-dropdown">Search for vehicles</label>
     <div class="table-top">
@@ -18,10 +18,6 @@
             <span class="sr-only">Search</span>
           </button>
         </div>
-      </div>
-      <div (click)="onFilter()" class="filter-container">
-        <img src="/assets/icons/filter.svg" alt="">
-        Filters
       </div>
     </div>
     <div class="order-table-container">
@@ -43,13 +39,11 @@
         </tr>
         </thead>
         <tbody class="order-table-body">
-        <tr *ngFor="let item of filteredServicesList" class="order-table-row">
-          <td class="order-table-data">{{ item.serviceType }}</td>
-          <td class="order-table-data">{{ item.make }}</td>
-          <td class="order-table-data">{{ item.model }}</td>
-          <td class="order-table-data">{{ item.year }}</td>
-          <td class="order-table-data">{{ item.dateCreated }}</td>
-          <td class="order-table-data">{{ item.elements }}</td>
+        <tr *ngFor="let item of filteredOfficeList" class="order-table-row">
+          <td class="order-table-data">{{ item.officeName }}</td>
+          <td class="order-table-data">{{ item.branch }}</td>
+          <td class="order-table-data">{{ item.city }}</td>
+          <td class="order-table-data">{{ item.dateAdded }}</td>
           <td class="order-table-data"><a routerLink="edit">View</a></td>
         </tr>
         </tbody>
@@ -82,57 +76,8 @@
     </button>
     <button routerLink="new" class="new-order-btn">
       <img src="/assets/icons/add.svg" alt="">
-      <span>New Services</span>
+      <span>New Office</span>
     </button>
-  </div>
-</div>
-
-
-<div *ngIf="isFiltering" (click)="isFiltering = !isFiltering" class="modal-overlay">
-  <div *ngIf="isFiltering" id="crud-modal" tabindex="-1" aria-hidden="true" class="modal">
-    <div class="modal-container" (click)="$event.stopPropagation()">
-      <!-- Modal content -->
-      <div class="modal-content">
-        <!-- Modal header -->
-        <div class="modal-header">
-        <span class="modal-title">
-          Filters
-        </span>
-          <button (click)="isFiltering = !isFiltering" type="button" class="modal-close-btn"
-                  data-modal-toggle="crud-modal">
-            <img src="/assets/icons/close.svg" alt="">
-            <span class="sr-only">Close modal</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="checkbox-container">
-            <span class="filter-checkbox-title">Area</span>
-            <ul class="filter-checkbox-list">
-              <li *ngFor="let item of activeStatus; let i = index" class="filter-checkbox-item">
-                <div class="filter-checkbox-container">
-                  <input [(ngModel)]="item.checked"
-                         (ngModelChange)="filterByArea()"
-                         [id]="'active-checkbox-' + i"
-                         type="checkbox"
-                         [value]="item.name"
-                         class="custom-checkbox">
-                  <label [for]="'active-checkbox-' + i" class="filter-checkbox-label">{{ item.name }}</label>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <div class="cancel-button">
-            <span>
-            Cancel</span>
-          </div>
-          <div (click)="filterByPrice()" class="update-button">
-            <span>Update</span>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </div>
 

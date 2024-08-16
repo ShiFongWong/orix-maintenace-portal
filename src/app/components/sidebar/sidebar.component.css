@@ -215,6 +215,81 @@ body, html {
   background-color: #E4E4FA;
 }
 
+.dropdown-menu{
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 8px 32px;
+  padding-left: 16px;
+}
+
+.dropdown-menu {
+  cursor: pointer;
+}
+
+.dropdown-menu img {
+  transition: transform 0.3s ease;
+}
+
+.dropdown-menu img.rotate {
+  transform: rotate(90deg);
+}
+
+.resources-submenu {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  padding-left: 40px;
+  margin-left: 42px !important;
+  position: relative;
+  z-index: 2;
+}
+
+.resources-submenu.show {
+  max-height: 500px; /* Adjust this value based on your needs */
+}
+
+.resources-submenu li {
+  margin-bottom: 0 !important;
+  padding-bottom: 8px;
+  position: relative;
+}
+
+.resources-submenu a {
+  display: flex;
+  padding: 8px 0 8px 22px;
+  color: #111827;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.active-submenu-wrapper {
+  position: relative;
+}
+
+.non-active-submenu::before {
+  content: '';
+  position: absolute;
+  left: 1px;
+  top: 0;
+  height: 100%;
+  width: 2px;
+  background-color: #DADAE4;
+}
+
+.active-submenu::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 4px;
+  background-color: #00A799;
+  border-radius: 2px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+
+
 @media (max-width: 640px) {
   .sidebar {
     transform: translateX(-100%);

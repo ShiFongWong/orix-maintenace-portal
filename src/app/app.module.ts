@@ -48,6 +48,19 @@ import { provideHttpClient, withJsonpSupport } from '@angular/common/http';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { SettingsComponent } from './components/settings/settings.component';
+import { BranchesComponent } from './components/branches/branches.component';
+import { OfficesComponent } from './components/offices/offices.component';
+import { DepartmentsComponent } from './components/departments/departments.component';
+import { ApprovalRulesComponent } from './components/approval-rules/approval-rules.component';
+import { AuthorizersComponent } from './components/authorizers/authorizers.component';
+import { NewBranchComponent } from './components/new-branch/new-branch.component';
+import { EditBranchComponent } from './components/edit-branch/edit-branch.component';
+import { EditOfficeComponent } from './components/edit-office/edit-office.component';
+import { NewOfficeComponent } from './components/new-office/new-office.component';
+import { NewDepartmentComponent } from './components/new-department/new-department.component';
+import { EditDepartmentComponent } from './components/edit-department/edit-department.component';
+import { EditAuthorizerComponent } from './components/edit-authorizer/edit-authorizer.component';
+import { NewAuthorizerComponent } from './components/new-authorizer/new-authorizer.component';
 
 registerLocaleData(en);
 
@@ -82,7 +95,20 @@ const icons = Object.keys(antDesignIcons).map(key => antDesignIcons[key]);
     NewUserComponent,
     NewServiceComponent,
     EditServiceComponent,
-    SettingsComponent
+    SettingsComponent,
+    BranchesComponent,
+    OfficesComponent,
+    DepartmentsComponent,
+    ApprovalRulesComponent,
+    AuthorizersComponent,
+    NewBranchComponent,
+    EditBranchComponent,
+    EditOfficeComponent,
+    NewOfficeComponent,
+    NewDepartmentComponent,
+    EditDepartmentComponent,
+    EditAuthorizerComponent,
+    NewAuthorizerComponent
   ],
   imports: [
     BrowserModule,
