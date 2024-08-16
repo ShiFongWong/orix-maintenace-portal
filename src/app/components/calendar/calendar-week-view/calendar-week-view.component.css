@@ -5,20 +5,23 @@
 
 .day-slot {
   display: flex;
+  gap: 12px;
   border-bottom: 1px solid #E0E0E0;
 }
 
 .day-row {
-  width: 120px; /* Fixed width for date column */
-  padding: 10px;
+  width: 85px; /* Fixed width for date column */
+  padding: 12px 0 0 0;
+  gap: 8px;
   text-align: right;
   flex-shrink: 0;
   .day-number {
-    font-size: 1.2em;
+    font-size: 16px;
     font-weight: bold;
   }
   
   .day-name {
+    font-size: 13px;
     font-weight: normal;
   }
 }
@@ -37,49 +40,50 @@
   border-radius: 16px;
   margin-bottom: 5px;
   overflow: hidden;
+  .event-details {
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    .time-outer {
+      width: 126px;
+      flex-shrink: 0;
+      .time-container {
+        display: flex;
+        width: fit-content;
+        background-color: #F3FFFF;
+        padding: 6px 6px 4px 4px;
+        border-radius: 6px;
+        gap: 8px;
+        font-size: 12px;
+        align-items: center;
+        img {
+          width: 18px;
+          height: 18px;
+        }
+      }
+    }
+    
+    .marshal-container {
+      flex-grow: 1;
+      font-size: 16px;
+      font-weight: 700;
+      color: #024441;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    .ticket-container {
+      font-size: 14px;
+      color: #2A706B;
+      font-weight: 400;
+    }
+  }
+  
 }
 
-.event-details {
-  padding: 8px;
-  display: flex;
-  align-items: center;
-}
-
-.time-outer {
-  width: 126px;
-  flex-shrink: 0;
-}
-
-.time-container {
-  display: flex;
-  width: fit-content;
-  background-color: #F3FFFF;
-  padding: 6px 6px 4px 4px;
-  border-radius: 6px;
-  gap: 8px;
-  font-size: 12px;
-  align-items: center;
-}
-
-.time-container img {
-  width: 18px;
-  height: 18px;
-}
-
-.marshal-container {
-  flex-grow: 1;
-  font-size: 16px;
-  font-weight: 700;
-  color: #024441;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.ticket-container {
-  font-size: 14px;
-  color: #2A706B;
-  font-weight: 400;
+.event-container:hover{
+  background-color: #3EDCD5B2;
 }
 
 .no-event {

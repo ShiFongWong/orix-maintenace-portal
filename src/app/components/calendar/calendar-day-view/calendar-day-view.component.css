@@ -99,7 +99,9 @@
     }
   }
 }
-
+.event-container.hovered{
+  background-color: #3EDCD5B2;
+}
 
 .event-container:hover{
   background-color: #3EDCD5B2;
@@ -112,42 +114,39 @@
   justify-content: center;
   right: 0;
   border-radius: 6px;
-  
-  .overflow-popup {
-    position: absolute;
-    right: 5px;
-    top: 30px; /* Adjust according to your design */
-    background-color: #333333;
-    width: max-content;
-    z-index: 2;
-    .message-container{
-      padding: 8px 12px 8px 12px;
-      z-index: 100;
-      color: #FFFFFF;
-      line-height: 16.8px;
-      font-size: 12px;
-      font-weight: 400;
-      .message-name{
-        font-weight: 700;
-      }
-    }
-  }
-  
-  .overflow-container:hover .overflow-popup {
+}
+
+.overflow-container:hover{
+  background-color: #DCFEFD;
+  .popup {
     display: block;
   }
-  
-  .overflow-popup ul {
+}
+
+.popup {
+  position: absolute;
+  right: 5px;
+  top: 30px; /* Adjust according to your design */
+  background-color: #333333;
+  width: max-content;
+  z-index: 2;
+  .message-container{
+    padding: 8px 12px 8px 12px;
+    color: #FFFFFF;
+    line-height: 16.8px;
+    font-size: 12px;
+    font-weight: 400;
+    .message-name{
+      font-weight: 700;
+    }
+  }
+  ul {
     list-style: none;
     padding: 0;
     margin: 0;
   }
   
-  .overflow-popup li {
+  li {
     padding: 5px 0;
   }
-}
-
-.overflow-container:hover{
-  background-color: #DCFEFD;
 }

@@ -19,7 +19,7 @@
     
           <div class="more-container" *ngIf="checkmore(day)"
                (mouseover)="showPopover($event, day)">
-            [+ {{ events[format(day, 'M/d')].length - 8 }} more]
+            + {{ events[format(day, 'M/d')].length - 8 }} more
           </div>
         </div>
       </ng-container>
@@ -29,16 +29,16 @@
     </div>
     
     <!-- Popover container outside of the day loop -->
-    <div class="popover" *ngIf="showMore" [style.top.px]="popoverPosition.top" [style.left.px]="popoverPosition.left"  (mouseleave)="hidePopover()">
-      <div class="popover-event-container" *ngFor="let event of events[format(currentPopoverDay, 'M/d')].slice(8)">
-        <div class="event-details">
-          <div class="time-container">
+    <div class="popover message-container" *ngIf="showMore" [style.top.px]="popoverPosition.top" [style.left.px]="popoverPosition.left"  (mouseleave)="hidePopover()">
+      <div class="message-container" *ngFor="let event of events[format(currentPopoverDay, 'M/d')].slice(8)">
+
             {{ event.startTime }} - {{ event.endTime }}
-          </div>
-          <div class="marshal-container">
-            {{ event.marshal }}
-          </div>
-        </div>
+            <div class="message-name">
+              {{ event.marshal }}
+            </div>
+            {{ event.ticketId }}
+            <br>
+            --
       </div>
     </div>
   </ng-container>
