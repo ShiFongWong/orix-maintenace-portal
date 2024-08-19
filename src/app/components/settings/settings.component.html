@@ -14,8 +14,7 @@
       </div>
       <div class="username">
         <label>Display Name</label>
-        <input type="search" id="search-dropdown" class="search-input"
-               placeholder="User"/>
+        <input type="search" id="search-dropdown" class="search-input"/>
       </div>
       <div class="details">
         <div class="email-container">
@@ -25,59 +24,67 @@
 
           <div class="input-container">
             <label>Current Email</label>
-            <input disabled type="search" class="search-input"
-                   placeholder="User"/>
+            <input disabled type="search" class="search-input"/>
           </div>
 
           <div class="input-container">
             <label>New Email</label>
-            <input type="search" class="search-input"
-                   placeholder="User"/>
+            <input type="search" class="search-input"/>
           </div>
         </div>
         <div class="line-border"></div>
-        <div class="email-container">
-          <div class="email-title">
+        <div class="password-container">
+          <div class="password-title">
             Password
             <div class="help-wrapper">
               <img src="/assets/icons/help-12x12.svg" alt="">
             </div>
           </div>
-
-          <div class="strength-wrapper">
-            <div class="input-container flex-grow">
-              <label>Current Password</label>
-              <input [(ngModel)]="password" type="search" class="search-input max-height" placeholder="User"/>
-            </div>
-
-            <div class="strength flex-grow">
-              <span>Strength</span>
-              <div class="bar-container">
-                <div class="bar-background"></div>
-                <div [style.width]="strengthBarWidth" [ngClass]="{
-    'bar-frontground': true,
-    'weak-background-color': passwordStrength === 'Weak',
-    'medium-background-color': passwordStrength === 'Medium',
-    'strong-background-color': passwordStrength === 'Strong'
-  }"></div>
+          <div class="password-detail-container">
+            <div class="password-detail">
+              <div class="input-container flex-grow">
+                <label class="password-label">Current Password</label>
+                <input [(ngModel)]="encryptedPassword" (ngModelChange)="encryptPassword($event)" class="search-input"/>
               </div>
-              <span [ngClass]="{
-        'strength-label': true,
-        'weak-color': passwordStrength === 'Weak',
-        'medium-color': passwordStrength === 'Medium',
-        'strong-color': passwordStrength === 'Strong'
-      }">{{ passwordStrength }}</span>
+              <div class="input-container">
+                <label class="password-label">New Password</label>
+                <input [(ngModel)]="encryptedNewPassword" (ngModelChange)="encryptNewPassword($event)" class="search-input"/>
+              </div>
+            </div>
+            <div class="strength-wrapper">
+
+              <div class="strength flex-grow">
+                <span>Strength</span>
+                <div class="bar-container">
+                  <div class="bar-background"></div>
+                  <div [style.width]="strengthBarWidth" [ngClass]="{
+      'bar-frontground': true,
+      'weak-background-color': passwordStrength === 'Weak',
+      'medium-background-color': passwordStrength === 'Medium',
+      'strong-background-color': passwordStrength === 'Strong'
+    }"></div>
+                </div>
+                <span [ngClass]="{
+          'strength-label': true,
+          'weak-color': passwordStrength === 'Weak',
+          'medium-color': passwordStrength === 'Medium',
+          'strong-color': passwordStrength === 'Strong'
+        }">{{ passwordStrength }}</span>
+              </div>
             </div>
           </div>
-
-
-          <div class="input-container">
-            <label>New Password</label>
-            <input type="search" class="search-input"
-                   placeholder="User"/>
+          <div class="password-checkbox">
+            <input [(ngModel)]="isShowPassword" (ngModelChange)="showPassword()" type="checkbox">
+            Show password
           </div>
         </div>
       </div>
     </div>
   </div>
+
+  <div class="bottom-bar">
+    <button class="save-btn">
+        Save
+    </button>
+</div>
 </div>

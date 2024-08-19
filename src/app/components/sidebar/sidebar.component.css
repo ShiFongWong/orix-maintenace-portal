@@ -288,13 +288,3 @@ body, html {
   transition: background-color 0.3s ease-in-out;
 }
 
-
-
-@media (max-width: 640px) {
-  .sidebar {
-    transform: translateX(-100%);
-  }
-  .sidebar.active {
-    transform: translateX(0);
-  }
-}
