@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { CommonModule,DatePipe  } from '@angular/common';
+import { CommonModule,DatePipe,formatDate } from '@angular/common';
 import { MatDatepickerModule, MatDatepicker  } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -7,6 +7,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { FormsModule } from '@angular/forms';
+
+import { NzDatePickerModule, NzRangePickerComponent, NzDatePickerComponent, NzMonthPickerComponent, CompatibleDate } from 'ng-zorro-antd/date-picker';
+import {addWeeks, endOfWeek, startOfWeek , startOfMonth, endOfMonth} from "date-fns";
+import { BehaviorSubject } from 'rxjs';
+
 import { CalendarDayViewComponent } from './calendar-day-view/calendar-day-view.component';
 import { CalendarWeekViewComponent } from './calendar-week-view/calendar-week-view.component';
 import { CalendarMonthViewComponent } from './calendar-month-view/calendar-month-view.component';
@@ -31,7 +36,11 @@ interface Event {
     FormsModule, 
     CalendarDayViewComponent, 
     CalendarWeekViewComponent, 
-    CalendarMonthViewComponent
+    CalendarMonthViewComponent,
+    NzDatePickerModule,
+    NzRangePickerComponent,
+    NzDatePickerComponent,
+    NzMonthPickerComponent
   ],
   templateUrl: './calendar.component.html',
   styleUrl: './calendar.component.css',
@@ -43,23 +52,15 @@ export class CalendarComponent implements OnInit{
   events: { [key: string]: Event[] } = {}; // Keyed by date in 'M/d' format
   marshalCounts: { [key: string]: number } = {};
   marshalList: { name: string, count: number }[] = [];
+  isSearching = false;
+  searchQuery = '';
+  isFiltering = false;
+  CalendarSeparator = "to";
+  selectedRange: Date[] = [this.getStartOfWeek(this.currentDate),this.getEndOfWeek(this.currentDate)];
+  selectedDate:Date = new Date();
+  selectedMonth: Date = new Date();
+  formattedWeek: any;
 
-  get displayDate(): { datePart: string, dayPart: string } {
-    switch (this.view) {
-      case 'day':
-        const dateStr = this.formatDate(this.currentDate, 'yyyy-M-d');
-        const dayStr = this.formatDate(this.currentDate, 'EEE');
-        return { datePart: dateStr, dayPart: dayStr };
-      case 'week':
-        const startOfWeek = this.getStartOfWeek(this.currentDate);
-        const endOfWeek = this.getEndOfWeek(this.currentDate);
-        return { datePart: `${this.formatDate(startOfWeek, 'yyyy-M-d')} to ${this.formatDate(endOfWeek, 'yyyy-M-d')}`, dayPart: '' };
-      case 'month':
-        return { datePart: this.formatDate(this.currentDate, 'yyyy-M'), dayPart: '' };
-      default:
-        return { datePart: '', dayPart: '' };
-    }
-  }
   ngOnInit() {
     this.loadEvents();
   }
@@ -130,21 +131,15 @@ compareTime(time1: string, time2: string): number {
   getStartOfWeek(date: Date): Date {
     const d = new Date(date);
     const day = d.getDay();
-    const diff = d.getDate() - day + (day === 0 ? -6 : 1);
+    const diff = d.getDate() - day + (day === 0 ? -6 : 1)-1;
     return new Date(d.setDate(diff));
   }
 
   getEndOfWeek(date: Date): Date {
     const d = new Date(date);
     const day = d.getDay();
-    const diff = d.getDate() - day + (day === 0 ? 0 : 7);
+    const diff = d.getDate() - day + (day === 0 ? 0 : 7)-1;
     return new Date(d.setDate(diff));
-  }
-
-  onDatePickerClosed() {
-    // The selected date will be automatically updated in the currentDate property
-    // We just need to trigger change detection
-    this.currentDate = new Date(this.currentDate);
   }
 
   countMarshals() {
@@ -169,5 +164,108 @@ compareTime(time1: string, time2: string): number {
       name: marshal,
       count: this.marshalCounts[marshal]
     }));
+  }
+
+  setPrev() {
+    if(this.view=='day'){
+      var prev;
+      if (this.selectedDate) {
+        prev = new Date(this.selectedDate); // Create a copy of the selected date
+
+      }
+      else{
+        prev = new Date();
+      }
+      prev.setDate(prev.getDate() - 1); // Subtract one day
+      this.selectedDate = prev; // Update the selected date
+    }
+    else if(this.view == 'week'){
+      var prev;
+      if (this.selectedRange) {
+        prev = new Date(this.selectedRange[0]); // Create a copy of the selected date
+      }
+      else{
+        prev = new Date(); // Create a copy of the selected date
+      }
+      prev.setDate(prev.getDate() - 1); // Subtract one day
+      this.selectedRange = [startOfWeek(prev),endOfWeek(prev)]; // Update the selected date
+    }
+    else if(this.view == 'month'){
+      var prev;
+      if (this.selectedMonth) {
+        prev = new Date(startOfMonth(this.selectedMonth)); // Create a copy of the selected date
+      }
+      else{
+        prev = new Date(); // Create a copy of the selected date
+      }
+      prev.setDate(prev.getDate() - 1); // Subtract one day
+      this.selectedMonth = prev; // Update the selected date
+    }
+  }
+
+  setNext(){
+    if(this.view=='day'){
+      var prev;
+      if (this.selectedDate) {
+        prev = new Date(this.selectedDate); // Create a copy of the selected date
+
+      }
+      else{
+        prev = new Date();
+      }
+      prev.setDate(prev.getDate() + 1); // Subtract one day
+      this.selectedDate = prev; // Update the selected date
+    }
+    else if(this.view == 'week'){
+      var prev;
+      if (this.selectedRange) {
+        prev = new Date(this.selectedRange[1]); // Create a copy of the selected date
+      }
+      else{
+        prev = new Date(); // Create a copy of the selected date
+      }
+      prev.setDate(prev.getDate() + 1); // Subtract one day
+      this.selectedRange = [startOfWeek(prev),endOfWeek(prev)]; // Update the selected date
+    }
+    else if(this.view == 'month'){
+      var prev;
+      if (this.selectedMonth) {
+        prev = new Date(endOfMonth(this.selectedMonth)); // Create a copy of the selected date
+      }
+      else{
+        prev = new Date(); // Create a copy of the selected date
+      }
+      prev.setDate(prev.getDate() + 1); // Subtract one day
+      this.selectedMonth = prev; // Update the selected date
+    }
+  }
+
+  setToday(): void {
+    var today = new Date();
+    if(this.view=='day'){
+      this.selectedDate = today; // Update the selected date
+    }
+    else if(this.view == 'week'){
+      this.selectedRange = [today,today]; // Update the selected date
+    }
+    else if(this.view == 'month'){
+      this.selectedMonth = today; // Update the selected date
+    }
+  }
+
+  onOk(result: CompatibleDate | null): void {
+    if (Array.isArray(result)) {
+      this.selectedRange = result;
+    } else {
+      this.selectedRange = [];
+    }
+  }
+  get formattedWeekDisplay(): string {
+    if (this.selectedDate) {
+      const startOfWeek = this.getStartOfWeek(this.selectedDate);
+      const endOfWeek = this.getEndOfWeek(this.selectedDate);
+      return `${formatDate(startOfWeek, 'yyyy-MM-dd', 'en-US')} to ${formatDate(endOfWeek, 'yyyy-MM-dd', 'en-US')}`;
+    }
+    return '';
   }
 }

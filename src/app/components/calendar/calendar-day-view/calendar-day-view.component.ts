@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, ViewChild, AfterViewInit,OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { format, addMinutes, startOfDay, differenceInMinutes } from 'date-fns';
 
@@ -21,7 +21,7 @@ interface ProcessedEvent {
   templateUrl: './calendar-day-view.component.html',
   styleUrl: './calendar-day-view.component.css',
 })
-export class CalendarDayViewComponent implements OnInit, AfterViewInit {
+export class CalendarDayViewComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() date: Date = new Date();
   @Input() events: { [key: string]: Event[] } = {}; // Keyed by date in 'M/d' format
   @ViewChild('container', { static: true }) containerRef!: ElementRef;
@@ -40,11 +40,22 @@ export class CalendarDayViewComponent implements OnInit, AfterViewInit {
   constructor(private elementRef: ElementRef) {}
 
   ngOnInit() {
+    this.initializeComponent();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['date'] || changes['events']) {
+      this.initializeComponent();
+    }
+  }
+
+  initializeComponent() {
     this.generateHours();
     this.updateCurrentTimeLine();
     setInterval(() => this.updateCurrentTimeLine(), 60000); // Update every minute
     this.processEvents();
   }
+
   ngAfterViewInit() {
     // The view is now initialized, you can safely use containerRef
   }
@@ -77,53 +88,55 @@ export class CalendarDayViewComponent implements OnInit, AfterViewInit {
     return hours * 60 + minutes;
   }
   processEvents() {
-    const sortedEvents = this.events['8/12'].sort((a, b) => 
-      this.timeToMinutes(a.startTime) - this.timeToMinutes(b.startTime) ||
-      this.timeToMinutes(b.endTime) - this.timeToMinutes(a.endTime)
-    );
-  
-    let columns: ProcessedEvent[][] = [];
-    this.overflowedEvents = {}; // Reset overflowed events
-  
-    sortedEvents.forEach(event => {
-      let columnIndex = 0;
-      let placedEvent: ProcessedEvent | null = null;
-  
-      while (!placedEvent && columnIndex < this.maxColumns) {
-        if (!columns[columnIndex]) {
-          columns[columnIndex] = [];
+    if(this.events[format(this.date,'M/d')]){
+      const sortedEvents = this.events[format(this.date,'M/d')].sort((a, b) => 
+        this.timeToMinutes(a.startTime) - this.timeToMinutes(b.startTime) ||
+        this.timeToMinutes(b.endTime) - this.timeToMinutes(a.endTime)
+      );
+    
+      let columns: ProcessedEvent[][] = [];
+      this.overflowedEvents = {}; // Reset overflowed events
+    
+      sortedEvents.forEach(event => {
+        let columnIndex = 0;
+        let placedEvent: ProcessedEvent | null = null;
+    
+        while (!placedEvent && columnIndex < this.maxColumns) {
+          if (!columns[columnIndex]) {
+            columns[columnIndex] = [];
+          }
+    
+          const conflictingEvent = columns[columnIndex].find(existingEvent => 
+            this.overlaps(existingEvent.event, event)
+          );
+    
+          if (!conflictingEvent) {
+            placedEvent = { event, column: columnIndex, width: 1, left: columnIndex };
+            columns[columnIndex].push(placedEvent);
+          } else {
+            columnIndex++;
+          }
         }
-  
-        const conflictingEvent = columns[columnIndex].find(existingEvent => 
-          this.overlaps(existingEvent.event, event)
-        );
-  
-        if (!conflictingEvent) {
-          placedEvent = { event, column: columnIndex, width: 1, left: columnIndex };
-          columns[columnIndex].push(placedEvent);
-        } else {
-          columnIndex++;
+    
+        if (!placedEvent) {
+          const timeSlotKey = `${event.startTime}-${event.endTime}`;
+          if (!this.overflowedEvents[timeSlotKey]) {
+            this.overflowedEvents[timeSlotKey] = [];
+          }
+          this.overflowedEvents[timeSlotKey].push(event);
         }
-      }
-  
-      if (!placedEvent) {
-        const timeSlotKey = `${event.startTime}-${event.endTime}`;
-        if (!this.overflowedEvents[timeSlotKey]) {
-          this.overflowedEvents[timeSlotKey] = [];
-        }
-        this.overflowedEvents[timeSlotKey].push(event);
-      }
-    });
-  
-    // Adjust widths and positions
-    this.processedEvents = columns.flat().map(event => {
-      const colSpan = this.getColumnSpan(event, columns);
-      return {
-        ...event,
-        width: colSpan*2.5,
-        left: event.column / columns.length
-      };
-    });
+      });
+    
+      // Adjust widths and positions
+      this.processedEvents = columns.flat().map(event => {
+        const colSpan = this.getColumnSpan(event, columns);
+        return {
+          ...event,
+          width: colSpan*2.5,
+          left: event.column / columns.length
+        };
+      });
+    }
   }
   
   getColumnSpan(event: ProcessedEvent, columns: ProcessedEvent[][]): number {

@@ -6,22 +6,48 @@
         <div class="date-operation-container">
             <div class="date-chosen">
                 <div class="date-picker-container">
-                    <mat-datepicker-toggle [for]="picker">
-                        <img matDatepickerToggleIcon src="assets/icons/calendar-calendar.svg" alt="Calendar">
-                      </mat-datepicker-toggle>
-                      <div *ngIf="displayDate">
-                        <span class="display date">{{ displayDate.datePart }}</span>
-                        <span *ngIf="displayDate.dayPart" class="display day"> ({{ displayDate.dayPart }})</span>
-                      </div>
-                    <mat-datepicker #picker (closed)="onDatePickerClosed()"></mat-datepicker>
+                  <ng-template #customIcon>
+                    <img src="/assets/icons/calendar-green.svg" alt="Calendar Icon" />
+                  </ng-template>
+                  <div class="day-date-picker" *ngIf="view=='day'">
+                    <nz-date-picker
+                      class="custom-width-range-picker"
+                      [nzAllowClear]="false"
+                      [nzSuffixIcon]="customIcon"
+                      [(ngModel)]="selectedDate"
+                      (nzOnOk)="onOk($event)"
+                      [nzFormat]="'yyyy-M-d(EEE)'"
+                    >
+                    </nz-date-picker>
                   </div>
-
+                  <div class="week-date-picker" *ngIf="view=='week'">
+                    <nz-range-picker
+                      class="custom-width-range-picker"
+                      [nzAllowClear]="false"
+                      [nzSuffixIcon]="customIcon"
+                      [nzSeparator]="CalendarSeparator"
+                      [(ngModel)]="selectedRange"
+                      (nzOnOk)="onOk($event)"
+                    >
+                    </nz-range-picker>
+                  </div>
+                  <div class="month-date-picker" *ngIf="view=='month'">
+                    <nz-month-picker
+                      [nzAllowClear]="false"
+                      class="custom-width-range-picker"
+                      [nzSuffixIcon]="customIcon"
+                      [(ngModel)]="selectedMonth"
+                      (nzOnOk)="onOk($event)"
+                    >
+                    </nz-month-picker>
+                  </div>
+                </div>
             </div>
             <div class="date-btn">
-                <button class="left-arrow"><img src="assets/icons/calendar-left-arrow.svg"></button>
-                <button class="right-arrow"><img src="assets/icons/calendar-right-arrow.svg"></button>
+                <button class="left-arrow" (click)="setPrev()"><img src="assets/icons/calendar-left-arrow.svg"></button>
+                <button class="right-arrow" (click)="setNext()"><img src="assets/icons/calendar-right-arrow.svg"></button>
             </div>
-                <div class="current-date">
+                <div class="change-today" (click) = "setToday()">
                     Today
                 </div>
 
@@ -56,9 +82,9 @@
             <div [ngClass]="{ 'full-width': view=='month', 'fixed-width': view!='month' }" class="calendar-container">
                 <div class="calendar">
                     <ng-container [ngSwitch]="view" >
-                        <app-day-view *ngSwitchCase="'day'" [date]="currentDate" [events]="events"></app-day-view>
-                        <app-week-view *ngSwitchCase="'week'" [date]="currentDate" [events]="events"></app-week-view>
-                        <app-month-view *ngSwitchCase="'month'" [date]="currentDate" [events]="events"></app-month-view>
+                        <app-day-view *ngSwitchCase="'day'" [date]="selectedDate" [events]="events"></app-day-view>
+                        <app-week-view *ngSwitchCase="'week'" [date]="selectedRange[0]" [events]="events"></app-week-view>
+                        <app-month-view *ngSwitchCase="'month'" [date]="selectedMonth" [events]="events"></app-month-view>
                     </ng-container>
                 </div>
             </div>

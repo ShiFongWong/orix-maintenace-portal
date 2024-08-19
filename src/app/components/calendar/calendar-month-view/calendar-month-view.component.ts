@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { 
@@ -33,7 +33,7 @@ interface Event {
   styleUrl: './calendar-month-view.component.css',
 })
 
-export class CalendarMonthViewComponent implements OnInit {
+export class CalendarMonthViewComponent implements OnInit, OnChanges {
   @Input() date: Date = new Date();
   @Input() events: { [key: string]: Event[] } = {}; // Keyed by date in 'M/d' format
 
@@ -51,6 +51,11 @@ export class CalendarMonthViewComponent implements OnInit {
     this.generateCalendarDays(this.date);
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['date'] || changes['events']) {
+      this.generateCalendarDays(this.date);
+    }
+  }
 
   generateCalendarDays(date: Date) {
     const start = startOfWeek(startOfMonth(date));

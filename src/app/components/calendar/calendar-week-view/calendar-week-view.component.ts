@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { startOfWeek, addDays, format } from 'date-fns';
 
@@ -16,13 +16,19 @@ interface Event {
   styleUrl: './calendar-week-view.component.css',
 })
 
-export class CalendarWeekViewComponent implements OnInit{
+export class CalendarWeekViewComponent implements OnInit, OnChanges{
   @Input() date: Date = new Date(); // Add this line
   @Input() events: { [key: string]: Event[] } = {}; // Keyed by date in 'M/d' format
   weekDays: Date[] = [];
 
   ngOnInit() {
     this.setupWeekDays();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['date'] || changes['events']) {
+      this.setupWeekDays();
+    }
   }
 
   setupWeekDays() {
