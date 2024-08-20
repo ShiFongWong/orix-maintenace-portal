@@ -150,7 +150,7 @@ canvas{
   padding: 1rem;
   background-color: #FFFFFF;
   box-shadow: 0 -4px 12px 0 #00000014;
-  z-index: 1; /* Place the footer on top of other content */
+  z-index: 997; /* Place the footer on top of other content */
 }
 
 .export-button {
