@@ -1,13 +1,13 @@
 
 
-.container {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-}
-
 /* Add transition to both classes */
 .content-container, .content-container-collapsed {
   transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out; /* Adjust timing and easing as needed */
+}
+
+.container{
+  padding: 2.5rem;
+  position: fixed;
 }
 
 .content-container {

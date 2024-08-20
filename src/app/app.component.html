@@ -1,6 +1,6 @@
 <div class="">
     <app-sidebar (valueChange)="receiveCollapseStatus($event)"></app-sidebar>
-    <div class="content-container" [ngClass]="[isCollapsed ? 'content-container-collapsed' : 'content-container']">
+    <div class="container" [ngClass]="[isCollapsed ? 'content-container-collapsed' : 'content-container']">
         <router-outlet></router-outlet>
     </div>
 </div>
