@@ -42,7 +42,7 @@ const routes: Routes = [
   { path: 'map', component: MapComponent },
   { path: 'orders', component: OrdersComponent },
   { path: 'orders/new', component: NewOrdersComponent },
-  { path: 'orders/edit', component: EditOrdersComponent },
+  { path: 'orders/edit/:workOrder', component: EditOrdersComponent },
   { path: 'approvals', component: ApprovalsComponent },
   { path: 'tickets', component: TicketsComponent },
   { path: 'tickets/new', component: NewTicketComponent },

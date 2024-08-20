@@ -568,6 +568,7 @@
 }
 
 .footer {
+  position: fixed;
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
@@ -575,9 +576,9 @@
   background-color: #FFFFFF;
   box-shadow: 0 -4px 12px 0 #00000014;
   z-index: 1; /* Place the footer on top of other content */
-  margin-left: calc(-100% / 6);
-  grid-column-start: 1;
-  grid-column-end: 13;
+  bottom: 0;
+  right: 0;
+  width: 100%;
 }
 
 .export-button {

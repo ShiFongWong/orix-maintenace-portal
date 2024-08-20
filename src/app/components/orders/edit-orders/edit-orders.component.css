@@ -63,6 +63,35 @@
   align-items: center;
   width: 40%;
   gap: 1rem;
+  .order-input-label{
+    display: flex;
+    width: 150px;
+  }
+  .mileage-wrapper{
+    position: relative;
+    display: inline-block;
+    .mileage-input-field{
+      padding: 0.625rem;
+      padding-right: 40px; /* Ensures space for the unit */
+      box-sizing: border-box; /* Includes padding in the element's width */
+
+      z-index: 20;
+      font-size: 0.875rem;
+      color: #111827;
+      background-color: #FFFFFF;
+      border: 2px solid #828282;
+      border-radius: 2px;
+      height: 100%; /* Make the input fill the parent height */
+    }
+    .km-unit{
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      padding-left: 5px;
+      pointer-events: none; /* Prevents unit from blocking input interaction */
+    }
+  }
 }
 
 .text-area-items{
@@ -144,10 +173,7 @@
   color: #FFFFFF;
 }
 
-.order-input-label{
-  display: flex;
-  width: 150px;
-}
+
 
 .category-radio {
   display: flex;
@@ -353,15 +379,16 @@
   display: flex;
   border: 2px solid #828282;
   border-radius: 20px;
-  padding: 13px 24px 13px 24px;
+  padding: 8px 16px 8px 16px;
   background-color: transparent;
   font-family: SDMetro, sans-serif;
   font-size: 14px;
   font-weight: 400;
   line-height: 14px;
   text-align: center;
+  align-items: center;
   color: #4F4F4F;
-
+  gap: 8px;
 }
 
 .submit-button{

@@ -1,7 +1,13 @@
 <div class="order-container">
-  <div class="header">New Work Order</div>
+  <div class="header">Work Order Details</div>
   <div class="main-content">
     <div class="order-details-container">
+      <div class="order-input-items">
+        <label class="order-input-label">Order Number:</label>
+        <input [value]="workOrder" disabled type="search" class="search-input"/>
+      </div>
+      <div class="border-line"></div>
+
       <div class="order-input-items">
         <label class="order-input-label">Client Name:</label>
         <input type="search" class="search-input width-unset"
@@ -22,26 +28,12 @@
         <ng-template #customIcon>
           <img src="/assets/icons/calendar-green.svg" alt="Calendar Icon" />
         </ng-template>
-        <nz-range-picker
+        <nz-date-picker
           class="custom-width-range-picker"
           [nzSuffixIcon]="customIcon"
-          [nzSeparator]="CalendarSeparator"
-          [nzRenderExtraFooter]="footerTemplate"
-          [(ngModel)]="selectedRange"
-          (nzOnOk)="onOk($event)"
+          [(ngModel)]="selectedDate"
         >
-        </nz-range-picker>
-
-        <ng-template #footerTemplate>
-          <div class="custom-footer" (click)="$event.stopPropagation()">
-            <button nz-button nzType="default" (click)="setToday()">Today</button>
-            <button nz-button nzType="default" (click)="setTomorrow()">Tomorrow</button>
-            <button nz-button nzType="default" (click)="setThisWeek()">This Week</button>
-            <button nz-button nzType="default" (click)="setNextWeek()">Next Week</button>
-            <button nz-button nzType="default" (click)="cancel()">Cancel</button>
-            <button nz-button nzType="primary" (click)="apply()">Apply</button>
-          </div>
-        </ng-template>
+        </nz-date-picker>
       </div>
       <div class="border-line"></div>
 
@@ -54,8 +46,11 @@
 
       <div class="order-input-items">
         <label class="order-input-label">Car Mileage:</label>
-        <input type="search" class="search-input width-unset"
-               placeholder=""/>
+        <div class="mileage-wrapper">
+          <input class="mileage-input-field" placeholder=""/>
+          <span class="km-unit">km</span>
+        </div>
+
       </div>
       <div class="border-line"></div>
 
@@ -101,8 +96,8 @@
       <div class="order-input-items">
         <label class="order-input-label">Status:</label>
         <div class="category-filter" role="group">
-          @for (item of categoryList; track item; let i = $index; let first = $first; let last = $last) {
-            <button (click)="onClickCategory(item.type)" type="button"
+          @for (item of statusList; track item; let i = $index; let first = $first; let last = $last) {
+            <button (click)="onClickStatus(item.type)" type="button"
                     [ngClass]="['btn', item.active ? 'btn-active' : '', first ? 'btn--first' : '', last ? 'btn--last' : '', (!first && !last) ? 'btn--middle' : '']">
               {{ item.type }}
             </button>
@@ -199,7 +194,8 @@
   </div>
   <div class="footer">
     <button class="cancel-button">
-      <span>Cancel</span>
+      <img src="/assets/icons/order-no.svg" alt="">
+      <span>Cancel this order</span>
     </button>
     <button routerLink="/orders/new" class="new-order-btn">
       <img src="/assets/icons/add-green.svg" alt="">

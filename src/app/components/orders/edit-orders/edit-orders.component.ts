@@ -1,15 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {addWeeks, endOfWeek, startOfWeek} from "date-fns";
 import {CompatibleDate} from "ng-zorro-antd/date-picker";
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-edit-orders',
   templateUrl: './edit-orders.component.html',
   styleUrl: './edit-orders.component.css'
 })
-export class EditOrdersComponent {
+export class EditOrdersComponent implements OnInit {
 
-  categoryList = [
+  statusList = [
     {type: 'Pending', active: true},
     {type: 'Approve', active: false},
     {type: 'Complete', active: false},
@@ -21,51 +22,27 @@ export class EditOrdersComponent {
 
   isAddingDetail = false;
   selectedRange: Date[] = [];
-  CalendarSeparator = "To";
+  selectedDate: Date = new Date();
+  workOrder: string | null = null;
 
+  constructor(
+    private route: ActivatedRoute
+  ) {}
 
-
-  setToday(): void {
-    const today = new Date();
-    this.selectedRange = [today, today];
+  ngOnInit(): void {
+    this.route.paramMap.subscribe(params => {
+      this.workOrder = params.get('workOrder');
+      // Now you can use this.workOrder as needed
+    });
+    this.loadDetails();
   }
 
-  setTomorrow(): void {
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    this.selectedRange = [tomorrow, tomorrow];
+  loadDetails(){
+    
   }
-
-  setThisWeek(): void {
-    const today = new Date();
-    this.selectedRange = [startOfWeek(today), endOfWeek(today)];
-  }
-
-  setNextWeek(): void {
-    const nextWeek = addWeeks(new Date(), 1);
-    this.selectedRange = [startOfWeek(nextWeek), endOfWeek(nextWeek)];
-  }
-
-  cancel(): void {
-    this.selectedRange = [];
-    // Add logic to close the picker if needed
-  }
-
-  apply(): void {
-    // Add logic to apply the selected date range
-    console.log('Applied range:', this.selectedRange);
-  }
-
-  onOk(result: CompatibleDate | null): void {
-    if (Array.isArray(result)) {
-      this.selectedRange = result;
-    } else {
-      this.selectedRange = [];
-    }
-  }
-
-  onClickCategory(type: string) {
-    for (const item of this.categoryList) {
+  
+  onClickStatus(type: string) {
+    for (const item of this.statusList) {
       item.active = item.type === type;
     }
   }

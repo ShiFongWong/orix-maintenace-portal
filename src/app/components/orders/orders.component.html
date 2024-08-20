@@ -125,7 +125,9 @@
               {{ item.status }}
             </div>
           </td>
-          <td class="order-table-data"><a routerLink="/orders/edit" class="order-table-edit">Edit</a></td>
+          <td class="order-table-data">
+            <a [routerLink]="['/orders/edit', item.workOrder]" class="order-table-edit">Edit</a>
+          </td>
         </tr>
         </tbody>
       </table>
