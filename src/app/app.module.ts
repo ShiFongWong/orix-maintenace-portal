@@ -31,7 +31,7 @@ import { WorkshopsComponent } from './components/workshops/workshops.component';
 import { VehiclesComponent } from './components/vehicles/vehicles.component';
 import { UsersComponent } from './components/users/users.component';
 import { ServicesComponent } from './components/services/services.component';
-import { SearchbarComponent } from './components/searchbar/searchbar.component';
+import { SearchbarComponent } from './components/map/searchbar/searchbar.component';
 import { NewOrdersComponent } from './components/orders/new-orders/new-orders.component';
 import { EditOrdersComponent } from './components/orders/edit-orders/edit-orders.component';
 import { NewTicketComponent } from './components/tickets/new-ticket/new-ticket.component';
