@@ -29,7 +29,7 @@
         class="menu-link"
         >
         <img width="24" height="24" [src]="'/assets/icons/' + (isActiveLink(item.link) ? item.icon + '-selected.svg' : item.icon + '.svg')" alt="">
-        <span class="menu-title">{{ item.title }}</span>
+        <span class="menu-title" [ngClass]="[ isActiveLink(item.link) ? 'menu-selected' : '']">{{ item.title }}</span>
         </a>
       </li>
       <li class="dropdown-menu" (click)="toggleResources()">

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { NavigationEnd, Router } from "@angular/router";
 import { SidebarService } from "../../services/sidebar.service";
 import { Subscription } from 'rxjs';
@@ -30,7 +30,8 @@ export class SidebarComponent implements OnInit, OnDestroy {
     {title: 'Services', link: 'resources/services'},
 
   ]
-
+  @Output() valueChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+  
   isCollapsed: boolean;
   isSmallScreen: boolean = false; // Initialize here
   isResourcesOpen: boolean = false;
@@ -79,6 +80,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   onCollapsed() {
     this.sidebarService.toggleCollapse();
     this.isCollapsed = this.sidebarService.getCollapseState();
+    this.valueChange.emit(this.isCollapsed);
     this.updateGridVariable();
   }
 

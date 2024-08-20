@@ -5,20 +5,18 @@
   grid-template-columns: repeat(12, 1fr);
 }
 
-.sidebar {
-  grid-column-start: 1;
-  grid-column-end: 3;
+/* Add transition to both classes */
+.content-container, .content-container-collapsed {
+  transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out; /* Adjust timing and easing as needed */
 }
 
-.content {
-  grid-column-start: 3;
-  grid-column-end: 13;
+.content-container {
+  margin-left: 300px;
+  width: calc(100% - 300px);
 }
 
-/* Media query for screens up to 14' (approximately 1366px width) */
-@media screen and (max-width: 1366px) {
-  .content {
-    grid-column-start: 4;
-    grid-column-end: 13;
-  }
+.content-container-collapsed {
+  margin-left: 100px;
+  width: calc(100% - 100px);
 }
+
