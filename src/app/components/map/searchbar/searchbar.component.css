@@ -10,6 +10,7 @@ body, html {
   display: flex;
   transition: transform 0.3s ease-in-out;
 }
+
 .searchbar {
   width: 256px;
   height: 100%;

@@ -1,10 +1,23 @@
 import { Component } from '@angular/core';
+import {trigger,state, style, transition, animate} from '@angular/animations';
 
 @Component({
   selector: 'app-searchbar',
   templateUrl: './searchbar.component.html',
-  styleUrl: './searchbar.component.css'
+  styleUrl: './searchbar.component.css',
+  animations: [
+    trigger('slideInOut', [
+      transition(':enter', [
+        style({ transform: 'translateX(100%)' }),
+        animate('300ms ease-in-out', style({ transform: 'translateX(0%)' }))
+      ]),
+      transition(':leave', [
+        animate('300ms ease-in-out', style({ transform: 'translateX(100%)' }))
+      ])
+    ])
+  ]
 })
+
 export class SearchbarComponent {
   isSearchbarOpen = true;
   isSearching = false;
