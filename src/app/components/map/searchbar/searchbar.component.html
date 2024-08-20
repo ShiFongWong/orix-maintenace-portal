@@ -1,9 +1,9 @@
-<div class="searchbar-container" id="searchbar-container">
+<div class="searchbar-container" [ngClass]="[ isSearchbarOpen ? 'tranform-back' : 'tranform' ]" id="searchbar-container">
   <div class="close-line" (click)="toggleSearchbar()">
     <img *ngIf="isSearchbarOpen" src="/assets/icons/right-arrow.svg" alt="Toggle searchbar" class="close-line-arrow">
     <img *ngIf="!isSearchbarOpen" src="/assets/icons/left-arrow.svg" alt="Toggle searchbar" class="close-line-arrow">
   </div>
-  <aside *ngIf="isSearchbarOpen" @slideInOut class="searchbar" id="searchbar">
+  <aside class="searchbar" id="searchbar">
     <form class="search-form">
       <div class="search-container">
         <label class="search-label" for="search-dropdown">Search for vehicles</label>

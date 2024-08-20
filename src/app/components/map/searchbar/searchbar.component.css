@@ -11,6 +11,13 @@ body, html {
   transition: transform 0.3s ease-in-out;
 }
 
+  .tranform{
+    transform: translateX(calc(100% - 24px));
+  }
+  .tranform-back{
+    transform: translateX(0%);
+  }
+
 .searchbar {
   width: 256px;
   height: 100%;
@@ -312,7 +319,7 @@ body, html {
 
 @media (max-width: 640px) {
   .searchbar-container {
-    transform: translateX(100%);
+    transform: translateX(calc(100% - 24px));
   }
   .searchbar-container.active {
     transform: translateX(0);
