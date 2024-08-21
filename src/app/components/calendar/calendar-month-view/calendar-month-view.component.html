@@ -7,7 +7,7 @@
         <div class="event-list">
           <div class="event-container" *ngFor="let event of events[format(day, 'M/d')]; let i = index" 
                [hidden]="i >= 8">
-            <div class="event-details">
+            <div class="event-details" [routerLink]="['/tickets/edit', event.ticketId]">
               <div class="time-container">
                 {{ event.startTime }} - {{ event.endTime }}
               </div>

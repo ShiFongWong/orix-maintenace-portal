@@ -1,6 +1,6 @@
 .calendar-page-container{
     .content-container{
-      padding-bottom: 60px;
+      margin-bottom: 60px;
       .title-container{
         display: flex;
       }

@@ -1,17 +1,11 @@
 import { Component, OnInit, Input, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { CommonModule,DatePipe,formatDate, NgTemplateOutlet  } from '@angular/common';
-import { MatDatepickerModule, MatDatepicker  } from '@angular/material/datepicker';
-import { MatInputModule } from '@angular/material/input';
-import { MatNativeDateModule } from '@angular/material/core';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
+import { RouterModule } from '@angular/router';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { FormsModule } from '@angular/forms';
 
 import { NzDatePickerModule, NzRangePickerComponent, NzDatePickerComponent, NzMonthPickerComponent, CompatibleDate } from 'ng-zorro-antd/date-picker';
-import {addWeeks, endOfWeek, startOfWeek , startOfMonth, endOfMonth, format} from "date-fns";
-import { BehaviorSubject } from 'rxjs';
-
+import { endOfWeek, startOfWeek , startOfMonth, endOfMonth, format} from "date-fns";
 import { CalendarDayViewComponent } from './calendar-day-view/calendar-day-view.component';
 import { CalendarWeekViewComponent } from './calendar-week-view/calendar-week-view.component';
 import { CalendarMonthViewComponent } from './calendar-month-view/calendar-month-view.component';
@@ -27,11 +21,6 @@ interface Event {
   standalone: true,
   imports: [
     CommonModule,
-    MatDatepickerModule,
-    MatInputModule,
-    MatNativeDateModule,
-    MatFormFieldModule,
-    MatIconModule,
     MatButtonToggleModule,
     FormsModule, 
     CalendarDayViewComponent, 
@@ -41,21 +30,18 @@ interface Event {
     NzRangePickerComponent,
     NzDatePickerComponent,
     NzMonthPickerComponent,
-    NgTemplateOutlet
+    NgTemplateOutlet,
+    RouterModule
   ],
   templateUrl: './calendar.component.html',
   styleUrl: './calendar.component.css',
 })
 export class CalendarComponent implements OnInit{
-  @ViewChild('picker') datepicker!: MatDatepicker<Date>;
   @Input() view: 'day' | 'week' | 'month' = 'day';
   currentDate: Date = new Date();
   events: { [key: string]: Event[] } = {}; // Keyed by date in 'M/d' format
   marshalCounts: { [key: string]: number } = {};
   marshalList: { name: string, count: number }[] = [];
-  isSearching = false;
-  searchQuery = '';
-  isFiltering = false;
   CalendarSeparator = "to";
   selectedRange: Date[] = [this.getStartOfWeek(this.currentDate),this.getEndOfWeek(this.currentDate)];
   selectedDate:Date = new Date();
@@ -75,7 +61,7 @@ export class CalendarComponent implements OnInit{
   loadEvents() {
     // Example event data
     this.events = {
-      '8/12': [
+      '8/31': [
         { startTime: "8:00", endTime: "8:15", marshal: 'Jumaana binti Khaleel John Doe My Name Is You Try To Guess??', ticketId: '12345678' },
         { startTime: "8:45", endTime: "9:15", marshal: 'Jumaana binti Khaleel', ticketId: '12345678' },
         { startTime: "9:30", endTime: "10:15", marshal: 'John Doe', ticketId: '12345678' },

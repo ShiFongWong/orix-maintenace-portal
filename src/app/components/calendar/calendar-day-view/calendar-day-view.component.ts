@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, ElementRef, ViewChild, AfterViewInit,OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router  } from '@angular/router';
+
 import { format, addMinutes, startOfDay, differenceInMinutes } from 'date-fns';
 
 interface Event {
@@ -17,7 +19,9 @@ interface ProcessedEvent {
 @Component({
   selector: 'app-day-view',
   standalone: true,
-  imports: [CommonModule],
+  imports: [
+    CommonModule
+  ],
   templateUrl: './calendar-day-view.component.html',
   styleUrl: './calendar-day-view.component.css',
 })
@@ -37,7 +41,10 @@ export class CalendarDayViewComponent implements OnInit, OnChanges, AfterViewIni
   detail: Event | null = null;
   popoverPosition = { top: 0, right: 0 };
 
-  constructor(private elementRef: ElementRef) {}
+  constructor(
+    private elementRef: ElementRef,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.initializeComponent();
@@ -136,6 +143,10 @@ export class CalendarDayViewComponent implements OnInit, OnChanges, AfterViewIni
           left: event.column / columns.length
         };
       });
+    }
+    else{
+      this.processedEvents=[];
+      this.overflowedEvents={};
     }
   }
   
@@ -253,5 +264,9 @@ getTotalColumnsForTimeRange(startTime: string, endTime: string): number {
 }
   hideDetail() {
     this.detail = null;
+  }
+
+  editTicket(){
+    this.router.navigate([`/tickets/edit/${this.detail?.ticketId}`]);
   }
 }

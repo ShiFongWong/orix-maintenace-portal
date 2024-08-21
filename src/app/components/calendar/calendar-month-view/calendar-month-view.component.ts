@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+
 import { 
   startOfMonth, 
   endOfMonth, 
@@ -28,7 +30,11 @@ interface Event {
 @Component({
   selector: 'app-month-view',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterModule
+  ],
   templateUrl: './calendar-month-view.component.html',
   styleUrl: './calendar-month-view.component.css',
 })
@@ -39,9 +45,6 @@ export class CalendarMonthViewComponent implements OnInit, OnChanges {
 
   calendarDays: Date[][] = [];
   weekDays = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY'];
-  notes: CalendarNote[] = [];
-  isAddingNote = false;
-  newNoteText = '';
   selectedDate: Date | null = null;
   showMore: boolean = false;
   popoverPosition = { top: 0, left: 0 };
@@ -79,33 +82,6 @@ export class CalendarMonthViewComponent implements OnInit, OnChanges {
     }
   }
 
-  getNotesForDay(day: Date): CalendarNote[] {
-    return this.notes.filter(note => isSameDay(note.date, day));
-  }
-
-  addNote(day: Date) {
-    this.isAddingNote = true;
-    this.selectedDate = day;
-  }
-
-  saveNote() {
-    if (this.selectedDate && this.newNoteText.trim()) {
-      const newNote: CalendarNote = {
-        id: Date.now(),
-        date: this.selectedDate,
-        text: this.newNoteText.trim()
-      };
-      this.notes.push(newNote);
-      this.cancelNote();
-    }
-  }
-
-  cancelNote() {
-    this.isAddingNote = false;
-    this.newNoteText = '';
-    this.selectedDate = null;
-  }
-
   hasEvents(day: Date): boolean {
     const dateString = format(day, 'M/d');
     return this.events[dateString] && this.events[dateString].length > 0;
@@ -114,8 +90,8 @@ export class CalendarMonthViewComponent implements OnInit, OnChanges {
   showPopover(event: MouseEvent, day: Date) {
     this.showMore = true;
     this.popoverPosition = {
-      top: event.clientY + window.scrollY, // Adjust Y position based on mouse location
-      left: event.clientX + window.scrollX // Adjust X position based on mouse location
+      top: event.clientY + window.scrollY -50, // Adjust Y position based on mouse location
+      left: event.clientX + window.scrollX -50// Adjust X position based on mouse location
     };
     this.currentPopoverDay = day;
   }

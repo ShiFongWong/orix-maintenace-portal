@@ -7,7 +7,7 @@
     <div class="event-list">
       <div *ngIf="hasEvents(day); else noEvent">
         <div class="event-container" *ngFor="let event of events[format(day, 'M/d')]">
-            <div class="event-details">
+            <div class="event-details" [routerLink]="['/tickets/edit', event.ticketId]">
               <div class="time-outer">
                 <div class="time-container">
                   <img src="\assets\icons\time.svg">

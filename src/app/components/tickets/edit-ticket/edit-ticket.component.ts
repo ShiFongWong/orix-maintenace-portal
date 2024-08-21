@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import {addWeeks, endOfWeek, startOfWeek} from "date-fns";
 import {CompatibleDate} from "ng-zorro-antd/date-picker";
 
@@ -25,8 +26,18 @@ export class EditTicketComponent {
 
   isAddingDetail = false;  selectedRange: Date[] = [];
   CalendarSeparator = "To";
+  workOrder:string|null=null;
 
+  constructor(
+    private route: ActivatedRoute
+  ) {}
 
+  ngOnInit(): void {
+    this.route.paramMap.subscribe(params => {
+      this.workOrder = params.get('workOrder');
+      // Now you can use this.workOrder as needed
+    });
+  }
 
   setToday(): void {
     const today = new Date();

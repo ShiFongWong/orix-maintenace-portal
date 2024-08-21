@@ -36,18 +36,6 @@
   background-color: #f5f5f5;
 }
 
-.notes {
-  font-size: 12px;
-  margin-top: 5px;
-}
-
-.note {
-  background-color: #e1f5fe;
-  margin-bottom: 2px;
-  padding: 2px;
-  border-radius: 2px;
-}
-
 button {
   position: absolute;
   bottom: 5px;
@@ -150,6 +138,10 @@ button {
   background-color: #333333;
   width: max-content;
   z-index: 2;
+  max-height: 140px;
+  max-width: 290px;
+  overflow-y: scroll;
+
   .message-container{
     color: #FFFFFF;
     line-height: 16.8px;

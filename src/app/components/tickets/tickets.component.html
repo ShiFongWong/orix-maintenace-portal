@@ -91,7 +91,7 @@
             </div>
           </td>
           <td class="order-table-data">{{ item.file }}</td>
-          <td class="order-table-data"><a routerLink="/tickets/edit" class="order-table-edit">Edit</a></td>
+          <td class="order-table-data"><a [routerLink]="['/tickets/edit', item.workOrder]" class="order-table-edit">Edit</a></td>
         </tr>
         </tbody>
       </table>

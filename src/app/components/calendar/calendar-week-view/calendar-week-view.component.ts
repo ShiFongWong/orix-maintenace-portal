@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { startOfWeek, addDays, format } from 'date-fns';
+import { RouterModule } from '@angular/router';
+
 
 interface Event {
   startTime: string;
@@ -11,7 +13,10 @@ interface Event {
 @Component({
   selector: 'app-week-view',
   standalone: true,
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    RouterModule
+  ],
   templateUrl: './calendar-week-view.component.html',
   styleUrl: './calendar-week-view.component.css',
 })

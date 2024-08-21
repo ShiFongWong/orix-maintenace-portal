@@ -46,7 +46,7 @@ const routes: Routes = [
   { path: 'approvals', component: ApprovalsComponent },
   { path: 'tickets', component: TicketsComponent },
   { path: 'tickets/new', component: NewTicketComponent },
-  { path: 'tickets/edit', component: EditTicketComponent },
+  { path: 'tickets/edit/:workOrder', component: EditTicketComponent },
   { path: 'calendar', component: CalendarComponent },
   { path: 'workshops', component: WorkshopsComponent },
   { path: 'workshops/new', component: NewWorkshopComponent },

@@ -13,7 +13,7 @@
 
   </div>
   <div class="current-time-line" [style.top.px]="currentTimePosition"></div>
-  <div class="event-container" *ngFor="let eventData of processedEvents" [ngClass]="{ 'hovered' : detail==eventData.event}" [ngStyle]="getEventStyle(eventData)" (mouseover)="showDetail($event, eventData.event)" >
+  <div class="event-container" (click)="editTicket()" *ngFor="let eventData of processedEvents" [ngClass]="{ 'hovered' : detail==eventData.event}" [ngStyle]="getEventStyle(eventData)" (mouseover)="showDetail($event, eventData.event)" >
     <div class="event-details" >
       <div class="time-outer">
         <div class="time-container">
@@ -27,8 +27,8 @@
       <div class="ticket-container">Ticket {{ eventData.event.ticketId }}</div>
     </div>
   </div>
-  <div class="popup" *ngIf="detail != null" [style.top.px]="popoverPosition.top" [style.right.px]="popoverPosition.right"  (mouseleave)="hideDetail()">
-    <ul class="message-container">
+  <div class="popup" *ngIf="detail != null" (click)="editTicket()" [style.top.px]="popoverPosition.top" [style.right.px]="popoverPosition.right"  (mouseleave)="hideDetail()">
+    <ul class="message-container" >
       <li style="padding: 0;">
           {{ detail.startTime }} - {{ detail.endTime }}
           <div class="message-name">{{ detail.marshal }}</div>
