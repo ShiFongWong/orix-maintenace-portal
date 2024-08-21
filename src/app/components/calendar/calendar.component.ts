@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { CommonModule,DatePipe,formatDate } from '@angular/common';
+import { Component, OnInit, Input, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { CommonModule,DatePipe,formatDate, NgTemplateOutlet  } from '@angular/common';
 import { MatDatepickerModule, MatDatepicker  } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -9,7 +9,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { FormsModule } from '@angular/forms';
 
 import { NzDatePickerModule, NzRangePickerComponent, NzDatePickerComponent, NzMonthPickerComponent, CompatibleDate } from 'ng-zorro-antd/date-picker';
-import {addWeeks, endOfWeek, startOfWeek , startOfMonth, endOfMonth} from "date-fns";
+import {addWeeks, endOfWeek, startOfWeek , startOfMonth, endOfMonth, format} from "date-fns";
 import { BehaviorSubject } from 'rxjs';
 
 import { CalendarDayViewComponent } from './calendar-day-view/calendar-day-view.component';
@@ -40,7 +40,8 @@ interface Event {
     NzDatePickerModule,
     NzRangePickerComponent,
     NzDatePickerComponent,
-    NzMonthPickerComponent
+    NzMonthPickerComponent,
+    NgTemplateOutlet
   ],
   templateUrl: './calendar.component.html',
   styleUrl: './calendar.component.css',
@@ -58,11 +59,17 @@ export class CalendarComponent implements OnInit{
   CalendarSeparator = "to";
   selectedRange: Date[] = [this.getStartOfWeek(this.currentDate),this.getEndOfWeek(this.currentDate)];
   selectedDate:Date = new Date();
+  selectedWeek: Date|null = null;
   selectedMonth: Date = new Date();
   formattedWeek: any;
 
+  constructor(
+    private cdr: ChangeDetectorRef
+  ) {}
+
   ngOnInit() {
     this.loadEvents();
+    this.onWeekChange(new Date());
   }
 
   loadEvents() {
@@ -188,7 +195,7 @@ compareTime(time1: string, time2: string): number {
         prev = new Date(); // Create a copy of the selected date
       }
       prev.setDate(prev.getDate() - 1); // Subtract one day
-      this.selectedRange = [startOfWeek(prev),endOfWeek(prev)]; // Update the selected date
+      this.onWeekChange(prev);
     }
     else if(this.view == 'month'){
       var prev;
@@ -205,38 +212,39 @@ compareTime(time1: string, time2: string): number {
 
   setNext(){
     if(this.view=='day'){
-      var prev;
+      var next;
       if (this.selectedDate) {
-        prev = new Date(this.selectedDate); // Create a copy of the selected date
+        next = new Date(this.selectedDate); // Create a copy of the selected date
 
       }
       else{
-        prev = new Date();
+        next = new Date();
       }
-      prev.setDate(prev.getDate() + 1); // Subtract one day
-      this.selectedDate = prev; // Update the selected date
+      next.setDate(next.getDate() + 1); // Subtract one day
+      this.selectedDate = next; // Update the selected date
     }
     else if(this.view == 'week'){
-      var prev;
+      var next;
       if (this.selectedRange) {
-        prev = new Date(this.selectedRange[1]); // Create a copy of the selected date
+        next = new Date(this.selectedRange[1]); // Create a copy of the selected date
       }
       else{
-        prev = new Date(); // Create a copy of the selected date
+        next = new Date(); // Create a copy of the selected date
       }
-      prev.setDate(prev.getDate() + 1); // Subtract one day
-      this.selectedRange = [startOfWeek(prev),endOfWeek(prev)]; // Update the selected date
+      next.setDate(next.getDate() + 1); // Subtract one day
+      this.onWeekChange(next);
+
     }
     else if(this.view == 'month'){
-      var prev;
+      var next;
       if (this.selectedMonth) {
-        prev = new Date(endOfMonth(this.selectedMonth)); // Create a copy of the selected date
+        next = new Date(endOfMonth(this.selectedMonth)); // Create a copy of the selected date
       }
       else{
-        prev = new Date(); // Create a copy of the selected date
+        next = new Date(); // Create a copy of the selected date
       }
-      prev.setDate(prev.getDate() + 1); // Subtract one day
-      this.selectedMonth = prev; // Update the selected date
+      next.setDate(next.getDate() + 1); // Subtract one day
+      this.selectedMonth = next; // Update the selected date
     }
   }
 
@@ -246,26 +254,45 @@ compareTime(time1: string, time2: string): number {
       this.selectedDate = today; // Update the selected date
     }
     else if(this.view == 'week'){
-      this.selectedRange = [today,today]; // Update the selected date
+      this.onWeekChange(today);
     }
     else if(this.view == 'month'){
       this.selectedMonth = today; // Update the selected date
     }
   }
 
-  onOk(result: CompatibleDate | null): void {
-    if (Array.isArray(result)) {
-      this.selectedRange = result;
-    } else {
-      this.selectedRange = [];
-    }
-  }
-  get formattedWeekDisplay(): string {
-    if (this.selectedDate) {
-      const startOfWeek = this.getStartOfWeek(this.selectedDate);
-      const endOfWeek = this.getEndOfWeek(this.selectedDate);
-      return `${formatDate(startOfWeek, 'yyyy-MM-dd', 'en-US')} to ${formatDate(endOfWeek, 'yyyy-MM-dd', 'en-US')}`;
+
+  getWeekRangeString(): string {
+    if (this.selectedWeek) {
+      const start = startOfWeek(this.selectedWeek);
+      const end = endOfWeek(this.selectedWeek);
+      this.resetWeekPicker();
+      return `${format(start, 'yyyy-MM-dd')} to ${format(end, 'yyyy-MM-dd')}`;
     }
     return '';
+  }
+  weekFormat = (date: Date | null): string => {
+    if (date) {
+      console.log(date);
+      const start = startOfWeek(date);
+      const end = endOfWeek(date);
+      this.selectedRange = [start, end];
+      return `${format(start, 'yyyy-MM-dd')} to ${format(end, 'yyyy-MM-dd')}`;
+    }
+    return '';
+  };
+  
+  onWeekChange(date: Date | null): void {
+    this.selectedWeek = date;
+    this.formattedWeek = this.weekFormat(date);
+    this.resetWeekPicker();
+  }
+
+  resetWeekPicker(): void {
+    const temp = this.selectedWeek;
+    this.selectedWeek = null;
+    setTimeout(() => {
+      this.selectedWeek = temp;
+    }, 25);
   }
 }

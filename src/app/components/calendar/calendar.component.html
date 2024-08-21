@@ -15,21 +15,20 @@
                       [nzAllowClear]="false"
                       [nzSuffixIcon]="customIcon"
                       [(ngModel)]="selectedDate"
-                      (nzOnOk)="onOk($event)"
                       [nzFormat]="'yyyy-M-d(EEE)'"
                     >
                     </nz-date-picker>
                   </div>
-                  <div class="week-date-picker" *ngIf="view=='week'">
-                    <nz-range-picker
+                  <div class="week-date-picker" *ngIf="view == 'week'">
+                    <nz-week-picker
                       class="custom-width-range-picker"
                       [nzAllowClear]="false"
                       [nzSuffixIcon]="customIcon"
-                      [nzSeparator]="CalendarSeparator"
-                      [(ngModel)]="selectedRange"
-                      (nzOnOk)="onOk($event)"
+                      [(ngModel)]="selectedWeek"
+                      (ngModelChange)="onWeekChange($event)"
+                      [nzFormat]="formattedWeek"
                     >
-                    </nz-range-picker>
+                    </nz-week-picker>
                   </div>
                   <div class="month-date-picker" *ngIf="view=='month'">
                     <nz-month-picker
@@ -37,7 +36,6 @@
                       class="custom-width-range-picker"
                       [nzSuffixIcon]="customIcon"
                       [(ngModel)]="selectedMonth"
-                      (nzOnOk)="onOk($event)"
                     >
                     </nz-month-picker>
                   </div>
