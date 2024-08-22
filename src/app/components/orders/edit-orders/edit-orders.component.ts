@@ -21,6 +21,7 @@ export class EditOrdersComponent implements OnInit {
   ]
 
   isAddingDetail = false;
+  isHoverDelete = false;
   selectedRange: Date[] = [];
   selectedDate: Date = new Date();
   workOrder: string | null = null;
@@ -34,6 +35,9 @@ export class EditOrdersComponent implements OnInit {
       this.workOrder = params.get('workOrder');
       // Now you can use this.workOrder as needed
     });
+    setTimeout(() => {
+      window.dispatchEvent(new Event('resize'));
+    }, 0);
     this.loadDetails();
   }
 
@@ -53,5 +57,12 @@ export class EditOrdersComponent implements OnInit {
 
   deleteDetailsItem(index: number) {
     this.detailsList = this.detailsList.filter(item => index !== this.detailsList.indexOf(item));
+  }
+
+  hoverDelete(){
+    this.isHoverDelete = true; 
+  }
+  leaveDelete(){
+    this.isHoverDelete = false;
   }
 }

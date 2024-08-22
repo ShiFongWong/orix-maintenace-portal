@@ -193,6 +193,12 @@
     </table>
   </div>
   <div class="footer">
+    <div class="delete-button" (mousedown)="hoverDelete()" (mouseup)="leaveDelete()">
+      <img *ngIf="!isHoverDelete" style="padding: 8px;" src="/assets/icons/delete-purple.svg" alt="">
+      <img *ngIf="isHoverDelete" src="/assets/icons/delete-hover.svg" alt="">
+      Delete
+    </div>
+
     <button class="cancel-button">
       <img src="/assets/icons/order-no.svg" alt="">
       <span>Cancel this order</span>

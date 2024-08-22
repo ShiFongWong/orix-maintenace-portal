@@ -26,9 +26,9 @@ export class EditTicketComponent {
   ]
 
   isAddingDetail = false;  selectedRange: Date[] = [];
-  CalendarSeparator = "To";
+  CalendarSeparator = "to";
   workOrder:string|null=null;
-
+  isHoverDelete = false;
   constructor(
     private route: ActivatedRoute,
     private location: Location,
@@ -40,6 +40,9 @@ export class EditTicketComponent {
       this.workOrder = params.get('workOrder');
       // Now you can use this.workOrder as needed
     });
+    setTimeout(() => {
+      window.dispatchEvent(new Event('resize'));
+    }, 0);
   }
 
   setToday(): void {
@@ -109,5 +112,10 @@ export class EditTicketComponent {
       this.router.navigate(['/tickets']);
     }
   }
-  
+  hoverDelete(){
+    this.isHoverDelete = true; 
+  }
+  leaveDelete(){
+    this.isHoverDelete = false;
+  }
 }

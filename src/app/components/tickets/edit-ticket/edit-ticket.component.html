@@ -90,8 +90,9 @@
     </div>
   </div>
   <div class="footer">
-    <div class="delete-button">
-      <img src="/assets/icons/delete-purple.svg" alt="">
+    <div class="delete-button" (mousedown)="hoverDelete()" (mouseup)="leaveDelete()">
+      <img *ngIf="!isHoverDelete" style="padding: 8px;" src="/assets/icons/delete-purple.svg" alt="">
+      <img *ngIf="isHoverDelete" src="/assets/icons/delete-hover.svg" alt="">
       Delete
     </div>
     <div class="end-button">

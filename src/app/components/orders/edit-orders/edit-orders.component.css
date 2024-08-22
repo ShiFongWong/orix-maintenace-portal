@@ -1,9 +1,8 @@
-.order-container{
-  /* display: grid;
-  grid-template-columns: repeat(12, 1fr); */
+.order-container {
   gap: 1rem;
   min-height: 100vh;
-  /* grid-template-rows: 1fr auto; */
+  position: relative;
+  padding-bottom: 60px; /* Adjust this value based on your footer height */
 }
 
 .main-content{
@@ -364,16 +363,44 @@
 .footer {
   display: flex;
   justify-content: flex-end;
-  align-items: flex-end;
+  align-items: center;
   padding: 1rem;
   background-color: #FFFFFF;
   box-shadow: 0 -4px 12px 0 #00000014;
-  z-index: 997; /* Place the footer on top of other content */
+  z-index: 997;
   position: fixed;
-  width: 100%;
-  left: 0;
   bottom: 0;
+  right: 0;
+  height: 60px; /* Adjust this value as needed */
+  transition: width 0.3s ease-in-out, right 0.3s ease-in-out;
   gap: 0.75rem;
+}
+
+:host-context(.content-container) .footer {
+  width: calc(100% - 280px);
+  right: 0;
+}
+
+:host-context(.content-container-collapsed) .footer {
+  width: calc(100% - 90px);
+  right: 0;
+}
+
+.delete-button{
+  position: absolute;
+  left: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-left: 1.5rem;
+  font-family: SDMetro,sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 18px;
+  border-radius: 24px;
+  text-align: left;
+  color: #686CB3;
+  padding: 10px;
 }
 
 .cancel-button{
@@ -489,8 +516,14 @@
 
 .delete-button:hover{
   border-radius: 24px;
-  padding: 2px;
-  background-color: #545461;
+  background-color: #E4E4FA;
+  cursor: pointer;
+}
+
+.delete-button:active{
+  border-radius: 24px;
+  color: #FFFFFF;
+  background-color: #686CB3;
   cursor: pointer;
 }
 
@@ -503,6 +536,11 @@
 
 .icon-delete{
   background-image: url("/assets/icons/delete.svg");
+}
+
+.icon-delete:hover{
+  background-image: url("/assets/icons/delete.svg");
+  stroke: white;
 }
 
 .delete-button:hover .icon-delete{
