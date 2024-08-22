@@ -1,8 +1,7 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { startOfWeek, addDays, format } from 'date-fns';
-import { RouterModule } from '@angular/router';
-
+import { RouterModule, Router } from '@angular/router';
 
 interface Event {
   startTime: string;
@@ -25,6 +24,11 @@ export class CalendarWeekViewComponent implements OnInit, OnChanges{
   @Input() date: Date = new Date(); // Add this line
   @Input() events: { [key: string]: Event[] } = {}; // Keyed by date in 'M/d' format
   weekDays: Date[] = [];
+  selectedEvent: Event|null = null;
+
+  constructor(
+    private router:Router,
+  ){}
 
   ngOnInit() {
     this.setupWeekDays();
@@ -48,5 +52,16 @@ export class CalendarWeekViewComponent implements OnInit, OnChanges{
   }
   format(date: Date, formatString: string): string {
     return format(date, formatString);
+  }
+
+  showPopup( event : Event ){
+    this.selectedEvent = event;
+  }
+  hidePopup(){
+    this.selectedEvent = null;
+  }
+
+  editTicket(detail:Event){
+    this.router.navigate([`/tickets/edit/${detail?.ticketId}`]);
   }
 }

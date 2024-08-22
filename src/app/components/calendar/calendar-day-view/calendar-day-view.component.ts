@@ -40,6 +40,10 @@ export class CalendarDayViewComponent implements OnInit, OnChanges, AfterViewIni
   activeOverflowSlot: string | null = null;
   detail: Event | null = null;
   popoverPosition = { top: 0, right: 0 };
+  isPopupActive = false;
+
+  private mouseDownTimer: any;
+  private readonly disableClickTime = 250; // Time in milliseconds to wait before disabling the click
 
   constructor(
     private elementRef: ElementRef,
@@ -264,9 +268,32 @@ getTotalColumnsForTimeRange(startTime: string, endTime: string): number {
 }
   hideDetail() {
     this.detail = null;
+    if(this.isPopupActive){
+      this.isPopupActive = !this.isPopupActive;
+    }
   }
 
-  editTicket(){
+  editTicket() {
+    if (this.mouseDownTimer) {
+      clearTimeout(this.mouseDownTimer);
+    }
     this.router.navigate([`/tickets/edit/${this.detail?.ticketId}`]);
+  }
+
+  onMouseDown() {
+    this.mouseDownTimer = setTimeout(() => {
+      this.mouseDownTimer = null; // Reset timer
+    }, this.disableClickTime);
+  }
+
+  onMouseUp() {
+    if (this.mouseDownTimer) {
+      clearTimeout(this.mouseDownTimer);
+      this.mouseDownTimer = null; // Reset timer
+      this.editTicket(); // Call the function if mouse up is within the time limit
+    }
+  }
+  togglePopup() {
+    this.isPopupActive = !this.isPopupActive;
   }
 }

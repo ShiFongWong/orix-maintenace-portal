@@ -103,6 +103,10 @@
   background-color: #3EDCD5B2;
 }
 
+.popup-active{
+  background-color: #2BCABC;
+}
+
 .event-container:hover{
   background-color: #3EDCD5B2;
 }

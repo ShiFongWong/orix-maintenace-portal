@@ -62,6 +62,9 @@ import { EditDepartmentComponent } from './components/departments/edit-departmen
 import { EditAuthorizerComponent } from './components/authorizers/edit-authorizer/edit-authorizer.component';
 import { NewAuthorizerComponent } from './components/authorizers/new-authorizer/new-authorizer.component';
 
+import { CustomRouteReuseStrategy } from './route-reuse-strategy';
+import { RouterModule, RouteReuseStrategy } from '@angular/router';
+
 registerLocaleData(en);
 
 const antDesignIcons = AllIcons as {
@@ -126,11 +129,13 @@ const icons = Object.keys(antDesignIcons).map(key => antDesignIcons[key]);
     NzButtonComponent,
     DemoNgZorroAntdModule,
     DragDropModule,
-    ScrollingModule
+    ScrollingModule,
+    RouterModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },
     { provide: NZ_ICONS, useValue: icons },
+    { provide: RouteReuseStrategy, useClass: CustomRouteReuseStrategy },
     provideHttpClient(withJsonpSupport())
   ],
   bootstrap: [AppComponent]

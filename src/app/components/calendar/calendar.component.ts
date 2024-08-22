@@ -45,17 +45,19 @@ export class CalendarComponent implements OnInit{
   CalendarSeparator = "to";
   selectedRange: Date[] = [this.getStartOfWeek(this.currentDate),this.getEndOfWeek(this.currentDate)];
   selectedDate:Date = new Date();
-  selectedWeek: Date|null = null;
+  selectedWeek: Date|null = new Date();
   selectedMonth: Date = new Date();
   formattedWeek: any;
 
-  constructor(
-    private cdr: ChangeDetectorRef
-  ) {}
+  constructor() {}
 
   ngOnInit() {
     this.loadEvents();
-    this.onWeekChange(new Date());
+    this.onWeekChange(this.selectedWeek);
+  }
+
+  updateState(newState: Partial<this>) {
+    Object.assign(this, newState);
   }
 
   loadEvents() {

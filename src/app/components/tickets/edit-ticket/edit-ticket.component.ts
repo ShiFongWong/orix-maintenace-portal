@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
+import { Router, ActivatedRoute } from '@angular/router';
 import {addWeeks, endOfWeek, startOfWeek} from "date-fns";
 import {CompatibleDate} from "ng-zorro-antd/date-picker";
 
@@ -29,7 +30,9 @@ export class EditTicketComponent {
   workOrder:string|null=null;
 
   constructor(
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private location: Location,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -97,4 +100,14 @@ export class EditTicketComponent {
   deleteDetailsItem(index: number) {
     this.detailsList = this.detailsList.filter(item => index !== this.detailsList.indexOf(item));
   }
+
+  goBack(): void {
+    if (window.history.length > 1) {
+      this.location.back();
+    } else {
+      // Navigate to a fallback route, e.g., home
+      this.router.navigate(['/tickets']);
+    }
+  }
+  
 }

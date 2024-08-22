@@ -48,6 +48,7 @@ export class CalendarMonthViewComponent implements OnInit, OnChanges {
   selectedDate: Date | null = null;
   showMore: boolean = false;
   popoverPosition = { top: 0, left: 0 };
+  selectedEvent: Event|null = null;
   currentPopoverDay: any;
   
   ngOnInit() {
@@ -98,6 +99,18 @@ export class CalendarMonthViewComponent implements OnInit, OnChanges {
 
   hidePopover() {
     this.showMore = false;
+  }
+  
+  showPopup( mouse: MouseEvent, event : Event ){
+    this.selectedEvent = event;
+    this.popoverPosition = {
+      top: mouse.clientY + window.scrollY -50, // Adjust Y position based on mouse location
+      left: mouse.clientX + window.scrollX -50// Adjust X position based on mouse location
+    };
+  }
+  
+  hidePopup(){
+    this.selectedEvent = null;
   }
 
   checkmore(day: Date): boolean {

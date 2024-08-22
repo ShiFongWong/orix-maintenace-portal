@@ -291,7 +291,7 @@ nz-range-picker{
 
 ::ng-deep .ant-picker-input > input {
   display: flex;
-  max-width: fit-content;
+  min-width: max-content !important;
   font-family: SDMetro, sans-serif !important;
   font-size: 16px;
   font-weight: 700;

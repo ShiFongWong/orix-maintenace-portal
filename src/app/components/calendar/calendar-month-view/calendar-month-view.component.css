@@ -139,9 +139,10 @@ button {
   width: max-content;
   z-index: 2;
   max-height: 140px;
-  max-width: 290px;
+  max-width: 185px;
   overflow-y: scroll;
-
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
   .message-container{
     color: #FFFFFF;
     line-height: 16.8px;
@@ -151,6 +152,9 @@ button {
       font-weight: 700;
     }
   }
+}
+.popover::-webkit-scrollbar {
+  display: none;
 }
 
 .popover-event-container {

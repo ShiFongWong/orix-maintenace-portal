@@ -7,7 +7,7 @@
         <div class="event-list">
           <div class="event-container" *ngFor="let event of events[format(day, 'M/d')]; let i = index" 
                [hidden]="i >= 8">
-            <div class="event-details" [routerLink]="['/tickets/edit', event.ticketId]">
+            <div class="event-details" [routerLink]="['/tickets/edit', event.ticketId]" (mouseover)="showPopup($event, event)">
               <div class="time-container">
                 {{ event.startTime }} - {{ event.endTime }}
               </div>
@@ -39,6 +39,17 @@
             {{ event.ticketId }}
             <br>
             --
+      </div>
+    </div>
+
+    <div class="popover message-container" [routerLink]="['/tickets/edit', selectedEvent.ticketId]" *ngIf="selectedEvent!=null" [style.top.px]="popoverPosition.top" [style.left.px]="popoverPosition.left" (mouseleave)="hidePopup()">
+      <div class="message-container">
+
+            {{ selectedEvent.startTime }} - {{ selectedEvent.endTime }}
+            <div class="message-name">
+              {{ selectedEvent.marshal }}
+            </div>
+            {{ selectedEvent.ticketId }}
       </div>
     </div>
   </ng-container>

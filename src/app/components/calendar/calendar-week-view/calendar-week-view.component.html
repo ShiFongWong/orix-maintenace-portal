@@ -6,21 +6,31 @@
     </div>
     <div class="event-list">
       <div *ngIf="hasEvents(day); else noEvent">
-        <div class="event-container" *ngFor="let event of events[format(day, 'M/d')]">
-            <div class="event-details" [routerLink]="['/tickets/edit', event.ticketId]">
-              <div class="time-outer">
-                <div class="time-container">
-                  <img src="\assets\icons\time.svg">
-                  {{ event.startTime }} - {{ event.endTime }}
-                </div>
+        <div class="event-container" *ngFor="let event of events[format(day, 'M/d')]" (mouseover)="showPopup(event)" (mouseleave)="hidePopup()">
+          <div class="event-details" [routerLink]="['/tickets/edit', event.ticketId]">
+            <div class="time-outer">
+              <div class="time-container">
+                <img src="\assets\icons\time.svg">
+                {{ event.startTime }} - {{ event.endTime }}
               </div>
-              <div class="marshal-container">
-                {{ event.marshal }}
-              </div>
-              <div class="ticket-container">Ticket {{ event.ticketId }}</div>
-            
+            </div>
+            <div class="marshal-container">
+              {{ event.marshal }}
+            </div>
+            <div class="ticket-container">Ticket {{ event.ticketId }}</div>
+          </div>
+          
+          <div class="popup" *ngIf="selectedEvent==event">
+            <ul class="message-container">
+              <li style="padding: 0;">
+                {{ selectedEvent.startTime }} - {{ selectedEvent.endTime }} 
+                <div class="message-name">{{ selectedEvent.marshal }}</div>
+                {{ selectedEvent.ticketId }}
+              </li>
+            </ul>
           </div>
         </div>
+        
       </div>
       <ng-template #noEvent>
         <div class="no-event">
