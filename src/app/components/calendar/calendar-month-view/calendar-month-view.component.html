@@ -5,9 +5,12 @@
       <ng-container *ngIf="isSameMonth(day, date); else emptyDay">
         <span class="date">{{ format(day, 'd') }}</span>
         <div class="event-list">
-          <div class="event-container" *ngFor="let event of events[format(day, 'M/d')]; let i = index" 
-               [hidden]="i >= 8">
-            <div class="event-details" [routerLink]="['/tickets/edit', event.ticketId]" (mouseover)="showPopup($event, event)">
+          <div class="event-container" 
+            *ngFor="let event of events[format(day, 'M/d')]; let i = index" 
+            [hidden]="i >= 8" 
+            [ngClass]="{ 'popup-active': isPopupActive && selectedEvent==event, 'hovered' : !isPopupActive && selectedEvent==event }"
+            >
+            <div class="event-details" (mouseover)="showPopup($event, event)">
               <div class="time-container">
                 {{ event.startTime }} - {{ event.endTime }}
               </div>
@@ -42,7 +45,16 @@
       </div>
     </div>
 
-    <div class="popover message-container" [routerLink]="['/tickets/edit', selectedEvent.ticketId]" *ngIf="selectedEvent!=null" [style.top.px]="popoverPosition.top" [style.left.px]="popoverPosition.left" (mouseleave)="hidePopup()">
+    <div class="popover message-container" 
+    (mousedown)="togglePopup()" 
+    (mouseup)="togglePopup()" 
+    (mousedown)="onMouseDown($event)" 
+    (mouseup)="onMouseUp($event)"
+    *ngIf="selectedEvent!=null" 
+    [style.top.px]="popoverPosition.top" 
+    [style.left.px]="popoverPosition.left" 
+    (mouseleave)="hidePopup()"
+    >
       <div class="message-container">
 
             {{ selectedEvent.startTime }} - {{ selectedEvent.endTime }}

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 
 import { 
   startOfMonth, 
@@ -50,7 +50,14 @@ export class CalendarMonthViewComponent implements OnInit, OnChanges {
   popoverPosition = { top: 0, left: 0 };
   selectedEvent: Event|null = null;
   currentPopoverDay: any;
+  isPopupActive:boolean = false;
+  private mouseDownTimer: any;
+  private readonly disableClickTime = 100; // Time in milliseconds to wait before disabling the click
   
+  constructor(
+    private router:Router
+  ){}
+
   ngOnInit() {
     this.generateCalendarDays(this.date);
   }
@@ -99,8 +106,18 @@ export class CalendarMonthViewComponent implements OnInit, OnChanges {
 
   hidePopover() {
     this.showMore = false;
+    if(this.isPopupActive){
+      this.isPopupActive = !this.isPopupActive;
+    }
   }
   
+  editTicket() {
+    if (this.mouseDownTimer) {
+      clearTimeout(this.mouseDownTimer);
+    }
+    this.router.navigate([`/tickets/edit/${this.selectedEvent?.ticketId}`]);
+  }
+
   showPopup( mouse: MouseEvent, event : Event ){
     this.selectedEvent = event;
     this.popoverPosition = {
@@ -108,9 +125,33 @@ export class CalendarMonthViewComponent implements OnInit, OnChanges {
       left: mouse.clientX + window.scrollX -50// Adjust X position based on mouse location
     };
   }
-  
+
   hidePopup(){
     this.selectedEvent = null;
+  }
+
+  onMouseDown(event: MouseEvent) {
+    // Only start the timer for left-clicks (button value 0)
+    if (event.button === 0) { // Left-click
+      this.mouseDownTimer = setTimeout(() => {
+        this.mouseDownTimer = null; // Reset timer
+      }, this.disableClickTime);
+    }
+  }
+
+  onMouseUp(event: MouseEvent) {
+    // Only execute the function for left-clicks (button value 0)
+    if (event.button === 0) { // Left-click
+      if (this.mouseDownTimer) {
+        clearTimeout(this.mouseDownTimer);
+        this.mouseDownTimer = null; // Reset timer
+        this.editTicket(); // Call the function if mouse up is within the time limit
+      }
+    }
+  }
+
+  togglePopup() {
+    this.isPopupActive = !this.isPopupActive;
   }
 
   checkmore(day: Date): boolean {

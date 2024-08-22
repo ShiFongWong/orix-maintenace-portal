@@ -6,8 +6,8 @@
     </div>
     <div class="event-list">
       <div *ngIf="hasEvents(day); else noEvent">
-        <div class="event-container" *ngFor="let event of events[format(day, 'M/d')]" (mouseover)="showPopup(event)" (mouseleave)="hidePopup()">
-          <div class="event-details" [routerLink]="['/tickets/edit', event.ticketId]">
+        <div class="event-container" *ngFor="let event of events[format(day, 'M/d')]" (mouseover)="showPopup(event)" (mouseleave)="hidePopup()" (mousedown)="onMouseDown($event)" (mouseup)="onMouseUp($event, event)">
+          <div class="event-details">
             <div class="time-outer">
               <div class="time-container">
                 <img src="\assets\icons\time.svg">

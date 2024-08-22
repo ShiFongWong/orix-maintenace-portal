@@ -27,7 +27,7 @@
       <div class="ticket-container">Ticket {{ eventData.event.ticketId }}</div>
     </div>
   </div>
-  <div class="popup" (mousedown)="togglePopup()" (mouseup)="togglePopup()" (mousedown)="onMouseDown()" (mouseup)="onMouseUp()" *ngIf="detail != null" [style.top.px]="popoverPosition.top" [style.right.px]="popoverPosition.right"  (mouseleave)="hideDetail()">
+  <div class="popup" (mousedown)="togglePopup()" (mouseup)="togglePopup()" (mousedown)="onMouseDown($event)" (mouseup)="onMouseUp($event)" *ngIf="detail != null" [style.top.px]="popoverPosition.top" [style.right.px]="popoverPosition.right"  (mouseleave)="hideDetail()">
     <ul class="message-container" >
       <li style="padding: 0;">
           {{ detail.startTime }} - {{ detail.endTime }}

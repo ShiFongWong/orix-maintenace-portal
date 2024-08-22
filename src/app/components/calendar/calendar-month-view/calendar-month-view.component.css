@@ -66,7 +66,12 @@ button {
   .event-container:hover{
     background-color: #DCFEFD;
   }
-  
+  .hovered{
+    background-color: #DCFEFD;
+  }
+  .popup-active{
+    background-color: #83EEE9;
+  }
   .event-container {
     height: 40px;
     box-sizing: border-box;

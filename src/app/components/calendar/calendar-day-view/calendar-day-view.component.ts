@@ -43,7 +43,7 @@ export class CalendarDayViewComponent implements OnInit, OnChanges, AfterViewIni
   isPopupActive = false;
 
   private mouseDownTimer: any;
-  private readonly disableClickTime = 250; // Time in milliseconds to wait before disabling the click
+  private readonly disableClickTime = 100; // Time in milliseconds to wait before disabling the click
 
   constructor(
     private elementRef: ElementRef,
@@ -280,17 +280,23 @@ getTotalColumnsForTimeRange(startTime: string, endTime: string): number {
     this.router.navigate([`/tickets/edit/${this.detail?.ticketId}`]);
   }
 
-  onMouseDown() {
-    this.mouseDownTimer = setTimeout(() => {
-      this.mouseDownTimer = null; // Reset timer
-    }, this.disableClickTime);
+  onMouseDown(event: MouseEvent) {
+    // Only start the timer for left-clicks (button value 0)
+    if (event.button === 0) { // Left-click
+      this.mouseDownTimer = setTimeout(() => {
+        this.mouseDownTimer = null; // Reset timer
+      }, this.disableClickTime);
+    }
   }
 
-  onMouseUp() {
-    if (this.mouseDownTimer) {
-      clearTimeout(this.mouseDownTimer);
-      this.mouseDownTimer = null; // Reset timer
-      this.editTicket(); // Call the function if mouse up is within the time limit
+  onMouseUp(event: MouseEvent) {
+    // Only execute the function for left-clicks (button value 0)
+    if (event.button === 0) { // Left-click
+      if (this.mouseDownTimer) {
+        clearTimeout(this.mouseDownTimer);
+        this.mouseDownTimer = null; // Reset timer
+        this.editTicket(); // Call the function if mouse up is within the time limit
+      }
     }
   }
   togglePopup() {

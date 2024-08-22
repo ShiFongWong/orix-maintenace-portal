@@ -25,6 +25,9 @@ export class CalendarWeekViewComponent implements OnInit, OnChanges{
   @Input() events: { [key: string]: Event[] } = {}; // Keyed by date in 'M/d' format
   weekDays: Date[] = [];
   selectedEvent: Event|null = null;
+  private mouseDownTimer: any;
+  private readonly disableClickTime = 100; // Time in milliseconds to wait before disabling the click
+
 
   constructor(
     private router:Router,
@@ -62,6 +65,29 @@ export class CalendarWeekViewComponent implements OnInit, OnChanges{
   }
 
   editTicket(detail:Event){
+    if (this.mouseDownTimer) {
+      clearTimeout(this.mouseDownTimer);
+    }
     this.router.navigate([`/tickets/edit/${detail?.ticketId}`]);
+  }
+
+  onMouseDown(event: MouseEvent) {
+    // Only start the timer for left-clicks (button value 0)
+    if (event.button === 0) { // Left-click
+      this.mouseDownTimer = setTimeout(() => {
+        this.mouseDownTimer = null; // Reset timer
+      }, this.disableClickTime);
+    }
+  }
+
+  onMouseUp(event: MouseEvent, detail:Event) {
+    // Only execute the function for left-clicks (button value 0)
+    if (event.button === 0) { // Left-click
+      if (this.mouseDownTimer) {
+        clearTimeout(this.mouseDownTimer);
+        this.mouseDownTimer = null; // Reset timer
+        this.editTicket(detail); // Call the function if mouse up is within the time limit
+      }
+    }
   }
 }
