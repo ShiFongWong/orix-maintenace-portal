@@ -40,9 +40,15 @@ export class OrdersComponent {
   ];
 
   statusList = [
-    {type: 'In Progress', checked: false},
-    {type: 'Complete', checked: false},
+    {type: 'New', checked: false},
+    {type: 'Authorized', checked: false},
+    {type: 'Quoted', checked: false},
+    {type: 'Verified', checked: false},
     {type: 'Approved', checked: false},
+    {type: 'Invoiced', checked: false},
+    {type: 'Completed', checked: false},
+    {type: 'Canceled', checked: false},
+    {type: 'Rejected', checked: false},
   ];
 
   isSearching = false;
@@ -142,7 +148,7 @@ export class OrdersComponent {
       filteredList = filteredList.filter(item =>
         checkedStatuses.includes(item.status)
       );
-      this.totalFilter++;
+      this.totalFilter+=checkedStatuses.length;
     }
 
     const priceChanged = this.minPrice != 0 || this.maxPrice != 999999;
