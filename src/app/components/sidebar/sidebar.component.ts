@@ -35,6 +35,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   isCollapsed: boolean;
   isSmallScreen: boolean = false; // Initialize here
   isResourcesOpen: boolean = false;
+  isUserPopup: boolean = false;
   private routerSubscription: Subscription;
   private mediaQueryList: MediaQueryList;
   private mediaQueryListener: (event: MediaQueryListEvent) => void;
@@ -98,5 +99,12 @@ export class SidebarComponent implements OnInit, OnDestroy {
     }
     document.documentElement.style.setProperty('--start-grid', gridValue);
     document.documentElement.style.setProperty('--left-margin-floating', this.isCollapsed ? '120px' : '300px');
+  }
+
+  showUserPopup(){
+    this.isUserPopup = true;
+  }
+  hideUserPopup(){
+    this.isUserPopup = false;
   }
 }
