@@ -54,6 +54,7 @@ export class ApprovalsComponent {
   CalendarSeparator = "To";
   selectedRange: Date[] = [];
   totalFilter = 0;
+  checkedIndices: number[] = [];
 
   setToday(): void {
     const today = new Date();
@@ -145,4 +146,23 @@ export class ApprovalsComponent {
 
     this.filteredWorkOrders = filteredList;
   }
+
+  checkIndex(index: number): boolean {
+    return this.checkedIndices.includes(index);
+  }
+
+  onChecked(index: number) {
+    // Add the index to the array if it's not already there
+    if (!this.checkedIndices.includes(index)) {
+      this.checkedIndices.push(index);
+    }
+    // console.log('Checked indices:', this.checkedIndices);
+  }
+
+  onUnchecked(index: number) {
+    // Remove the index from the array using filter
+    this.checkedIndices = this.checkedIndices.filter(i => i !== index);
+    // console.log('Checked indices after unchecking:', this.checkedIndices);
+  }
+
 }

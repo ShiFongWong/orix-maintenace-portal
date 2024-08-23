@@ -110,9 +110,17 @@
   background-color: white;
   color: #333333;
 }
+.order-table-row-selected:nth-child(even) {
+  background-color: #83EEE9;
+  color: #333333;
+}
 
 .order-table-row:nth-child(odd) {
   background-color: #F2F2F2;
+  color: #333333;
+}
+.order-table-row-selected:nth-child(odd) {
+  background-color: #3EDCD5;
   color: #333333;
 }
 
