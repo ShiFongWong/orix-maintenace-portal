@@ -95,13 +95,16 @@
 
       <div class="order-input-items">
         <label class="order-input-label">Status:</label>
-        <div class="category-filter" role="group">
+        <div *ngIf="!checkCancel()" class="category-filter" role="group">
           @for (item of statusList; track item; let i = $index; let first = $first; let last = $last) {
             <button (click)="onClickStatus(item.type)" type="button"
                     [ngClass]="['btn', item.active ? 'btn-active' : '', first ? 'btn--first' : '', last ? 'btn--last' : '', (!first && !last) ? 'btn--middle' : '']">
               {{ item.type }}
             </button>
           }
+        </div>
+        <div *ngIf="checkCancel()" class="cancel-button">
+          Canceled
         </div>
       </div>
       <div class="border-line"></div>
@@ -141,7 +144,7 @@
         <th class="col-no">No.</th>
         <th class="col-items">Items</th>
         <th class="col-quantity">Quantity</th>
-        <th class="col-price">Price</th>
+        <th class="col-price">Price($)</th>
         <th class="col-remarks">Remarks</th>
         <th class="col-delete"></th>
       </tr>
@@ -192,14 +195,32 @@
       </tfoot>
     </table>
   </div>
-  <div class="footer">
+  <div *ngIf="!checkCancel()" class="footer">
     <div class="delete-button" (mousedown)="hoverDelete()" (mouseup)="leaveDelete()">
       <img *ngIf="!isHoverDelete" style="padding: 8px;" src="/assets/icons/delete-purple.svg" alt="">
       <img *ngIf="isHoverDelete" src="/assets/icons/delete-hover.svg" alt="">
       Delete
     </div>
 
-    <button class="cancel-button">
+    <button (click)="onCancel()" class="cancel-button">
+      <img src="/assets/icons/order-no.svg" alt="">
+      <span>Cancel this order</span>
+    </button>
+    <button routerLink="/orders/new" class="new-order-btn">
+      <img src="/assets/icons/add-green.svg" alt="">
+      <span>Create a ticket for this order</span>
+    </button>
+    <button routerLink="/orders/new" class="submit-button">
+      <span>Save</span>
+    </button>
+  </div>  <div *ngIf="checkCancel()" class="footer">
+    <div class="delete-button" (mousedown)="hoverDelete()" (mouseup)="leaveDelete()">
+      <img *ngIf="!isHoverDelete" style="padding: 8px;" src="/assets/icons/delete-purple.svg" alt="">
+      <img *ngIf="isHoverDelete" src="/assets/icons/delete-hover.svg" alt="">
+      Delete
+    </div>
+
+    <button (click)="onCancel()" class="cancel-button">
       <img src="/assets/icons/order-no.svg" alt="">
       <span>Cancel this order</span>
     </button>
@@ -212,3 +233,39 @@
     </button>
   </div>
 </div>
+
+
+<div *ngIf="isCanceling" (click)="isCanceling = !isCanceling" class="modal-overlay">
+  <div *ngIf="isCanceling" id="crud-modal" tabindex="-1" aria-hidden="true" class="modal">
+    <div class="modal-container" (click)="$event.stopPropagation()">
+      <!-- Modal content -->
+      <div class="modal-content">
+        <!-- Modal header -->
+        <div class="modal-header">
+        <span class="modal-title">
+          Are you sure you’d like to cancel this order?
+        </span>
+          <button (click)="isCanceling = !isCanceling" type="button" class="modal-close-btn"
+                  data-modal-toggle="crud-modal">
+            <img src="/assets/icons/close.svg" alt="">
+            <span class="sr-only">Close modal</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Cancelling this order will also cancel any associated tickets.
+        </div>
+        <div class="modal-footer">
+          <div (click)="isCanceling = !isCanceling" class="cancel-button">
+            <span>
+              No, please keep the order
+            </span>
+          </div>
+          <div (click)="cancelWorkOrder()" class="update-button">
+            <span>Yes, cancel the order</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

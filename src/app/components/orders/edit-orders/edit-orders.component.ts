@@ -3,11 +3,23 @@ import {addWeeks, endOfWeek, startOfWeek} from "date-fns";
 import {CompatibleDate} from "ng-zorro-antd/date-picker";
 import { ActivatedRoute } from '@angular/router';
 
+interface workOrderDetails{
+  orderNumber: number,
+  clientName: string,
+  appointmentDate: Date,
+  plateNumber: string,
+  carMileage: number,
+  status: string | null,
+  remarks: string
+}
+
 @Component({
   selector: 'app-edit-orders',
   templateUrl: './edit-orders.component.html',
   styleUrl: './edit-orders.component.css'
 })
+
+
 export class EditOrdersComponent implements OnInit {
 
   statusList = [
@@ -16,15 +28,20 @@ export class EditOrdersComponent implements OnInit {
     {type: 'Complete', active: false},
   ];
 
+  workOrderDetail: workOrderDetails | undefined;
+
   detailsList = [
     {items: '', quantity: 0, price: 0, remarks: ''}
   ]
 
   isAddingDetail = false;
   isHoverDelete = false;
+  isCanceling = false;
   selectedRange: Date[] = [];
   selectedDate: Date = new Date();
   workOrder: string | null = null;
+
+  cancel: string = "Canceled";
 
   constructor(
     private route: ActivatedRoute
@@ -42,7 +59,15 @@ export class EditOrdersComponent implements OnInit {
   }
 
   loadDetails(){
-    
+    this.workOrderDetail = {
+      orderNumber: 0,
+      clientName: "",
+      appointmentDate: new Date(),
+      plateNumber: "",
+      carMileage: 0,
+      status: "",
+      remarks: ""
+    }
   }
   
   onClickStatus(type: string) {
@@ -64,5 +89,24 @@ export class EditOrdersComponent implements OnInit {
   }
   leaveDelete(){
     this.isHoverDelete = false;
+  }
+  onCancel(){
+    this.isCanceling=!this.isCanceling;
+    console.log("dakdjajjdna")
+  }
+
+  cancelWorkOrder(){
+    console.log("aihdhadhia")
+    if(this.workOrderDetail){
+      this.workOrderDetail.status = this.cancel;
+    }
+    this.isCanceling=!this.isCanceling;
+  }
+
+  checkCancel(){
+    if(this.workOrderDetail?.status == this.cancel){
+      return true;
+    }
+    return false;
   }
 }

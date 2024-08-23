@@ -2,6 +2,7 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/cor
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
+import { SidebarService } from '../../../services/sidebar.service';
 
 import { 
   startOfMonth, 
@@ -55,6 +56,7 @@ export class CalendarMonthViewComponent implements OnInit, OnChanges {
   private readonly disableClickTime = 100; // Time in milliseconds to wait before disabling the click
   
   constructor(
+    private sidebarService: SidebarService,
     private router:Router
   ){}
 
@@ -97,9 +99,16 @@ export class CalendarMonthViewComponent implements OnInit, OnChanges {
 
   showPopover(event: MouseEvent, day: Date) {
     this.showMore = true;
+    var lesswidth = 0;
+    if(this.sidebarService.getCollapseState()){
+      lesswidth = 90; 
+    }else{
+      lesswidth = 280;
+    }
+
     this.popoverPosition = {
-      top: event.clientY + window.scrollY -50, // Adjust Y position based on mouse location
-      left: event.clientX + window.scrollX -50// Adjust X position based on mouse location
+      top: event.clientY + window.scrollY - 50, // Adjust Y position based on mouse location
+      left: event.clientX + window.scrollX - lesswidth - 50// Adjust X position based on mouse location
     };
     this.currentPopoverDay = day;
   }
@@ -120,9 +129,16 @@ export class CalendarMonthViewComponent implements OnInit, OnChanges {
 
   showPopup( mouse: MouseEvent, event : Event ){
     this.selectedEvent = event;
+    var lesswidth;
+    if(this.sidebarService.getCollapseState()){
+      lesswidth = 90; 
+    }else{
+      lesswidth = 280;
+    }
+
     this.popoverPosition = {
-      top: mouse.clientY + window.scrollY -50, // Adjust Y position based on mouse location
-      left: mouse.clientX + window.scrollX -50// Adjust X position based on mouse location
+      top: mouse.clientY + window.scrollY - 50, // Adjust Y position based on mouse location
+      left: mouse.clientX + window.scrollX - lesswidth - 50// Adjust X position based on mouse location
     };
   }
 
