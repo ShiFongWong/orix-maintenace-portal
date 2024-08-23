@@ -4,7 +4,7 @@
     <div class="order-details-container">
       <div class="order-input-items">
         <label class="order-input-label">Order Number:</label>
-        <input [value]="workOrder" disabled type="search" class="search-input"/>
+        <input [value]="workOrder" disabled type="search" class="search-input width-unset"/>
       </div>
       <div class="border-line"></div>
 
@@ -160,8 +160,9 @@
         <td>
           <input [(ngModel)]="item.quantity" type="search" class="search-input width-full" placeholder=""/>
         </td>
-        <td>
-          <input [(ngModel)]="item.price" type="search" class="search-input width-full" placeholder=""/>
+        <td class="price-wrapper">
+          <input [(ngModel)]="item.price" type="number" class="price-input-field search-input width-full" placeholder=""/>
+          <span class="price-unit">$</span>
         </td>
         <td>
           <textarea [(ngModel)]="item.remarks" rows="1" class="search-input width-full" placeholder=""></textarea>
@@ -186,7 +187,7 @@
       </tr>
       <tr>
         <td colspan="3">Total</td>
-        <td>0</td>
+        <td> {{ getTotal() }} </td>
         <td >
           <textarea rows="1" class="search-input width-full" placeholder=""></textarea>
         </td>
@@ -210,26 +211,13 @@
       <img src="/assets/icons/add-green.svg" alt="">
       <span>Create a ticket for this order</span>
     </button>
-    <button routerLink="/orders/new" class="submit-button">
+    <button class="submit-button">
       <span>Save</span>
     </button>
-  </div>  <div *ngIf="checkCancel()" class="footer">
-    <div class="delete-button" (mousedown)="hoverDelete()" (mouseup)="leaveDelete()">
-      <img *ngIf="!isHoverDelete" style="padding: 8px;" src="/assets/icons/delete-purple.svg" alt="">
-      <img *ngIf="isHoverDelete" src="/assets/icons/delete-hover.svg" alt="">
-      Delete
-    </div>
-
-    <button (click)="onCancel()" class="cancel-button">
-      <img src="/assets/icons/order-no.svg" alt="">
-      <span>Cancel this order</span>
-    </button>
-    <button routerLink="/orders/new" class="new-order-btn">
-      <img src="/assets/icons/add-green.svg" alt="">
-      <span>Create a ticket for this order</span>
-    </button>
-    <button routerLink="/orders/new" class="submit-button">
-      <span>Save</span>
+  </div>  
+  <div *ngIf="checkCancel()" class="footer">
+    <button (click)="isReOpening = !isReOpening" class="submit-button">
+      <span>Re-open this order</span>
     </button>
   </div>
 </div>
@@ -262,6 +250,40 @@
           </div>
           <div (click)="cancelWorkOrder()" class="update-button">
             <span>Yes, cancel the order</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="isReOpening" (click)="isReOpening = !isReOpening" class="modal-overlay">
+  <div *ngIf="isReOpening" id="crud-modal" tabindex="-1" aria-hidden="true" class="modal">
+    <div class="modal-container" (click)="$event.stopPropagation()">
+      <!-- Modal content -->
+      <div class="modal-content">
+        <!-- Modal header -->
+        <div class="modal-header">
+        <span class="modal-title">
+          Are you sure you’d like to re-open this order?
+        </span>
+          <button (click)="isReOpening = !isReOpening" type="button" class="modal-close-btn"
+                  data-modal-toggle="crud-modal">
+            <img src="/assets/icons/close.svg" alt="">
+            <span class="sr-only">Close modal</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          If there were tickets associated with this order, they will need to be re-created.
+        </div>
+        <div class="modal-footer">
+          <div (click)="isReOpening = !isReOpening" class="cancel-button">
+            <span>
+              Cancel
+            </span>
+          </div>
+          <div (click)="reOpenWorkOrder()" class="update-button">
+            <span>Yes, re-open the order</span>
           </div>
         </div>
       </div>

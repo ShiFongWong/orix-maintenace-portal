@@ -13,6 +13,13 @@ interface workOrderDetails{
   remarks: string
 }
 
+interface detailsLists{
+  items: string,
+  quantity: number,
+  price: number,
+  remarks: string
+}
+
 @Component({
   selector: 'app-edit-orders',
   templateUrl: './edit-orders.component.html',
@@ -30,18 +37,21 @@ export class EditOrdersComponent implements OnInit {
 
   workOrderDetail: workOrderDetails | undefined;
 
-  detailsList = [
+  detailsList:detailsLists[] = [
     {items: '', quantity: 0, price: 0, remarks: ''}
   ]
 
   isAddingDetail = false;
   isHoverDelete = false;
   isCanceling = false;
+  isReOpening = false;
   selectedRange: Date[] = [];
   selectedDate: Date = new Date();
   workOrder: string | null = null;
 
   cancel: string = "Canceled";
+  pending: string = "Pending";
+  total: number = 0;
 
   constructor(
     private route: ActivatedRoute
@@ -80,6 +90,15 @@ export class EditOrdersComponent implements OnInit {
     this.detailsList.push({items: '', quantity: 0, price: 0, remarks: ''});
   }
 
+  getTotal(){
+    this.total = 0;
+    this.detailsList.forEach(detail => {
+      this.total += detail.price;
+      console.log(this.total);
+    });
+    return this.total;
+  }
+
   deleteDetailsItem(index: number) {
     this.detailsList = this.detailsList.filter(item => index !== this.detailsList.indexOf(item));
   }
@@ -92,15 +111,20 @@ export class EditOrdersComponent implements OnInit {
   }
   onCancel(){
     this.isCanceling=!this.isCanceling;
-    console.log("dakdjajjdna")
   }
 
   cancelWorkOrder(){
-    console.log("aihdhadhia")
     if(this.workOrderDetail){
       this.workOrderDetail.status = this.cancel;
     }
     this.isCanceling=!this.isCanceling;
+  }
+
+  reOpenWorkOrder(){
+    if(this.workOrderDetail){
+      this.workOrderDetail.status = this.pending;
+    }
+    this.isReOpening=!this.isReOpening;
   }
 
   checkCancel(){
