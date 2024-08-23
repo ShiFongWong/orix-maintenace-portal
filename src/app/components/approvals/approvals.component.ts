@@ -49,6 +49,8 @@ export class ApprovalsComponent {
   isSearching = false;
   searchQuery = '';
   isFiltering = false;
+  isAllSelect = false;
+  isSelectAll:boolean|null = false;
   minPrice = 0;
   maxPrice = 9999999;
   CalendarSeparator = "To";
@@ -162,7 +164,14 @@ export class ApprovalsComponent {
   onUnchecked(index: number) {
     // Remove the index from the array using filter
     this.checkedIndices = this.checkedIndices.filter(i => i !== index);
+    this.isAllSelect = false;
     // console.log('Checked indices after unchecking:', this.checkedIndices);
   }
 
+  changeSelectStatus(){
+    this.isSelectAll = null;
+    setTimeout(() => {
+      this.isSelectAll=this.isAllSelect;
+    }, 25);
+  }
 }

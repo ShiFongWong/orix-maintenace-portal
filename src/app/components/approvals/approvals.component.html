@@ -52,7 +52,9 @@
       <table class="order-table">
         <thead class="order-table-head">
         <tr>
-          <th scope="col" class="order-table-header"><input type="checkbox" class="custom-checkbox"></th>
+          <th scope="col" class="order-table-header">
+            <input type="checkbox" class="custom-checkbox" [(ngModel)]="isAllSelect" (click)="changeSelectStatus()">
+          </th>
           <th scope="col" class="order-table-header">
             <div class="order-table-header-content">
               Date
@@ -106,7 +108,7 @@
         <tbody class="order-table-body">
         <tr *ngFor="let item of filteredWorkOrders; let i = index" [ngClass]="[ checkIndex(i) ? 'order-table-row-selected' : 'order-table-row' ]" class="order-table-row">
           <th scope="row" class="order-table-data order-table-data-bold">
-            <input type="checkbox" class="custom-checkbox" #checkbox (change)="checkbox.checked ? onChecked(i) : onUnchecked(i)">
+            <input type="checkbox" class="custom-checkbox" [checked]="isSelectAll" #checkbox (change)="checkbox.checked ? onChecked(i) : onUnchecked(i)">
           </th>
           <td class="order-table-data">{{ item.date }}</td>
           <td class="order-table-data">{{ item.item }}</td>
