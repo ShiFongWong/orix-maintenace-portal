@@ -172,6 +172,11 @@ export class ApprovalsComponent {
     this.isSelectAll = null;
     setTimeout(() => {
       this.isSelectAll=this.isAllSelect;
+      if(this.isSelectAll){
+        this.checkedIndices=this.filteredWorkOrders.map((_, index) => index);
+      }else{
+        this.checkedIndices=[];
+      }
     }, 25);
   }
 }
